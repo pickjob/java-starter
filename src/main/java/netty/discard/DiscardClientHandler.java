@@ -16,17 +16,14 @@
 package netty.discard;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
  * Handles a client-side channel.
  */
-public class DiscardClientHandler extends SimpleChannelInboundHandler<Object> {
+public class DiscardClientHandler extends ChannelInboundHandlerAdapter {
     private static final Logger loggger = LogManager.getLogger(DiscardClientHandler.class);
     private ByteBuf content;
     private ChannelHandlerContext ctx;
@@ -63,7 +60,7 @@ public class DiscardClientHandler extends SimpleChannelInboundHandler<Object> {
     };
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // Do nothing
     }
 

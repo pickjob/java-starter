@@ -40,9 +40,9 @@ public class NettyServer {
                      //discard
                      .addLast(new DiscardServerHandler())
                      //echo
-                     .addLast(new EchoServerHandler())
+//                     .addLast(new EchoServerHandler())
                      //time
-                     .addLast(new TimeEncoder(), new TimeServerHandler())
+//                     .addLast(new TimeEncoder(), new TimeServerHandler())
                      ;
                  }
              });

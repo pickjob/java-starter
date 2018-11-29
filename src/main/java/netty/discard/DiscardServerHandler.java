@@ -17,6 +17,7 @@ package netty.discard;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,12 +25,11 @@ import org.apache.logging.log4j.Logger;
 /**
  * Handles a server-side channel.
  */
-public class DiscardServerHandler extends SimpleChannelInboundHandler<Object> {
+public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LogManager.getLogger(DiscardServerHandler.class);
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        // Discard the received data silently.
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ((ByteBuf) msg).release();
 //        try {
 //            // Do something with msg
