@@ -5,8 +5,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.http.HttpClientCodec;
 import netty.discard.DiscardClientHandler;
 import netty.echo.EchoClientHandler;
+import netty.http.MyHttpClientHandler;
 import netty.time.TimeClientHandler;
 import netty.time.TimeDecoder;
 import netty.time.TimeServerHandler;
@@ -32,12 +34,14 @@ public class NettyClient {
                  protected void initChannel(SocketChannel ch) throws Exception {
                      ChannelPipeline p = ch.pipeline();
                      p
-                     //discard
-                     .addLast(new DiscardClientHandler())
-                     //echo
+                     // discard
+//                     .addLast(new DiscardClientHandler())
+                     // echo
 //                     .addLast(new EchoClientHandler())
-                     //time
+                     // time
 //                     .addLast(new TimeDecoder(), new TimeClientHandler())
+                     // http
+                     .addLast(new HttpClientCodec(), new MyHttpClientHandler())
                      ;
                  }
              });

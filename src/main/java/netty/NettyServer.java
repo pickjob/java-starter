@@ -5,10 +5,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import netty.discard.DiscardServerHandler;
 import netty.echo.EchoServerHandler;
+import netty.http.MyHttpServerHandler;
 import netty.time.TimeEncoder;
 import netty.time.TimeServerHandler;
 import org.apache.logging.log4j.LogManager;
@@ -37,12 +39,14 @@ public class NettyServer {
                  public void initChannel(SocketChannel ch) {
                      ChannelPipeline p = ch.pipeline();
                      p
-                     //discard
-                     .addLast(new DiscardServerHandler())
-                     //echo
+                     // discard
+//                     .addLast(new DiscardServerHandler())
+                     // echo
 //                     .addLast(new EchoServerHandler())
-                     //time
+                     // time
 //                     .addLast(new TimeEncoder(), new TimeServerHandler())
+                     // http
+                     .addLast(new HttpServerCodec(), new MyHttpServerHandler())
                      ;
                  }
              });

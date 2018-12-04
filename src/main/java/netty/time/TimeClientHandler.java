@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.ReferenceCountUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +17,7 @@ public class TimeClientHandler extends SimpleChannelInboundHandler<UnixTime> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, UnixTime msg) throws Exception {
         logger.info(msg);
+        ReferenceCountUtil.release(msg);
     }
 
     @Override
