@@ -19,10 +19,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.HttpUtil;
+import io.netty.handler.codec.http.*;
 import io.netty.util.AsciiString;
 import io.netty.util.ReferenceCountUtil;
 import org.apache.logging.log4j.LogManager;
@@ -34,8 +31,11 @@ import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class MyHttpServerHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger logger = LogManager.getLogger(MyHttpServerHandler.class);
+    private static final Logger logger = LogManager.getLogger("server");
     private static final String CONTENT = "<html><head></head><body><center><h1>你好啊，世界</h1></center></body></html>";
+
+    private static final AsciiString CONTENT_TYPE = AsciiString.cached("Content-Type");
+    private static final AsciiString CONTENT_LENGTH = AsciiString.cached("Content-Length");
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
@@ -43,26 +43,19 @@ public class MyHttpServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof HttpRequest) {
-            HttpRequest req = (HttpRequest) msg;
-            boolean keepAlive = HttpUtil.isKeepAlive(req);
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(CONTENT.getBytes("utf-8")));
-            response.headers().set("Content-Type", "text/html;charset=utf-8");
-            response.headers().setInt("Content-Length", response.content().readableBytes());
-            if (!keepAlive) {
-                ctx.write(response).addListener(ChannelFutureListener.CLOSE);
-            } else {
-                response.headers().set("Connection", "keep-alive");
-                ctx.write(response);
-            }
-            ReferenceCountUtil.release(msg);
+            response.headers().set(CONTENT_TYPE, "text/html;charset=utf-8");
+            response.headers().setInt(CONTENT_LENGTH, response.content().readableBytes());
+            ctx.write(response).addListener(ChannelFutureListener.CLOSE);
         }
+        ReferenceCountUtil.release(msg);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
+        logger.error(cause.getMessage(), cause);
         ctx.close();
     }
 }
