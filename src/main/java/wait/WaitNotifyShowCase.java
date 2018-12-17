@@ -10,10 +10,6 @@ public class WaitNotifyShowCase {
     private static final Logger logger = LogManager.getLogger(WaitNotifyShowCase.class);
 
     public static void main(String[] arg) throws Exception {
-        run();
-    }
-
-    public static void run() {
         final String[] chars = {"A", "B", "C"};
         for (int i = 0; i < chars.length; i++) {
             String pre = null;

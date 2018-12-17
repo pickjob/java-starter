@@ -12,12 +12,9 @@ import netty.http.MyHttpClientHandler;
 import netty.time.TimeClientHandler;
 import netty.time.TimeDecoder;
 import netty.time.TimeServerHandler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import util.CommonKey;
 
 public class NettyClient {
-    private static Logger logger = LogManager.getLogger(NettyClient.class);
 
     public static void main(String[] argv){
         new NettyClient().run(CommonKey.HOST, CommonKey.PORT);
@@ -28,31 +25,32 @@ public class NettyClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioSocketChannel.class)
-             .handler(new ChannelInitializer<SocketChannel>() {
-                 @Override
-                 protected void initChannel(SocketChannel ch) throws Exception {
-                     ChannelPipeline p = ch.pipeline();
-                     p
-                     // discard
-//                     .addLast(new DiscardClientHandler())
-                     // echo
-//                     .addLast(new EchoClientHandler())
-                     // time
-//                     .addLast(new TimeDecoder(), new TimeClientHandler())
-                     // http
-                     .addLast(new HttpClientCodec(), new MyHttpClientHandler())
-                     ;
-                 }
-             });
+                    .channel(NioSocketChannel.class)
+//                    .option(ChannelOption.SO_KEEPALIVE, true)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            p
+                            // discard
+                            .addLast(new DiscardClientHandler())
+                            // echo
+//                            .addLast(new EchoClientHandler())
+                            // time
+//                            .addLast(new TimeDecoder(), new TimeClientHandler())
+                            // http Hello World
+//                            .addLast(new HttpClientCodec(), new MyHttpClientHandler())
+                            ;
+                        }
+                    });
 
             // Make the connection attempt.
             ChannelFuture f = b.connect(host, port).sync();
 
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();
-        } catch(Exception e) {
-            logger.error(e.getMessage(), e.getCause());
+        } catch(Exception ex) {
+            ex.printStackTrace();
         } finally {
             group.shutdownGracefully();
         }
