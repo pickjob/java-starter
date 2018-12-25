@@ -24,6 +24,8 @@ dependencies {
     }
     compile 'io.netty:netty-all:4.1.31.Final'
     testCompile 'junit:junit:4.12'
+    compile 'org.apache.commons:commons-lang3:3.8'
+    compile 'net.freeutils:jcharset:2.0'
 }
 
 repositories {
@@ -48,5 +50,16 @@ sourceSets {
     }
     test {
         output.resourcesDir = file("$buildDir/classes/java/test/")
+    }
+}
+
+// Fat jar package
+jar {
+    manifest {
+        attributes 'Main-Class': "${mainClassName}"
+        attributes 'Class-Path': configurations.compile.files.collect { it.name }.join(' ')
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
