@@ -33,9 +33,8 @@ public class SmppClient {
     private static volatile boolean flag = true;
 
     public static void main(String[] args) throws Exception {
-        String ip = "101.132.187.133";
-//        String ip = "localhost";
-        int port = 7880;
+        String ip = "";
+        int port = 0;
 
         SmppHandler handler = new SmppHandler();
         EventLoopGroup group = null;
@@ -78,13 +77,10 @@ public class SmppClient {
 
             try {
                 countDownLatch.await();
-//                String account = "987654";
-//                String password = "123456";
-//                String sourceAddr = "941010";
-                String account = "123445";
-                String password = "123123";
+                String account = "";
+                String password = "";
                 String systemType = "";
-                String sourceAddr = "123123";
+                String sourceAddr = "";
                 Pdu bindPdu = PduFactory.newPduInstance(CommandId.BIND_TRANSCEIVER);
                 HeaderPdu bindHeader = PduFactory.newHeaderInstance(CommandId.BIND_TRANSCEIVER);
                 BindTransceiverBody bindTransceiverBody = new BindTransceiverBody();
