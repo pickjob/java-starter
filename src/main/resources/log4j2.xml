@@ -15,31 +15,11 @@
                 <timeBasedTriggeringPolicy />
             </policies>
         </rollingFile>
-        <rollingFile name="client" fileName="logs/client.log" filePattern="logs/%d{yyyy-MM-dd}/application.log">
-            <patternLayout pattern="%d{HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
-            <policies>
-                <onStartupTriggeringPolicy />
-                <timeBasedTriggeringPolicy />
-            </policies>
-        </rollingFile>
-        <rollingFile name="server" fileName="logs/server.log" filePattern="logs/%d{yyyy-MM-dd}/application.log">
-            <patternLayout pattern="%d{HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
-            <policies>
-                <onStartupTriggeringPolicy />
-                <timeBasedTriggeringPolicy />
-            </policies>
-        </rollingFile>
     </appenders>
     <loggers>
         <root level="info">
             <appender-ref ref="console" />
             <appender-ref ref="file" />
         </root>
-        <logger name="client" level="info" additivity="false" >
-            <appender-ref ref="client" />
-        </logger>
-        <logger name="server" level="info" additivity="false" >
-            <appender-ref ref="client" />
-        </logger>
     </loggers>
 </configuration>

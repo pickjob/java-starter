@@ -10,13 +10,18 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import smpp.handler.SmppHandler;
 import smpp.handler.StreamDecoder;
 import smpp.handler.StreamEncoder;
+import smpp.util.SMPPConfig;
 
 public class SmppServer {
+    private static Logger logger = LogManager.getLogger(SmppServer.class);
 
     public static void main(String[] args) throws Exception {
+        SMPPConfig.Server config = SMPPConfig.getServerConfig();
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -34,7 +39,7 @@ public class SmppServer {
                             ;
                         }
                     });
-            ChannelFuture f = b.bind(1088).sync();
+            ChannelFuture f = b.bind(config.getPort()).sync();
             f.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();

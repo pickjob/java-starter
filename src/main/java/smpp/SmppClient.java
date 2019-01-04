@@ -1,10 +1,7 @@
 package smpp;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -22,23 +19,22 @@ import smpp.pdu.Pdu;
 import smpp.pdu.PduFactory;
 import smpp.pdu.body.BindTransceiverBody;
 import smpp.pdu.body.SubmitAndDeliverBody;
-import smpp.util.CharsetEnum;
-import smpp.util.CommandId;
+import smpp.util.*;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class SmppClient {
     private static Logger logger = LogManager.getLogger(SmppClient.class);
-    private static volatile boolean flag = true;
+    private static volatile boolean flag = false;
 
     public static void main(String[] args) throws Exception {
-        String ip = "";
-        int port = 0;
+        SMPPConfig.Client config = SMPPConfig.getClientConfig();
 
-        SmppHandler handler = new SmppHandler();
         EventLoopGroup group = null;
-        CountDownLatch countDownLatch = new CountDownLatch(1);
+        CountDownLatch connectCountDownLatch = new CountDownLatch(1);
+        CountDownLatch loginCountDownLatch = new CountDownLatch(1);
+        SmppHandler handler = new SmppHandler(connectCountDownLatch, loginCountDownLatch);
         try {
             group = new NioEventLoopGroup(1);
             Bootstrap b = new Bootstrap();
@@ -59,28 +55,28 @@ public class SmppClient {
                      );
                  }
              });
-            b.connect(ip, port).addListener(new GenericFutureListener() {
+            ChannelFuture f = b.connect(config.getIp(), config.getPort()).addListener(new GenericFutureListener() {
 
                 @Override
                 public void operationComplete(Future future) throws Exception {
                     if (future.isSuccess()) {
                         logger.info("连接成功");
-                        countDownLatch.countDown();
                     }
                     else {
-                        logger.info("连接失败");
+                        logger.error("连接失败");
                         logger.error(future.cause().getMessage(), future.cause());
-                        flag = false;
                     }
                 }
             });
 
             try {
-                countDownLatch.await();
-                String account = "";
-                String password = "";
-                String systemType = "";
-                String sourceAddr = "";
+                connectCountDownLatch.await();
+                if(!handler.isOpen()) return;
+
+                // 登陆
+                String account = config.getBind().getAccount();
+                String password = config.getBind().getPasswd();
+                String systemType = config.getBind().getSystemType();
                 Pdu bindPdu = PduFactory.newPduInstance(CommandId.BIND_TRANSCEIVER);
                 HeaderPdu bindHeader = PduFactory.newHeaderInstance(CommandId.BIND_TRANSCEIVER);
                 BindTransceiverBody bindTransceiverBody = new BindTransceiverBody();
@@ -91,25 +87,59 @@ public class SmppClient {
                 bindPdu.setHeaderPdu(bindHeader);
                 bindPdu.setBodyPdu(bindTransceiverBody);
                 handler.login(bindPdu);
-                if (!handler.isLogin()) Thread.sleep(1000);
-                String phone = "971589076718";
-                String content = "mlwyhqnalogq@£\\$¥èéùìòÇ\\nØø\\rÅå?_F\"?O??ST?ÆæßÉ!\"#¤%&'()*+,-../:;<=>?¡?ÖÑÜ§¿öñüàäÄ {}\\~[|";
-                CharsetEnum charsetEnum = CharsetEnum.DEFAULT;
-                String serviceType = "1";
 
-                Pdu sendPdu = PduFactory.newPduInstance(CommandId.SUBMIT_SM);
-                HeaderPdu sendHeader = PduFactory.newHeaderInstance(CommandId.SUBMIT_SM);
-                SubmitAndDeliverBody sendBody = new SubmitAndDeliverBody();
-                sendBody.setServiceType(serviceType);
-                sendBody.setSourceAddr(sourceAddr);
-                sendBody.setDestinationAddr(phone);
-                sendBody.setDataCoding((byte)3);
-                sendBody.setCharsetEnum(charsetEnum);
-                sendBody.setShortMessage(content);
-                sendPdu.setHeaderPdu(sendHeader);
-                sendPdu.setBodyPdu(sendBody);
-                handler.send(sendPdu);
-                Thread.sleep(Integer.MAX_VALUE);
+                loginCountDownLatch.await();
+                if (!handler.isLogin()) return;
+
+                // 发消息
+                String sourceAddr = config.getSubmit().getFrom();
+                String destionationAddr = config.getSubmit().getTo();
+                String content = config.getSubmit().getContent();
+                Integer maxLength = config.getSubmit().getMaxLength();
+                Integer splitLength = config.getSubmit().getSplitLength();
+                CharsetEnum charsetEnum = CharsetEnum.DEFAULT;
+                if (config.getSubmit().getCharset() != null) {
+                    charsetEnum = charsetEnum.chooseCharsetEnum(config.getSubmit().getCharset());
+                }
+                Byte dcs = config.getSubmit().getDcs();
+                if (content.length() > maxLength.intValue()) {
+                    int len = content.length() / splitLength == 0 ?  content.length() / splitLength : content.length() / splitLength  + 1;
+                    byte serial = (byte)(SequenceUtil.getNextSquence() & 0xFF);
+                    for (int i = 0; i < len; i++) {
+                        SubmitAndDeliverBody.UDHI udhi = new SubmitAndDeliverBody.UDHI();
+                        udhi.setSerial(serial);
+                        udhi.setTotalNum((byte)len);
+                        udhi.setIndex((byte)(i+1));
+                        String text = i + 1 < len ? content.substring(i * splitLength, (i+1) * splitLength) : content.substring(i * splitLength);
+                        Pdu sendPdu = PduFactory.newPduInstance(CommandId.SUBMIT_SM);
+                        HeaderPdu sendHeader = PduFactory.newHeaderInstance(CommandId.SUBMIT_SM);
+                        SubmitAndDeliverBody sendBody = new SubmitAndDeliverBody();
+                        sendBody.setSourceAddr(sourceAddr);
+                        sendBody.setDestinationAddr(destionationAddr);
+                        if (dcs != null) sendBody.setDataCoding(dcs);
+                        sendBody.setCharsetEnum(charsetEnum);
+                        sendBody.setUdhi(udhi);
+                        sendBody.setShortMessage(text);
+                        sendPdu.setHeaderPdu(sendHeader);
+                        sendPdu.setBodyPdu(sendBody);
+                        handler.send(sendPdu);
+                        DataHolder.putSeqToContent(String.valueOf(sendPdu.getHeaderPdu().getSequenceNumber()), config.getSubmit().getContent());
+                    }
+                } else {
+                    Pdu sendPdu = PduFactory.newPduInstance(CommandId.SUBMIT_SM);
+                    HeaderPdu sendHeader = PduFactory.newHeaderInstance(CommandId.SUBMIT_SM);
+                    SubmitAndDeliverBody sendBody = new SubmitAndDeliverBody();
+                    sendBody.setSourceAddr(sourceAddr);
+                    sendBody.setDestinationAddr(destionationAddr);
+                    if (dcs != null) sendBody.setDataCoding(dcs);
+                    sendBody.setCharsetEnum(charsetEnum);
+                    sendBody.setShortMessage(content);
+                    sendPdu.setHeaderPdu(sendHeader);
+                    sendPdu.setBodyPdu(sendBody);
+                    handler.send(sendPdu);
+                    DataHolder.putSeqToContent(String.valueOf(sendPdu.getHeaderPdu().getSequenceNumber()), config.getSubmit().getContent());
+                }
+                f.channel().closeFuture().sync();
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }
@@ -119,7 +149,7 @@ public class SmppClient {
         }
     }
 
-    public static void setInvalid() {
-        flag = false;
+    public static void shutdown() {
+        flag = true;
     }
 }

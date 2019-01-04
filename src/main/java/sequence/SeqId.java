@@ -63,17 +63,11 @@ public class SeqId implements Serializable {
 
     public long generate() {
         long ret = 0;
-
         ret |= this.getMachine();
-
         ret |= this.getSeq() << 10;
-
         ret |= this.getTime() << (10 + 20);
-
         ret |= this.getGenMethod() << (10 + 20 + 30);
-
         ret |= this.getVersion() << (10 + 20 + 30 + 2);
-
         return ret;
     }
 

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class StringCodeUtil {
     private static final Logger logger = LogManager.getLogger(StringCodeUtil.class);
@@ -16,6 +17,14 @@ public class StringCodeUtil {
         byte[] d = new byte[s.length + 1];
         System.arraycopy(s, 0, d, 0, s.length);
         return d;
+    }
+
+    public static String decodingCString(List<Byte> list) throws UnsupportedEncodingException {
+        byte[] bytes = new byte[list.size()];
+        for (int i = 0;i < list.size(); i++) {
+            bytes[i] = list.get(i);
+        }
+        return new String(bytes, "ASCII");
     }
 
     public static String decodingCString(ByteBuf buf) throws UnsupportedEncodingException {

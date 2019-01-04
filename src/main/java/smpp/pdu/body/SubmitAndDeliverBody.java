@@ -1,17 +1,22 @@
 package smpp.pdu.body;
 
 import io.netty.buffer.ByteBuf;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import smpp.pdu.BodyPdu;
 import smpp.pdu.Stream;
+import smpp.pdu.entity.TLV;
 import smpp.util.CharsetEnum;
 import smpp.util.DeliveryReceiptStatesEnum;
 import smpp.util.EsmClassEnum;
 import smpp.util.StringCodeUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class SubmitAndDeliverBody extends BodyPdu {
     private static final Logger logger = LogManager.getLogger(SubmitAndDeliverBody.class);
@@ -33,6 +38,7 @@ public class SubmitAndDeliverBody extends BodyPdu {
     private byte smDefaultMsgId;
     private byte smLength;
     private String shortMessage;
+    private List<TLV> tlvs;
     // 配套类
     private CharsetEnum charsetEnum;
     private EsmClassEnum esmClassEnum;
@@ -59,6 +65,7 @@ public class SubmitAndDeliverBody extends BodyPdu {
             bytes = StringCodeUtil.encodingCString(validityPeriod);
             length += bytes.length;
             length += 5;
+            if (udhi != null) length += udhi.getSize();
             bytes = charsetEnum.encodingString(shortMessage);
             length += bytes.length;
         } catch (Exception e) {
@@ -92,7 +99,12 @@ public class SubmitAndDeliverBody extends BodyPdu {
             buf.writeByte(dataCoding);
             buf.writeByte(smDefaultMsgId);
             bytes = charsetEnum.encodingString(shortMessage);
-            buf.writeByte(bytes.length);
+            if(udhi != null) {
+                buf.writeByte(udhi.getSize() + bytes.length);
+                udhi.encoding(buf);
+            } else {
+                buf.writeByte(bytes.length);
+            }
             buf.writeBytes(bytes);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -123,12 +135,14 @@ public class SubmitAndDeliverBody extends BodyPdu {
             if ((esmClass & EsmClassEnum.ConcatenatedMessages.getEsmClass()) == EsmClassEnum.ConcatenatedMessages.getEsmClass()) {
                 udhi = new UDHI();
                 udhi.decoding(buf);
+                shortMessage = charsetEnum.decodingString(buf, smLength - udhi.getSize());
+            } else {
+                shortMessage = charsetEnum.decodingString(buf, smLength);
             }
-            shortMessage = charsetEnum.decodingString(buf, smLength);
             if ((esmClass & EsmClassEnum.DeliveryReceipt.getEsmClass()) == EsmClassEnum.DeliveryReceipt.getEsmClass()) {
-                receipt = new Receipt();
-                receipt.decoding(shortMessage);
+                receipt = Receipt.decoding(shortMessage);
             }
+            tlvs = TLV.readTlvs(buf);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -136,8 +150,11 @@ public class SubmitAndDeliverBody extends BodyPdu {
 
     private void finalDescide() {
         if (receipt != null) { // Delivery Receipt
-            shortMessage = receipt.toString();
+            shortMessage = receipt.format();
             esmClassEnum = EsmClassEnum.DeliveryReceipt;
+        }
+        if (udhi != null) {
+            esmClassEnum = EsmClassEnum.ConcatenatedMessages;
         }
         if (esmClassEnum != null) {
             esmClass = esmClassEnum.getEsmClass();
@@ -148,13 +165,18 @@ public class SubmitAndDeliverBody extends BodyPdu {
         }
     }
 
-    private class UDHI implements Stream {
+    public static class UDHI extends BodyPdu {
         private byte length = 5;   // Length of UDH (5 bytes)
         private byte indicator = 0;  // Indicator for concatenated message
         private byte subheader = 3;  // Subheader Length (3 bytes)
         private byte serial = 0;  // message identification
         private byte totalNum = 0; // Number of pieces of the concatenated message
         private byte index = 0;  // Sequence number
+
+        @Override
+        public int getSize() {
+            return 6;
+        }
 
         @Override
         public void encoding(ByteBuf buf) {
@@ -184,22 +206,6 @@ public class SubmitAndDeliverBody extends BodyPdu {
             this.length = length;
         }
 
-        public byte getIndicator() {
-            return indicator;
-        }
-
-        public void setIndicator(byte indicator) {
-            this.indicator = indicator;
-        }
-
-        public byte getSubheader() {
-            return subheader;
-        }
-
-        public void setSubheader(byte subheader) {
-            this.subheader = subheader;
-        }
-
         public byte getSerial() {
             return serial;
         }
@@ -227,18 +233,19 @@ public class SubmitAndDeliverBody extends BodyPdu {
 
     public static class Receipt{
         // id:0000000012345678 sub:001 dlvrd:001 submit date:1601010100 done date:1601010101 stat:DELIVRD err:000 text:none
-        private static final String report = "id:%s sub:%03d dlvrd:%03d submit date:%s done date:%s stat:%s err:%03d text:%s";
+        private static final String report = "id:%s sub:%03d dlvrd:%03d submit date:%s done date:%s stat:%s err:%s text:%s";
         private String messageId;
         private Integer totalCt;
         private Integer sucCt;
         private Date submitDate;
         private Date doneDate;
-        private Integer error = 0;
+        private String stat;
+        private String error;
         private String text;
 
         private DeliveryReceiptStatesEnum deliveryReceiptStatesEnum;
 
-        private SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
+        private static SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmm");
 
         public static Receipt success(String messageId, DeliveryReceiptStatesEnum deliveryReceiptStatesEnum) {
             Receipt receipt = new Receipt();
@@ -251,15 +258,32 @@ public class SubmitAndDeliverBody extends BodyPdu {
             return receipt;
         }
 
-        @Override
-        public String toString() {
+        public String format() {
+            if (StringUtils.isBlank(error)) error = "000";
             return String.format(report, messageId, totalCt, sucCt,
                     sdf.format(submitDate), sdf.format(doneDate), deliveryReceiptStatesEnum.toString(), error, text);
         }
 
-        public void decoding(String content) {
-            // TODO: 反解希Receipt
-            logger.info("original Text:{}", content);
+        public static Receipt decoding(String content) {
+            Receipt receipt = new Receipt();
+            receipt.setMessageId(content.substring(0, content.indexOf("sub")).substring(3).trim());
+            receipt.setTotalCt(Integer.valueOf(content.substring(content.indexOf("sub"), content.indexOf("dlvrd")).substring(4).trim()));
+            receipt.setSucCt(Integer.valueOf(content.substring(content.indexOf("dlvrd"), content.indexOf("submit date")).substring(6).trim()));
+            try {
+                receipt.setSubmitDate(sdf.parse(content.substring(content.indexOf("submit date"), content.indexOf("done date")).substring(12).trim()));
+                receipt.setDoneDate(sdf.parse(content.substring(content.indexOf("done date"), content.indexOf("stat")).substring(10).trim()));
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+            receipt.setStat(content.substring(content.indexOf("stat"), content.indexOf("err")).substring(5).trim());
+            receipt.setError(content.substring(content.indexOf("err"), content.indexOf("text")).substring(4).trim());
+            receipt.setText(content.substring(content.indexOf("text")).substring(5).trim());
+            logger.info("original Text:{}, decode receipt: {}", content, receipt);
+            return receipt;
+        }
+
+        public static String getReport() {
+            return report;
         }
 
         public String getMessageId() {
@@ -302,11 +326,19 @@ public class SubmitAndDeliverBody extends BodyPdu {
             this.doneDate = doneDate;
         }
 
-        public Integer getError() {
+        public String getStat() {
+            return stat;
+        }
+
+        public void setStat(String stat) {
+            this.stat = stat;
+        }
+
+        public String getError() {
             return error;
         }
 
-        public void setError(Integer error) {
+        public void setError(String error) {
             this.error = error;
         }
 
@@ -326,12 +358,18 @@ public class SubmitAndDeliverBody extends BodyPdu {
             this.deliveryReceiptStatesEnum = deliveryReceiptStatesEnum;
         }
 
-        public SimpleDateFormat getSdf() {
-            return sdf;
-        }
-
-        public void setSdf(SimpleDateFormat sdf) {
-            this.sdf = sdf;
+        @Override
+        public String toString() {
+            return "Receipt{" +
+                    "messageId='" + messageId + '\'' +
+                    ", totalCt=" + totalCt +
+                    ", sucCt=" + sucCt +
+                    ", submitDate=" + submitDate +
+                    ", doneDate=" + doneDate +
+                    ", stat='" + stat + '\'' +
+                    ", error=" + error +
+                    ", text='" + text + '\'' +
+                    '}';
         }
     }
 
@@ -512,4 +550,11 @@ public class SubmitAndDeliverBody extends BodyPdu {
         this.receipt = receipt;
     }
 
+    public List<TLV> getTlvs() {
+        return tlvs;
+    }
+
+    public void setTlvs(List<TLV> tlvs) {
+        this.tlvs = tlvs;
+    }
 }
