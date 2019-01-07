@@ -1,6 +1,6 @@
-package validator.domain;
+package framework.validator.domain;
 
-import validator.annotation.CamelCase;
+import framework.validator.annotation.CamelCase;
 
 import javax.validation.constraints.NotNull;
 

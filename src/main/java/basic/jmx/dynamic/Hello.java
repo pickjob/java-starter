@@ -1,4 +1,4 @@
-package jmx.dynamic;
+package basic.jmx.dynamic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +9,6 @@ public class Hello implements DynamicMBean {
     private static final Logger logger = LogManager.getLogger(Hello.class);
 
     private String name;
-
 
     @Override
     public Object getAttribute(String attribute) throws AttributeNotFoundException, MBeanException, ReflectionException {
