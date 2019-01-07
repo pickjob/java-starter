@@ -15,14 +15,14 @@ javaModule.name = 'pickjob.java.starter'
 dependencies {
     compile 'org.apache.logging.log4j:log4j-api:2.11.1'
     compile 'org.apache.logging.log4j:log4j-core:2.11.1'
-    compile 'org.hibernate.validator:hibernate-validator:6.0.12.Final'
+    compile 'org.hibernate.framework.validator:hibernate-framework.validator:6.0.12.Final'
     compile 'org.glassfish:javax.el:3.0.1-b09'
-    compile ('org.apache.zookeeper:zookeeper:3.4.13') {
-        exclude group: 'io.netty'
+    compile ('org.apache.framework.zookeeper:framework.zookeeper:3.4.13') {
+        exclude group: 'io.framework.netty'
         exclude group: 'org.slf4j'
         exclude group: 'log4j'
     }
-    compile 'io.netty:netty-all:4.1.31.Final'
+    compile 'io.framework.netty:framework.netty-all:4.1.31.Final'
 
     compile 'org.apache.commons:commons-lang3:3.8'
     compile 'net.freeutils:jcharset:2.0'
@@ -31,7 +31,11 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8'
 
+    compile ('org.apache.rocketmq:rocketmq-client:4.3.0') {
+        exclude group: 'io.framework.netty'
+    }
 
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1'
 
     testCompile 'junit:junit:4.12'
 }

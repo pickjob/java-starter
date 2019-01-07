@@ -5,13 +5,11 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
-import io.netty.util.internal.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sequence.IdService;
-import sequence.IdServiceImpl;
-import smpp.SmppClient;
+import snowflake.IdService;
+import snowflake.IdServiceImpl;
 import smpp.pdu.BodyPdu;
 import smpp.pdu.HeaderPdu;
 import smpp.pdu.Pdu;
@@ -24,8 +22,6 @@ import smpp.pdu.entity.BindTransceiverPdu;
 import smpp.pdu.entity.TLV;
 import smpp.util.*;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
