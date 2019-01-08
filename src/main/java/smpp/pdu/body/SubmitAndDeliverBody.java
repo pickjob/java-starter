@@ -135,9 +135,9 @@ public class SubmitAndDeliverBody extends BodyPdu {
             if ((esmClass & EsmClassEnum.ConcatenatedMessages.getEsmClass()) == EsmClassEnum.ConcatenatedMessages.getEsmClass()) {
                 udhi = new UDHI();
                 udhi.decoding(buf);
-                shortMessage = charsetEnum.decodingString(buf, smLength - udhi.getSize());
+                shortMessage = charsetEnum.decodingString(buf, (smLength & 0xFF) - udhi.getSize());
             } else {
-                shortMessage = charsetEnum.decodingString(buf, smLength);
+                shortMessage = charsetEnum.decodingString(buf, smLength & 0xFF);
             }
             if ((esmClass & EsmClassEnum.DeliveryReceipt.getEsmClass()) == EsmClassEnum.DeliveryReceipt.getEsmClass()) {
                 receipt = Receipt.decoding(shortMessage);

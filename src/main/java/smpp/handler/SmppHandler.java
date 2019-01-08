@@ -160,8 +160,11 @@ public class SmppHandler extends ChannelDuplexHandler {
                     }
                 }
             }
+            DataHolder.remove(receipt.getMessageId());
             if (StringUtils.isNoneBlank(content)) {
                 logger.info("成功响应 {}", content);
+            }
+            if (DataHolder.getSize() == 0) {
                 ctx.executor().schedule(() -> {
                     Pdu p = PduFactory.newPduInstance(CommandId.UNBIND);
                     HeaderPdu h = PduFactory.newHeaderInstance(CommandId.UNBIND);
@@ -169,11 +172,12 @@ public class SmppHandler extends ChannelDuplexHandler {
                     p.setHeaderPdu(h);
                     p.setBodyPdu(b);
                     ctx.writeAndFlush(p);
-                }, 10, TimeUnit.SECONDS);
+                }, 5, TimeUnit.SECONDS);
             }
         }
         Pdu p = PduFactory.newPduInstance(CommandId.DELIVER_SM_RESP);
         HeaderPdu h = PduFactory.newHeaderInstance(CommandId.DELIVER_SM_RESP);
+        h.setSequenceNumber(pdu.getHeaderPdu().getSequenceNumber());
         BodyPdu b = PduFactory.newBodyInstance(CommandId.DELIVER_SM_RESP);
         p.setHeaderPdu(h);
         p.setBodyPdu(b);
