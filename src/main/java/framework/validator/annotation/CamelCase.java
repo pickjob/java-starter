@@ -1,6 +1,5 @@
 package framework.validator.annotation;
 
-import framework.validator.CamelCaseValiditor;
 import framework.validator.annotation.CamelCase.List;
 
 import javax.validation.Constraint;

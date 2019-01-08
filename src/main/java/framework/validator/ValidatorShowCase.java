@@ -16,7 +16,7 @@ public class ValidatorShowCase {
     public static void main(String[] args) {
         Validator validator = Validation.buildDefaultValidatorFactory()
                                         .getValidator();
-        Set<ConstraintViolation<Person>> errors = validator.validate(new Person(null, null));
+        Set<ConstraintViolation<Person>> errors = validator.validate(new Person("AAA", null));
         for (ConstraintViolation<Person> err : errors) {
             logger.info("Person校验失败, 路径{}, 值:{}, 信息:{}", err.getPropertyPath(), err.getInvalidValue(), err.getMessage());
         }
