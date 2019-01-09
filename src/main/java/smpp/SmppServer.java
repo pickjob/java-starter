@@ -8,14 +8,18 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import smpp.handler.SmppHandler;
 import smpp.handler.StreamDecoder;
 import smpp.handler.StreamEncoder;
 import smpp.util.SMPPConfig;
+
+import java.util.concurrent.TimeUnit;
 
 public class SmppServer {
     private static Logger logger = LogManager.getLogger(SmppServer.class);
@@ -33,10 +37,13 @@ public class SmppServer {
                         @Override
                         public void initChannel(SocketChannel ch) {
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new StreamEncoder())
-                             .addLast(new StreamDecoder())
-                             .addLast(new SmppHandler())
-                            ;
+                            p.addLast(
+                                    new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, -4, 0)
+                                    , new StreamEncoder()
+                                    , new StreamDecoder()
+                                    , new IdleStateHandler(100, 100, 100, TimeUnit.SECONDS)
+                                    , new SmppHandler()
+                            );
                         }
                     });
             ChannelFuture f = b.bind(config.getPort()).sync();
