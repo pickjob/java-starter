@@ -1,17 +1,14 @@
 plugins {
     id 'java'
-    id 'idea'
     id 'application'
+    id 'idea'
     id 'org.gradle.java.experimental-jigsaw' version '0.1.1'
 }
 
 group 'pickjob'
 version '0.0.1'
-mainClassName = 'app.Application'
-sourceCompatibility = 11
-targetCompatibility = 11
 javaModule.name = 'pickjob.java.starter'
-
+mainClassName = 'app.Application'
 dependencies {
     // logging
     implementation 'org.apache.logging.log4j:log4j-api:2.11.1'
@@ -51,26 +48,25 @@ repositories {
     }
 }
 
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-        inheritOutputDirs = false
-        outputDir = file("$buildDir/classes/java/main/")
-        testOutputDir = file("$buildDir/classes/java/test/")
-    }
+/*
+ *  Plugin: java配置
+ */
+compileJava {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+    options.encoding = 'UTF-8'
 }
-
-sourceSets {
-    main {
-        output.resourcesDir = file("$buildDir/classes/java/main")
-    }
-    test {
-        output.resourcesDir = file("$buildDir/classes/java/test/")
-    }
+compileTestJava {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+    options.encoding = 'UTF-8'
 }
-
-// Fat jar package
+processResources {
+    destinationDir = sourceSets.main.java.outputDir
+}
+processTestResources {
+    destinationDir = sourceSets.test.java.outputDir
+}
 jar {
     manifest {
         attributes 'Main-Class': "${mainClassName}"
@@ -78,5 +74,23 @@ jar {
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+/*
+ * Plugin: Appliction
+ */
+run { 
+    main = "${mainClassName}"
+}
+/*
+ *  Plugin: idea 配置
+ */
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+        inheritOutputDirs = false
+        outputDir = sourceSets.main.java.outputDir
+        testOutputDir = sourceSets.test.java.outputDir
     }
 }
