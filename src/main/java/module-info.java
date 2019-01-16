@@ -23,9 +23,12 @@ module pickjob.java.starter {
     requires rocketmq.client;
 
     // exports
-    exports basic.rmi.service to java.rmi;
-    exports basic.jmx.standard;
-    exports framework.validator.annotation to org.hibernate.validator;
+    opens basic.rmi.service to java.rmi;
+    opens basic.jmx.standard;
+    opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
-    exports smpp.util to com.fasterxml.jackson.databind;
+    opens smpp.util to com.fasterxml.jackson.databind;
+
+    // export for test
+    opens snowflake ;
 }

@@ -35,10 +35,10 @@ public class IdServiceImpl implements IdService {
         long now = System.currentTimeMillis();
         long time = (now - baseTime) / 1000;
         seqId.setTime(time);
-        if (now == lastTime) {
+        if (time == lastTime) {
             seq++;
         } else {
-            lastTime = now;
+            lastTime = time;
             seq = 0;
         }
         seqId.setSeq(seq);

@@ -16,4 +16,5 @@ submit:
   charset: 0
   # 指定协议中dcs,可以忽略
   # dcs: 0
-  content: content
+  content: |
+    content cahksdfkldskkldsjfjdsljfdsjlfkjdsjfljewjfjewjflejlfje
