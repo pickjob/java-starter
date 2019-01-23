@@ -3,12 +3,14 @@ module pickjob.java.starter {
     requires java.sql;
     requires java.rmi;
     requires java.management;
+    requires java.naming;
     // logging
     requires org.apache.logging.log4j;
     // apache lang3
     requires org.apache.commons.lang3;
-    // validation
+    // jee
     requires java.validation;
+    requires javax.jms.api;
     // jackson
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
@@ -21,6 +23,8 @@ module pickjob.java.starter {
     requires rocketmq.common;
     requires rocketmq.remoting;
     requires rocketmq.client;
+    // activemq
+    requires activemq.client;
 
     // exports
     opens basic.rmi.service to java.rmi;
