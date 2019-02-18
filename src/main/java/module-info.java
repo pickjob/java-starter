@@ -8,6 +8,8 @@ module pickjob.java.starter {
     requires org.apache.logging.log4j;
     // apache lang3
     requires org.apache.commons.lang3;
+    // mysql
+    requires mysql.connector.java;
     // jee
     requires java.validation;
     requires javax.jms.api;

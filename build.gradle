@@ -21,9 +21,10 @@ dependencies {
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'javax.jms:javax.jms-api:2.0.1'
     implementation 'javax.management.j2ee:javax.management.j2ee-api:1.1.2'
-    
     // validation
     implementation 'org.hibernate:hibernate-validator:6.0.14.Final'
+    // mysql driver
+    implementation 'mysql:mysql-connector-java:8.0.15'
     // charset
     implementation 'net.freeutils:jcharset:2.0'
     // netty
