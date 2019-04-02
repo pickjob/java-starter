@@ -27,7 +27,7 @@ public class IdServiceImpl implements IdService {
         id.setGenMethod(genMethod);
         id.setVersion(verion);
         populateTime(id);
-        logger.info(id);
+//        logger.info(id);
         return id.generate();
     }
 

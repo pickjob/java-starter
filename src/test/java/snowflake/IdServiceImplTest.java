@@ -2,6 +2,9 @@ package snowflake;
 
 import org.junit.jupiter.api.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -9,16 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
  * @time 2019-01-16
  */
 class IdServiceImplTest {
-    private static IdService idService ;
+    private static final int TOTAL = 1000000;
+    private IdService idService ;
+    private Set<Long> holder;
 
     @BeforeAll
-    static void init() {
+    void init() {
         idService = new IdServiceImpl();
+        holder = new HashSet<>();
     }
 
-    @RepeatedTest(10000)
     @DisplayName("测试Id生成器同一秒生成情况")
     void testGenerateSeqId() {
-        idService.generateSeqId();
+        for (int i = 0; i < TOTAL; i++) {
+            holder.add(idService.generateSeqId());
+        }
+        assert holder.size() == TOTAL;
     }
 }

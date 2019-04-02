@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'idea'
     id 'com.zyxist.chainsaw' version '0.3.1'
+    id "me.champeau.gradle.jmh" version "0.4.8"
 }
 
 group 'pickjob'
@@ -53,6 +54,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
     testImplementation  'org.junit.jupiter:junit-jupiter-engine:5.3.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.2'
+
 }
 
 repositories {
