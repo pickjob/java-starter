@@ -103,6 +103,7 @@ public class SmppHandler extends ChannelDuplexHandler {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        logger.info("通道失效");
         open = false;
     }
 
@@ -133,7 +134,10 @@ public class SmppHandler extends ChannelDuplexHandler {
 
     // 发送短信提交响应
     public void handleSubmitSmResp(ChannelHandlerContext ctx, Pdu pdu) {
-        if(pdu.getHeaderPdu().getCommandStatus() != 0) logger.error("提交失败, 响应状态 {}", pdu.getHeaderPdu().getCommandStatus());
+        if(pdu.getHeaderPdu().getCommandStatus() != 0) {
+            logger.error("提交失败, 响应状态 {}", pdu.getHeaderPdu().getCommandStatus());
+            return;
+        }
         String messageId = ((SubmitAndDeliverRespBody)pdu.getBodyPdu()).getMessageId();
         logger.info("提交成功, messageId {} ", messageId);
         DataHolder.putMessageIdToSeq(messageId, String.valueOf(pdu.getHeaderPdu().getSequenceNumber()));
@@ -257,6 +261,8 @@ public class SmppHandler extends ChannelDuplexHandler {
             SubmitAndDeliverBody.Receipt receipt = SubmitAndDeliverBody.Receipt.success(messageId, DeliveryReceiptStatesEnum.DELIVERED);
             SubmitAndDeliverBody body = (SubmitAndDeliverBody)pdu.getBodyPdu();
             receipt.setText(body.getShortMessage().length() > 20 ? body.getShortMessage().substring(0, 20):body.getShortMessage());
+            b.setSourceAddr(body.getDestinationAddr());
+            b.setDestinationAddr(body.getSourceAddr());
             b.setReceipt(receipt);
             p.setHeaderPdu(h);
             p.setBodyPdu(b);
