@@ -8,10 +8,9 @@
             -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
             -DAsyncLogger.WaitStrategy=busyspin
         -->
-        <rollingFile name="file" fileName="logs/application.log" filePattern="logs/%d{yyyy-MM-dd}/application.log">
+        <rollingFile name="file" fileName="logs/application.log" filePattern="logs/%d{yyyy-MM-dd}/application.log.gz">
             <patternLayout pattern="%d{HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
             <policies>
-                <onStartupTriggeringPolicy />
                 <timeBasedTriggeringPolicy />
             </policies>
         </rollingFile>

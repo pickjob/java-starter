@@ -34,7 +34,4 @@ module pickjob.java.starter {
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
     opens smpp.util to com.fasterxml.jackson.databind;
-
-    // export for test
-    opens snowflake ;
 }
