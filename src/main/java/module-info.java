@@ -13,6 +13,7 @@ module pickjob.java.starter {
     // jee
     requires java.validation;
     requires javax.jms.api;
+    requires javax.servlet.api;
     // jackson
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
@@ -27,6 +28,13 @@ module pickjob.java.starter {
     requires rocketmq.client;
     // activemq
     requires activemq.client;
+    // spring
+    requires spring.core;
+    requires spring.beans;
+    requires spring.context;
+    requires spring.web;
+    requires org.aspectj.weaver;
+
 
     // exports
     opens basic.rmi.service to java.rmi;
@@ -34,4 +42,22 @@ module pickjob.java.starter {
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
     opens smpp.util to com.fasterxml.jackson.databind;
+
+    opens spring.configuration to spring.core
+            , spring.beans
+            , spring.context
+            ;
+    opens spring.bean to spring.core
+            , spring.beans
+            , spring.aop
+            ;
+    opens spring.bpp to spring.core
+            , spring.beans
+            , spring.aop
+            ;
+    opens spring.aop to spring.core
+            , spring.beans
+            , spring.aop
+            ;
+
 }
