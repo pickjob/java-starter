@@ -21,11 +21,11 @@ public class SemaphoreShowCase implements IShowCase {
     @Override
     public void showSomething() {
         Semaphore semaphore = new Semaphore(3);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             new Thread(() -> {
                 try{
                     semaphore.acquire();
-                    logger.info("{}, Semaphore正在执行。。。", Thread.currentThread().getName());
+                    logger.info("Semaphore正在执行-{}。。。 ", Thread.currentThread().getName());
                     Thread.sleep(10000);
                     semaphore.release();
                 } catch (Exception e) {
@@ -35,8 +35,9 @@ public class SemaphoreShowCase implements IShowCase {
         }
         try {
             Thread.sleep(3000);
+            logger.info("Semaphore剩余-{}", semaphore.availablePermits());
             semaphore.acquire();
-            logger.info("{}, Semaphore结束", Thread.currentThread().getName());
+            logger.info("Semaphore结束-{}", Thread.currentThread().getName());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
