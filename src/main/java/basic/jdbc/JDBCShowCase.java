@@ -13,7 +13,7 @@ public class JDBCShowCase {
     public static void main(String[] args) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.1.73/sample?useSSL=false&allowPublicKeyRetrieval=true", "china", "chinese");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.1.73/sample", "china", "chinese");
             DatabaseMetaData databaseMetaData = connection.getMetaData();
             ResultSet dataBaseResultSet = databaseMetaData.getTables(null, null, null, null);
             showResultSetInfo(dataBaseResultSet);
