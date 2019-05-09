@@ -1,14 +1,13 @@
 package spring.configuration;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author pickjob@126.com
- * @time 2019-04-27
- **/
+ * @time 2019-05-05
+ */
+@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 @Configuration
-@ComponentScan(basePackages = "spring")
-public class BasicConfiguration {
+public class AOPConfiguration {
 }

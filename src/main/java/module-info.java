@@ -4,12 +4,15 @@ module pickjob.java.starter {
     requires java.rmi;
     requires java.management;
     requires java.naming;
+    requires java.net.http;
     // logging
     requires org.apache.logging.log4j;
     // apache lang3
     requires org.apache.commons.lang3;
     // mysql
     requires mysql.connector.java;
+    // dataSource
+    requires com.zaxxer.hikari;
     // jee
     requires java.validation;
     requires javax.jms.api;
@@ -33,6 +36,8 @@ module pickjob.java.starter {
     requires spring.beans;
     requires spring.context;
     requires spring.web;
+    requires spring.jdbc;
+    requires spring.tx;
     requires org.aspectj.weaver;
 
 
@@ -46,6 +51,7 @@ module pickjob.java.starter {
     opens spring.configuration to spring.core
             , spring.beans
             , spring.context
+            , spring.aop
             ;
     opens spring.bean to spring.core
             , spring.beans

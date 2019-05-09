@@ -13,20 +13,25 @@ public class JDBCShowCase {
     public static void main(String[] args) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:8888/mysql?useSSL=false&allowPublicKeyRetrieval=true", "china", "chinese");
+            connection = DriverManager.getConnection("jdbc:mysql://192.168.1.73/sample?useSSL=false&allowPublicKeyRetrieval=true", "china", "chinese");
             DatabaseMetaData databaseMetaData = connection.getMetaData();
-            ResultSet dataBaseResultSet = databaseMetaData.getTables("mysql", "mysql", null, null);
+            ResultSet dataBaseResultSet = databaseMetaData.getTables(null, null, null, null);
             showResultSetInfo(dataBaseResultSet);
             while (dataBaseResultSet.next()) {
-                logger.info("{}, {}, {}, {}",
-                        dataBaseResultSet.getString("TABLE_TYPE"),
+                logger.info("TABLE_CAT: {}, TABLE_SCHEM: {}, TABLE_NAME: {}, TABLE_TYPE: {}, REMARKS: {}, TYPE_CAT: {}, TYPE_SCHEM: {}, TYPE_NAME: {}, SELF_REFERENCING_COL_NAME: {}, REF_GENERATION: {}",
                         dataBaseResultSet.getString("TABLE_CAT"),
                         dataBaseResultSet.getString("TABLE_SCHEM"),
-                        dataBaseResultSet.getString("TABLE_NAME")
-                );
+                        dataBaseResultSet.getString("TABLE_NAME"),
+                        dataBaseResultSet.getString("TABLE_TYPE"),
+                        dataBaseResultSet.getString("REMARKS"),
+                        dataBaseResultSet.getString("TYPE_CAT"),
+                        dataBaseResultSet.getString("TYPE_SCHEM"),
+                        dataBaseResultSet.getString("TYPE_NAME"),
+                        dataBaseResultSet.getString("SELF_REFERENCING_COL_NAME"),
+                        dataBaseResultSet.getString("REF_GENERATION"));
             }
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from general_log");
+            ResultSet rs = statement.executeQuery("select * from offices");
             showResultSetInfo(rs);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

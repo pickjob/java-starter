@@ -7,6 +7,7 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.*;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.weaving.LoadTimeWeaverAware;
@@ -14,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jmx.export.notification.NotificationPublisher;
 import org.springframework.jmx.export.notification.NotificationPublisherAware;
 import org.springframework.stereotype.Component;
@@ -47,6 +49,7 @@ public class SimpleBean implements BeanNameAware
             , ImportAware {
     private static Logger logger = LogManager.getLogger(SimpleBean.class);
     private AtomicInteger index = new AtomicInteger(0);
+    @Autowired private JdbcTemplate jdbcTemplate;
 
     @Override
     public void setBeanName(String name) {
@@ -121,6 +124,9 @@ public class SimpleBean implements BeanNameAware
 
     public String saySomething() {
         logger.info("SimpleBeanSay: Hello.");
+        jdbcTemplate.query("select * from offices", x -> {
+            logger.info("offices: {}", x.getString(1));
+        });
         return "Hello World";
     }
 }
