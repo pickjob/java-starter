@@ -12,7 +12,7 @@ public class BroadcastProducer {
 
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("group_name");
-        producer.setNamesrvAddr("rocketmq:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.start();
         for (int i = 0; i < 100; i++){
             Message msg = new Message("TopicTest",

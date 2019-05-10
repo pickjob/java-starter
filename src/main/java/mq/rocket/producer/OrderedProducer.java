@@ -18,7 +18,7 @@ public class OrderedProducer {
     public static void main(String[] args) throws Exception {
         // instantiate with a producer group name
         DefaultMQProducer producer = new DefaultMQProducer("group_name");
-        producer.setNamesrvAddr("rocketmq:9876");
+        producer.setNamesrvAddr("localhost:9876");
         // launch the instance
         producer.start();
         String[] tags = new String[] {"TagA", "TagB", "TagC", "TagD", "TagE"};

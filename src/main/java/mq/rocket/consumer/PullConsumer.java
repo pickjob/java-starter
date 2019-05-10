@@ -32,7 +32,7 @@ public class PullConsumer {
 
     public static void main(String[] args) throws Exception {
         DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("group_name");
-        consumer.setNamesrvAddr("rocketmq:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         consumer.start();
 
         Map<MessageQueue, Long> offsetTable = new HashMap<MessageQueue, Long>();

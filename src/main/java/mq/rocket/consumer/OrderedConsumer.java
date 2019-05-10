@@ -17,7 +17,7 @@ public class OrderedConsumer {
 
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group_name");
-        consumer.setNamesrvAddr("rocketmq:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.subscribe("TopicTest", "TagA || TagC || TagD");
         consumer.registerMessageListener(new MessageListenerOrderly() {

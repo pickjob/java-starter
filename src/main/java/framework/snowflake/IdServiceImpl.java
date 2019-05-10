@@ -1,4 +1,4 @@
-package snowflake;
+package framework.snowflake;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,6 @@ public class IdServiceImpl implements IdService {
         id.setGenMethod(genMethod);
         id.setVersion(verion);
         populateTime(id);
-//        logger.info(id);
         return id.generate();
     }
 

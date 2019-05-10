@@ -11,7 +11,7 @@ public class Publisher {
     private static Logger logger = LogManager.getLogger(Publisher.class);
 
     public static void main(String []args) {
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://activemq:61616");
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection = null;
         try {
             connection = factory.createConnection();

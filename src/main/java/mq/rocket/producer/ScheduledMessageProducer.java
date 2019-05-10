@@ -10,7 +10,7 @@ public class ScheduledMessageProducer {
 
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("group_name");
-        producer.setNamesrvAddr("rocketmq:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.start();
         for (int i = 0; i < 100; i++) {
             Message message = new Message("TopicTest", ("Hello scheduled message " + i).getBytes());

@@ -14,7 +14,7 @@ public class SyncProducer {
         // instantiate with a producer group name
         DefaultMQProducer producer = new DefaultMQProducer("group_name");
         // specify name server addresses
-        producer.setNamesrvAddr("rocketmq:9876");
+        producer.setNamesrvAddr("localhost:9876");
         // launch the instance
         producer.start();
         for (int i = 0; i < 100; i++) {

@@ -1,4 +1,4 @@
-package snowflake;
+package framework.snowflake;
 
 import java.io.Serializable;
 

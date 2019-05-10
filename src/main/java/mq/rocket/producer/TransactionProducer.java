@@ -29,7 +29,7 @@ public class TransactionProducer {
             }
         });
         TransactionMQProducer producer = new TransactionMQProducer("group_name");
-        producer.setNamesrvAddr("rocketmq:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.setExecutorService(executorService);
         producer.setTransactionListener(transactionListener);
         producer.start();

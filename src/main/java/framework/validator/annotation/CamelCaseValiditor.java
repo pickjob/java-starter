@@ -1,5 +1,6 @@
 package framework.validator.annotation;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +12,9 @@ public class CamelCaseValiditor implements ConstraintValidator<CamelCase, String
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        logger.info("value:{}", value);
+        if (StringUtils.isNotBlank(value)) {
+            if (value.charAt(0) >= 'a' && value.charAt(0) <= 'z') return true;
+        }
         return false;
     }
 

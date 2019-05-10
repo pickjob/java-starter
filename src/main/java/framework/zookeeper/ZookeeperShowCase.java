@@ -13,31 +13,29 @@ import java.util.concurrent.CountDownLatch;
 
 public class ZookeeperShowCase {
     private static final Logger logger = LogManager.getLogger(ZookeeperShowCase.class);
-    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
     private static final String NODE_PATH = "/hello";
     private static final String LOCK_PATH = "/lock";
 
     public static void main(String[] args) {
-        Thread curThread = Thread.currentThread();
         try {
-            ZooKeeper zooKeeper = new ZooKeeper("localhost", 3000,
+            CountDownLatch connected = new CountDownLatch(1);
+            ZooKeeper zooKeeper = new ZooKeeper("localhost", 2181,
                     (e) -> {
                         logger.info("Receive watched event：{}", e);
                         if (Watcher.Event.KeeperState.SyncConnected == e.getState()) {
-                            connectedSemaphore.countDown();
+                            connected.countDown();
                         }
                     }
             );
-
             // zookeeper是异步的
-            connectedSemaphore.await();
+            connected.await();
 
             basicOperation(zooKeeper);
             distributeLock(zooKeeper);
 
             zooKeeper.close();
         } catch (Exception e) {
-            logger.error(e, e);
+            logger.error(e.getMessage(), e);
         }
     }
 

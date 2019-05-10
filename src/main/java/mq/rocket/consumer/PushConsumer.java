@@ -17,7 +17,7 @@ public class PushConsumer {
         // instantiate with specified consumer group name
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group_name");
         // specify name server addresses
-        consumer.setNamesrvAddr("rocketmq:9876");
+        consumer.setNamesrvAddr("localhost:9876");
         // subscribe one more more topics to consume
         consumer.subscribe("TopicTest", "*");
         // register callback to execute on arrival of messages fetched from brokers.

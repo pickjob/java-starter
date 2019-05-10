@@ -1,13 +1,20 @@
 package basic.wait;
 
 
+import common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WaitNotifyShowCase {
+public class WaitNotifyShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(WaitNotifyShowCase.class);
 
-    public static void main(String[] arg) throws Exception {
+    @Override
+    public void saySomething() {
+        logger.info("展示基础wait notify使用(不推荐使用)");
+    }
+
+    @Override
+    public void showSomething() {
         final String[] chars = {"A", "B", "C"};
         for (int i = 0; i < chars.length; i++) {
             String pre = null;

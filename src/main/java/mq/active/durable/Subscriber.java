@@ -10,12 +10,12 @@ import java.util.concurrent.CountDownLatch;
 public class Subscriber implements MessageListener {
     private static final Logger logger = LogManager.getLogger(Subscriber.class);
     private static final CountDownLatch countDownLatch = new CountDownLatch(1);
+    private static final String clientId = "112";
 
     public static void main(String[] args) {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://activemq:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection = null;
         try {
-            String clientId = "112";
             connection = connectionFactory.createConnection();
             connection.setClientID(clientId);
             connection.start();

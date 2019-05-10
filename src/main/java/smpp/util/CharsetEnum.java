@@ -53,11 +53,15 @@ public enum CharsetEnum {
     private CharsetEnum(String charset, byte code) {
         this.charset = charset;
         this.dataCodingSchema = code;
-        holder.put(code, this);
     }
 
     private String charset;
     private byte dataCodingSchema;
-    private Map<Byte, CharsetEnum> holder = new HashMap<>();
+    private static final Map<Byte, CharsetEnum> holder = new HashMap<>();
+    static {
+        holder.put((byte)0, DEFAULT);
+        holder.put((byte)3, Latin1);
+        holder.put((byte)8, UCS2);
+    }
     private static final Logger logger = LogManager.getLogger(CharsetEnum.class);
 }

@@ -27,7 +27,7 @@ public class Subscriber {
     private static Logger logger = LogManager.getLogger(Subscriber.class);
 
     public static void main(String []args) {
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://activemq:61616");
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection = null;
         try {
             connection = factory.createConnection();

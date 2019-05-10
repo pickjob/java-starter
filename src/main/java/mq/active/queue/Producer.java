@@ -10,7 +10,7 @@ public class Producer {
     private static final Logger logger = LogManager.getLogger(Producer.class);
 
     public static void main(String[] args) {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://activemq:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection = null;
         try {
             connection = connectionFactory.createConnection();
