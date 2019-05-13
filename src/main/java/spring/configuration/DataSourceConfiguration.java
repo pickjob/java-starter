@@ -22,7 +22,7 @@ public class DataSourceConfiguration {
         dataSource.setUsername("china");
         dataSource.setPassword("chinese");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost/sample");
+        dataSource.setJdbcUrl("jdbc:mysql://localhost/sample?useSSL=false");
         return dataSource;
     }
 
