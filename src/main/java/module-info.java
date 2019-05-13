@@ -31,6 +31,10 @@ module pickjob.java.starter {
     requires rocketmq.client;
     // activemq
     requires activemq.client;
+    // javafx
+    requires javafx.graphics;
+    requires javafx.controls;
+    requires javafx.fxml;
     // spring
     requires spring.core;
     requires spring.beans;
@@ -40,13 +44,20 @@ module pickjob.java.starter {
     requires spring.tx;
     requires org.aspectj.weaver;
 
-
     // exports
     opens basic.rmi.service to java.rmi;
     opens basic.jmx.standard;
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
     opens smpp.util to com.fasterxml.jackson.databind;
+
+    opens fx.hello.coding to javafx.graphics;
+    opens fx.hello.fxml to javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ui to javafx.base
+            , javafx.graphics
+            ;
 
     opens spring.configuration to spring.core
             , spring.beans
