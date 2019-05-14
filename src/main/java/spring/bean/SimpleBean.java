@@ -2,6 +2,7 @@ package spring.bean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.quartz.SchedulerContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.BeanFactory;
@@ -15,14 +16,19 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
+import org.springframework.jca.context.BootstrapContextAware;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jmx.export.notification.NotificationPublisher;
 import org.springframework.jmx.export.notification.NotificationPublisherAware;
+import org.springframework.scheduling.quartz.SchedulerContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringValueResolver;
 import org.springframework.web.context.ServletConfigAware;
 import org.springframework.web.context.ServletContextAware;
+import spring.entity.Office;
 
+import javax.resource.spi.BootstrapContext;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -41,15 +47,14 @@ public class SimpleBean implements BeanNameAware
             , MessageSourceAware
             , ApplicationContextAware
             , ServletContextAware
-//            , BootstrapContextAware
+            , BootstrapContextAware
             , LoadTimeWeaverAware
             , NotificationPublisherAware
             , ServletConfigAware
-//            , SchedulerContextAware
+            , SchedulerContextAware
             , ImportAware {
     private static Logger logger = LogManager.getLogger(SimpleBean.class);
     private AtomicInteger index = new AtomicInteger(0);
-    @Autowired private JdbcTemplate jdbcTemplate;
 
     @Override
     public void setBeanName(String name) {
@@ -119,14 +124,23 @@ public class SimpleBean implements BeanNameAware
     @Override
     public void setServletContext(javax.servlet.ServletContext servletContext) {
         logger.info("ServletContextAware: {}", index.incrementAndGet());
+    }
 
+    @Override
+    public void setSchedulerContext(SchedulerContext schedulerContext) {
+        logger.info("SchedulerContextAware: {}", index.incrementAndGet());
+    }
+
+    @Override
+    public void setBootstrapContext(BootstrapContext bootstrapContext) {
+        logger.info("setBootstrapContext: {}", index.incrementAndGet());
     }
 
     public String saySomething() {
         logger.info("SimpleBeanSay: Hello.");
-        jdbcTemplate.query("select * from offices", x -> {
-            logger.info("offices: {}", x.getString(1));
-        });
         return "Hello World";
     }
+
+
+
 }

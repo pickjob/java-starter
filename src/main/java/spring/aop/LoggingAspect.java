@@ -14,8 +14,8 @@ import java.util.UUID;
  * @author pickjob@126.com
  * @time 2019-04-27
  **/
-@Component
 @Aspect
+@Component
 public class LoggingAspect implements Ordered {
     private static Logger logger = LogManager.getLogger(LoggingAspect.class);
 
@@ -25,7 +25,6 @@ public class LoggingAspect implements Ordered {
         logger.info("{} entering {} {}", id, pjp.toLongString());
         Object retVal = pjp.proceed();
         logger.info("{} leaving", id);
-//        return retVal instanceof String ? "fccck" : retVal;
         return retVal;
     }
 

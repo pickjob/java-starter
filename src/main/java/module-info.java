@@ -16,6 +16,7 @@ module pickjob.java.starter {
     // jee
     requires java.validation;
     requires javax.jms.api;
+    requires javax.resource.api;
     requires javax.servlet.api;
     // jackson
     requires com.fasterxml.jackson.core;
@@ -39,10 +40,12 @@ module pickjob.java.starter {
     requires spring.core;
     requires spring.beans;
     requires spring.context;
+    requires spring.context.support;
     requires spring.web;
     requires spring.jdbc;
     requires spring.tx;
     requires org.aspectj.weaver;
+    requires quartz;
 
     // exports
     opens basic.rmi.service to java.rmi;
