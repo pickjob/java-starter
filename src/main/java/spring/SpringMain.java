@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import spring.bean.SimpleBean;
+import spring.bean.SimpleShowCaseBean;
 import spring.configuration.BasicConfiguration;
 
 /**
@@ -17,7 +17,7 @@ public class SpringMain {
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(BasicConfiguration.class);
-        SimpleBean simpleBean = context.getBean(SimpleBean.class);
+        SimpleShowCaseBean simpleBean = context.getBean(SimpleShowCaseBean.class);
         logger.info("SimpleBeanSay: {}", simpleBean.saySomething());
     }
 }

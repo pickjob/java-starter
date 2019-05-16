@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @time 2019-04-24
  **/
 @Component
-public class SimpleBean implements BeanNameAware
+public class AwareShowCaseBean implements BeanNameAware
             , BeanClassLoaderAware
             , BeanFactoryAware
             , EnvironmentAware
@@ -53,7 +53,7 @@ public class SimpleBean implements BeanNameAware
             , ServletConfigAware
             , SchedulerContextAware
             , ImportAware {
-    private static Logger logger = LogManager.getLogger(SimpleBean.class);
+    private static Logger logger = LogManager.getLogger(AwareShowCaseBean.class);
     private AtomicInteger index = new AtomicInteger(0);
 
     @Override
@@ -135,12 +135,4 @@ public class SimpleBean implements BeanNameAware
     public void setBootstrapContext(BootstrapContext bootstrapContext) {
         logger.info("setBootstrapContext: {}", index.incrementAndGet());
     }
-
-    public String saySomething() {
-        logger.info("SimpleBeanSay: Hello.");
-        return "Hello World";
-    }
-
-
-
 }
