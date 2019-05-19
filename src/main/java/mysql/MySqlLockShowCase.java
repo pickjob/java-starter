@@ -17,10 +17,37 @@ public class MySqlLockShowCase {
 
     public static void main(String[] args) throws Throwable {
         parepareTestTable();
+        // Primary Lock
+//        testUpdate();
         // Gap Lock
 //        gapLock();
         // Next-Key Lock Show Case
 //        nextKeyLock();
+    }
+
+    private static void testUpdate() throws Throwable {
+        String showTimeOutSql = "show variables like 'innodb_lock_wait_timeout'";
+        Connection connection = createConnection();
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(showTimeOutSql);
+        while (rs.next()) {
+            logger.info("{}: {}", rs.getString(1), rs.getInt(2));
+        }
+        CountDownLatch stage = new CountDownLatch(2);
+        List<String> lockSqlList = new ArrayList<>();
+        lockSqlList.add("insert into test(id, number, en) values (6, 7, 'senven')");
+        lockSqlList.add("insert into test(id, number, en) values (15, 4, 'xx')");
+        lockSqlList.add("insert into test(id, number, en) values (18, 3, 'xx')");
+        lockSqlList.add("insert into test(id, number, en) values (19, 2, 'deew')");
+        lockSqlList.add("insert into test(id, number, en) values (20, 4, 'wwe2')");
+
+        lockSqlList.add("select sleep(60)");
+        executeSqlInOneTransactionOneThread(lockSqlList, stage);
+        Thread.sleep(1000);
+        List<String> blockSqlList = new ArrayList<>();
+        blockSqlList.add("update test set en = 'sss' where id = 6");
+        executeSqlInOneTransactionOneThread(blockSqlList, stage);
+        stage.await();
     }
 
     private static void gapLock() throws Throwable {
