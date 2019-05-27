@@ -53,6 +53,8 @@ dependencies {
     implementation "org.openjfx:javafx-controls:12:${os}"
     implementation "org.openjfx:javafx-fxml:12:${os}"
     implementation "org.openjfx:javafx-media:12:${os}"
+    implementation "org.openjfx:javafx-swing:12:${os}"
+    implementation "org.openjfx:javafx-web:12:${os}"
     // javaee
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'org.glassfish:javax.el:3.0.1-b09'

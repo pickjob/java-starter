@@ -36,6 +36,9 @@ module pickjob.java.starter {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.swing;
+    requires javafx.web;
+    requires javafx.media;
     // spring
     requires spring.core;
     requires spring.beans;
@@ -61,7 +64,30 @@ module pickjob.java.starter {
     opens fx.ui to javafx.base
             , javafx.graphics
             ;
-
+    opens fx.modena to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ensemble.controls to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ensemble.charts to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ensemble.animation to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ensemble.layout to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.ensemble.scenegraph to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
     opens spring.configuration to spring.core
             , spring.beans
             , spring.context
