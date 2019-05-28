@@ -32,6 +32,8 @@ module pickjob.java.starter {
     requires rocketmq.client;
     // activemq
     requires activemq.client;
+    // jwt
+    requires java.jwt;
     // javafx
     requires javafx.graphics;
     requires javafx.controls;
