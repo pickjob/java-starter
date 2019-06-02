@@ -34,6 +34,9 @@ module pickjob.java.starter {
     requires activemq.client;
     // jwt
     requires java.jwt;
+    // prometheus
+    requires simpleclient;
+    requires simpleclient.httpserver;
     // javafx
     requires javafx.graphics;
     requires javafx.controls;
