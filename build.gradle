@@ -49,11 +49,6 @@ dependencies {
     }
     // JWT
     implementation 'com.auth0:java-jwt:3.8.1'
-    // prometheus
-    implementation 'io.prometheus:simpleclient:0.6.0'
-    implementation 'io.prometheus:simpleclient_hotspot:0.6.0'
-    implementation 'io.prometheus:simpleclient_httpserver:0.6.0'
-    implementation 'io.prometheus:simpleclient_pushgateway:0.6.0'
     // javafx
     implementation "org.openjfx:javafx-base:12:${os}"
     implementation "org.openjfx:javafx-graphics:12:${os}"
