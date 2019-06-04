@@ -34,6 +34,8 @@ module pickjob.java.starter {
     requires activemq.client;
     // jwt
     requires java.jwt;
+    // dubbo
+    requires dubbo;
     // javafx
     requires javafx.graphics;
     requires javafx.controls;
@@ -58,6 +60,9 @@ module pickjob.java.starter {
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
     opens smpp.util to com.fasterxml.jackson.databind;
+
+    opens framework.dubbo.common to dubbo;
+
 
     opens fx.hello.coding to javafx.graphics;
     opens fx.hello.fxml to javafx.graphics

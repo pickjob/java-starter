@@ -17,6 +17,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.11.1'
     implementation 'org.apache.logging.log4j:log4j-core:2.11.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1'
+
     // apache commons
     implementation 'org.apache.commons:commons-lang3:3.8'
     // validation
@@ -34,6 +35,8 @@ dependencies {
         exclude group: 'org.slf4j'
         exclude group: 'log4j'
     }
+    implementation 'org.apache.curator:curator-framework:4.2.0'
+    implementation 'org.apache.curator:curator-recipes:4.2.0'
     // jackson
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
@@ -47,8 +50,11 @@ dependencies {
     implementation ('org.apache.activemq:activemq-client:5.15.8') {
         exclude group: 'org.apache.geronimo.specs'
     }
+    // dubbo
+    implementation 'org.apache.dubbo:dubbo:2.7.1'
     // JWT
     implementation 'com.auth0:java-jwt:3.8.1'
+
     // javafx
     implementation "org.openjfx:javafx-base:12:${os}"
     implementation "org.openjfx:javafx-graphics:12:${os}"
@@ -77,6 +83,9 @@ dependencies {
     implementation ('org.quartz-scheduler:quartz:2.3.1') {
         exclude group: 'com.zaxxer'
     }
+    implementation 'org.javassist:javassist:3.25.0-GA'
+
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
