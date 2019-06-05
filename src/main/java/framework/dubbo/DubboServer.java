@@ -21,7 +21,7 @@ public class DubboServer {
         applicationConfig.setLogger("log4j2");
         ServiceConfig<ISayHelloImpl> service = new ServiceConfig<>();
         service.setApplication(applicationConfig);
-        RegistryConfig registryConfig = new RegistryConfig("zookeeper://172.16.40.115:2181");
+        RegistryConfig registryConfig = new RegistryConfig("zookeeper://localhost:2181");
         service.setRegistry(registryConfig);
         ProtocolConfig protocolConfig = new ProtocolConfig();
         protocolConfig.setTransporter("netty");

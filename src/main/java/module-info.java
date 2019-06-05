@@ -24,8 +24,13 @@ module pickjob.java.starter {
     requires com.fasterxml.jackson.dataformat.yaml;
     // netty
     requires io.netty.all;
-    // zookeeper
+    // zkClient
     requires zookeeper;
+    // curator
+    requires curator.client;
+    requires curator.framework;
+    requires curator.recipes;
+    requires curator.x.discovery;
     // rocketmq
     requires rocketmq.common;
     requires rocketmq.remoting;

@@ -7,13 +7,14 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ZookeeperShowCase {
-    private static final Logger logger = LogManager.getLogger(ZookeeperShowCase.class);
-    private static final String NODE_PATH = "/hello";
+public class ZkClientShowCase {
+    private static final Logger logger = LogManager.getLogger(ZkClientShowCase.class);
     private static final String LOCK_PATH = "/lock";
 
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class ZookeeperShowCase {
             // zookeeper是异步的
             connected.await();
 
-            basicOperation(zooKeeper);
+            retrieveNodes("/", zooKeeper);
             distributeLock(zooKeeper);
 
             zooKeeper.close();
@@ -39,22 +40,14 @@ public class ZookeeperShowCase {
         }
     }
 
-    // 基本操作
-    private static void basicOperation(ZooKeeper zooKeeper) throws Exception {
-        if (zooKeeper.getState().equals(ZooKeeper.States.CONNECTED)) {
-            // 是否存在
-            Stat stat = zooKeeper.exists(NODE_PATH, false);
-            if (stat != null) {
-                // 删除
-                zooKeeper.delete(NODE_PATH, stat.getVersion());
-            }
-            // 创建
-            zooKeeper.create("/hello", null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-            Stat s = new Stat();
-            // 获取
-            byte[] data = zooKeeper.getData(NODE_PATH, true, s);
-            // 设置
-            zooKeeper.setData(NODE_PATH, "hello".getBytes(), s.getVersion());
+    private static void retrieveNodes(String nodePath, ZooKeeper zooKeeper) throws Exception {
+        byte[] nodeData = zooKeeper.getData(nodePath, null, null);
+        String nodeValue = byteToHexString(nodeData);
+        String nodeString = new String(nodeData, "utf-8");
+        logger.info("node: {}, nodeValue: {}, nodeString: {}", nodePath, nodeValue, nodeString);
+        List<String> paths = zooKeeper.getChildren(nodePath, null);
+        for (String p : paths) {
+            retrieveNodes( "/".equals(nodePath) ? nodePath + p : nodePath + "/" + p, zooKeeper);
         }
     }
 
@@ -77,5 +70,19 @@ public class ZookeeperShowCase {
         // 释放， 删除锁
         zooKeeper.delete(path, s.getVersion());
         logger.info(path);
+    }
+
+    private static String byteToHexString(byte[] bytes) {
+        StringBuilder stringBuilder = new StringBuilder("[");
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < bytes.length; i++ ) {
+            list.add((int)bytes[i]);
+        }
+        list.forEach(b -> {
+            stringBuilder.append(Integer.toHexString(b)).append(", ");
+        });
+        if (stringBuilder.length() > 1 ) stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 }
