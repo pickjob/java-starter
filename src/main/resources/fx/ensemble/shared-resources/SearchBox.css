@@ -35,7 +35,7 @@
     -fx-background-radius: 15;
     -fx-padding: -9 5 -11 0;
     -fx-border-image-source: url("./search-box.png");
-    -fx-border-image-slice: 12 12 12 22 fill;
+    -fx-border-image-slice: 12 12 12 82 fill;
     -fx-border-image-width: 12 12 12 22;
     -fx-border-image-repeat: stretch;
     -fx-font-size: 13px;

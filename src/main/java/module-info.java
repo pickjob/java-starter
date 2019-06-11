@@ -73,14 +73,7 @@ module pickjob.java.starter {
     opens fx.hello.fxml to javafx.graphics
             , javafx.fxml
             ;
-    opens fx.ui to javafx.base
-            , javafx.graphics
-            ;
     opens fx.modena to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.ensemble.controls to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
@@ -88,15 +81,23 @@ module pickjob.java.starter {
             , javafx.graphics
             , javafx.fxml
             ;
-    opens fx.ensemble.animation to javafx.base
+    opens fx.animation to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
-    opens fx.ensemble.layout to javafx.base
+    opens fx.layout to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
     opens fx.ensemble.scenegraph to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx to javafx.base
+            , javafx.graphics
+            , javafx.fxml
+            ;
+    opens fx.entity to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
