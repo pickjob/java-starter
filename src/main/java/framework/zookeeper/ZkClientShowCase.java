@@ -28,10 +28,11 @@ public class ZkClientShowCase {
                         }
                     }
             );
-            // zookeeper是异步的
+            // 连接底层使用netty方式
             connected.await();
-
+            // 遍历查询所有节点信息
             retrieveNodes("/", zooKeeper);
+
             distributeLock(zooKeeper);
 
             zooKeeper.close();
@@ -53,6 +54,7 @@ public class ZkClientShowCase {
 
     // 分布锁
     private static void distributeLock(ZooKeeper zooKeeper) throws Exception {
+        zooKeeper.create(LOCK_PATH, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);
         // 创建临时序列节点
         String path = zooKeeper.create(LOCK_PATH+"/id_", null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
         List<String> children = zooKeeper.getChildren(LOCK_PATH, false);

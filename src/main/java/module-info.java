@@ -64,20 +64,17 @@ module pickjob.java.starter {
     opens basic.jmx.standard;
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
-    opens smpp.util to com.fasterxml.jackson.databind;
-
     opens framework.dubbo.common to dubbo;
-
-
+    opens smpp.util to com.fasterxml.jackson.databind;
     opens fx.hello.coding to javafx.graphics;
     opens fx.hello.fxml to javafx.graphics
             , javafx.fxml
             ;
-    opens fx.modena to javafx.base
+    opens fx.layout to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
-    opens fx.ensemble.charts to javafx.base
+    opens fx.control to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
@@ -85,15 +82,7 @@ module pickjob.java.starter {
             , javafx.graphics
             , javafx.fxml
             ;
-    opens fx.layout to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.ensemble.scenegraph to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx to javafx.base
+    opens fx.charts to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;
@@ -118,5 +107,4 @@ module pickjob.java.starter {
             , spring.beans
             , spring.aop
             ;
-
 }
