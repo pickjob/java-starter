@@ -58,6 +58,7 @@ module pickjob.java.starter {
     requires spring.tx;
     requires org.aspectj.weaver;
     requires quartz;
+    requires com.google.common;
 
     // exports
     opens basic.rmi.service to java.rmi;

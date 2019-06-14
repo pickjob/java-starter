@@ -20,6 +20,7 @@ public class Application {
         for (Class<?> cls : clsList) {
             try {
                 IShowCase showCase = (IShowCase) cls.getDeclaredConstructor().newInstance();
+                if (!(showCase instanceof IShowCase)) continue;
                 showCase.saySomething();
                 showCase.showSomething();
             } catch (Throwable throwable) {
