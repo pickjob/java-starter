@@ -9,21 +9,24 @@ module pickjob.java.starter {
     requires org.apache.logging.log4j;
     // apache lang3
     requires org.apache.commons.lang3;
-    // mysql
-    requires mysql.connector.java;
-    // dataSource
-    requires com.zaxxer.hikari;
-    // jee
-    requires java.validation;
-    requires javax.jms.api;
-    requires javax.resource.api;
-    requires javax.servlet.api;
+    // guava
+    requires com.google.common;
     // jackson
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
+    // jwt
+    requires java.jwt;
     // netty
     requires io.netty.all;
+    // mysql
+    requires mysql.connector.java;
+    // hikari
+    requires com.zaxxer.hikari;
+    // mybaits
+    requires org.mybatis;
+    // dubbo
+    requires dubbo;
     // zkClient
     requires zookeeper;
     // curator
@@ -37,10 +40,6 @@ module pickjob.java.starter {
     requires rocketmq.client;
     // activemq
     requires activemq.client;
-    // jwt
-    requires java.jwt;
-    // dubbo
-    requires dubbo;
     // javafx
     requires javafx.graphics;
     requires javafx.controls;
@@ -48,6 +47,11 @@ module pickjob.java.starter {
     requires javafx.swing;
     requires javafx.web;
     requires javafx.media;
+    // jee
+    requires java.validation;
+    requires javax.jms.api;
+    requires javax.resource.api;
+    requires javax.servlet.api;
     // spring
     requires spring.core;
     requires spring.beans;
@@ -58,7 +62,6 @@ module pickjob.java.starter {
     requires spring.tx;
     requires org.aspectj.weaver;
     requires quartz;
-    requires com.google.common;
 
     // exports
     opens basic.rmi.service to java.rmi;
@@ -68,6 +71,9 @@ module pickjob.java.starter {
     opens framework.dubbo.common to dubbo;
     opens smpp.util to com.fasterxml.jackson.databind;
     opens fx.hello.coding to javafx.graphics;
+
+    opens framework.mybatis to org.mybatis;
+
     opens fx.hello.fxml to javafx.graphics
             , javafx.fxml
             ;
