@@ -27,6 +27,8 @@ module pickjob.java.starter {
     requires org.mybatis;
     // dubbo
     requires dubbo;
+    // lettuce
+    requires lettuce.core;
     // zkClient
     requires zookeeper;
     // curator

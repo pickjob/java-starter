@@ -38,6 +38,10 @@ dependencies {
     implementation 'com.zaxxer:HikariCP:3.3.1'
     // mybatis
     implementation 'org.mybatis:mybatis:3.5.1'
+    // lettuce
+    implementation ('io.lettuce:lettuce-core:5.1.7.RELEASE') {
+        exclude group: 'io.netty'
+    }
     // zookeeper
     implementation ('org.apache.zookeeper:zookeeper:3.4.13') {
         exclude group: 'io.netty'
