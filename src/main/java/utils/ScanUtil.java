@@ -16,35 +16,37 @@ import java.util.jar.JarFile;
 public class ScanUtil {
     private static final Logger logger = LogManager.getLogger(ScanUtil.class);
 
-    public static Set<String> scanClasses(String basePackage) {
-        Set<String> clsList = new HashSet<>();
-        for (String clsName : scanClasses()) {
-           if (clsName.startsWith(basePackage)) {
-               logger.info("checkout clsName: {}", clsName);
-               clsList.add(clsName);
-           }
-        }
-        return clsList;
+    public static Set<String> scanClassWithClass(Class<?> className) {
+        return scanClassWithPackageAndClass(null, className);
     }
 
-    public static Set<Class<?>> scanClasses(Class<?> parentClass) {
-        Set<Class<?>> clsList = new HashSet<>();
-        for (String clsName : scanClasses()) {
-            try {
-                Class<?> cls = Class.forName(clsName);
-                Object obj = cls.getDeclaredConstructor().newInstance();
-                parentClass.cast(obj);
-                logger.debug("checkout clsName: {}", clsName);
-                clsList.add(cls);
-            } catch (Throwable e) {
-                logger.debug(e.getMessage(), e);
-                continue;
+    public static Set<String> scanClassWithPackage(String basePackage) {
+        return scanClassWithPackageAndClass(basePackage, null);
+    }
+
+    public static Set<String> scanClassWithPackageAndClass(String basePackage, Class className) {
+        Set<String> clsList = new HashSet<>();
+        for (String clsName : scanAllClasses()) {
+            if (StringUtils.isBlank(basePackage) || clsName.startsWith(basePackage)) {
+                try {
+                    Class cls = Class.forName(clsName);
+                    if (!cls.isInterface()) {
+                        Object obj = cls.getDeclaredConstructor().newInstance();
+                        if (className == null || className.isInstance(obj)) {
+                            if (logger.isDebugEnabled()) logger.debug("checkout clsName: {}", clsName);
+                            clsList.add(clsName);
+                        }
+                    }
+                } catch (Throwable e) {
+                    if (logger.isDebugEnabled()) logger.debug(e.getMessage(), e);
+                }
+
             }
         }
         return clsList;
     }
 
-    private static Set<String> scanClasses() {
+    private static Set<String> scanAllClasses() {
         Set<String> clsList = new HashSet<>();
         try {
             String modulePath = System.getProperty(JDK_MODULE_PATH);
@@ -53,7 +55,7 @@ public class ScanUtil {
                 for (int i = 0; i < paths.length; i++) {
                     File file = new File(paths[i]);
                     if (file.exists()) {
-                        logger.debug("scan file {}", paths[i]);
+                        if (logger.isDebugEnabled())  logger.debug("scan file {}", paths[i]);
                         if (file.isDirectory()) {
                             clsList.addAll(scanClassesFromDirectory(paths[i], file));
                         } else {
@@ -84,7 +86,7 @@ public class ScanUtil {
                             ;
                     if (clsName.startsWith(".")) clsName = clsName.substring(1);
                     if (clsName.endsWith(".class")) clsName = clsName.substring(0, clsName.length() - 6);
-                    logger.debug("{} => {}", childFile.getPath(), clsName);
+                    if (logger.isDebugEnabled())  logger.debug("{} => {}", childFile.getPath(), clsName);
                     clsList.add(clsName);
                 }
             }
@@ -102,7 +104,7 @@ public class ScanUtil {
                 String clsName = entryName.replaceAll("\\".equals(File.separator) ? "\\\\":File.separator, ".");
                 if (clsName.startsWith(".")) clsName = clsName.substring(1);
                 if (clsName.endsWith(".class")) clsName = clsName.substring(0, clsName.length() - 6);
-                logger.debug("{} => {}", entryName, clsName);
+                if (logger.isDebugEnabled())  logger.debug("{} => {}", entryName, clsName);
                 clsList.add(clsName);
             }
         }

@@ -3,7 +3,7 @@ plugins {
     id 'application'
     id 'idea'
     id 'com.zyxist.chainsaw' version '0.3.1'
-    id "me.champeau.gradle.jmh" version "0.4.8"
+    id 'me.champeau.gradle.jmh' version '0.4.8'
 }
 
 group 'pickjob'
@@ -18,16 +18,21 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.11.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1'
 
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
     // apache commons
     implementation 'org.apache.commons:commons-lang3:3.8'
-    // validation
-    implementation 'org.hibernate:hibernate-validator:6.0.16.Final'
-    // charset
-    implementation 'net.freeutils:jcharset:2.0'
     // JWT
     implementation 'com.auth0:java-jwt:3.8.1'
     // guava
     implementation 'com.google.guava:guava:28.0-jre'
+
+    // jackson
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8'
     // netty
     implementation 'io.netty:netty-all:4.1.31.Final'
     // dubbo
@@ -51,11 +56,6 @@ dependencies {
     // curator
     implementation 'org.apache.curator:curator-recipes:4.2.0'
     implementation 'org.apache.curator:curator-x-discovery:4.2.0'
-    // jackson
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8'
     // rocketmq
     implementation ('org.apache.rocketmq:rocketmq-client:4.3.0') {
         exclude group: 'io.netty'
@@ -82,6 +82,8 @@ dependencies {
     implementation 'javax.jms:javax.jms-api:2.0.1'
     implementation 'javax.resource:javax.resource-api:1.7.1'
     implementation 'javax.management.j2ee:javax.management.j2ee-api:1.1.2'
+    // hibernate validation
+    implementation 'org.hibernate:hibernate-validator:6.0.16.Final'
     // springframework
     implementation 'org.springframework:spring-context:5.1.6.RELEASE'
     implementation 'org.springframework:spring-context-support:5.1.6.RELEASE'
@@ -96,8 +98,9 @@ dependencies {
     }
     implementation 'org.javassist:javassist:3.25.0-GA'
 
-
-
+    // charset
+    implementation 'net.freeutils:jcharset:2.0'
+    
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
@@ -144,8 +147,9 @@ test {
 /*
  * Plugin: Appliction
  */
-run { 
+run {
     main = "${mainClassName}"
+    jvmArgs = ['--add-opens', 'java.base/java.math=dubbo', '--add-opens', 'java.base/java.lang=dubbo']
 }
 /*
  *  Plugin: idea 配置

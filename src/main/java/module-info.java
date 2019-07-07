@@ -65,6 +65,8 @@ module pickjob.java.starter {
     requires org.aspectj.weaver;
     requires quartz;
 
+    requires static lombok;
+
     // exports
     opens basic.rmi.service to java.rmi;
     opens basic.jmx.standard;

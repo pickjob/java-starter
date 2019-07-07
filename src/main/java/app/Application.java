@@ -12,17 +12,21 @@ public class Application {
 
     public static void main(String[] args) {
         logger.info("Hello world");
+        logger.info("{}", System.getProperties());
         traverseShowCase();
     }
 
     private static void traverseShowCase() {
-        Set<Class<?>> clsList = ScanUtil.scanClasses(IShowCase.class);
-        for (Class<?> cls : clsList) {
+        Set<String> clsNameList = ScanUtil.scanClassWithPackageAndClass("basic", IShowCase.class);
+        for (String clsName : clsNameList) {
             try {
-                IShowCase showCase = (IShowCase) cls.getDeclaredConstructor().newInstance();
-                if (!(showCase instanceof IShowCase)) continue;
-                showCase.saySomething();
-                showCase.showSomething();
+                Class cls = Class.forName(clsName);
+                Object obj = cls.getDeclaredConstructor().newInstance();
+                if (obj instanceof IShowCase) {
+                    IShowCase showCase = (IShowCase) obj;
+                    showCase.saySomething();
+                    showCase.showSomething();
+                }
             } catch (Throwable throwable) {
                 logger.error(throwable.getMessage(), throwable);
             }
