@@ -77,6 +77,8 @@ module pickjob.java.starter {
     opens fx.hello.coding to javafx.graphics;
 
     opens framework.mybatis to org.mybatis;
+    exports framework.quartz;
+    opens framework.quartz to quartz;
 
     opens fx.hello.fxml to javafx.graphics
             , javafx.fxml
