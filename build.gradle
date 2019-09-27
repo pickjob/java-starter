@@ -1,15 +1,14 @@
 plugins {
     id 'java'
-    id 'application'
     id 'idea'
-    id 'com.zyxist.chainsaw' version '0.3.1'
+    id 'application'
     id 'me.champeau.gradle.jmh' version '0.4.8'
 }
 
 group 'pickjob'
 version '0.0.1'
-javaModule.name = 'pickjob.java.starter'
 mainClassName = 'app.Application'
+ext.moduleName = 'pickjob.java.starter'
 ext.os = org.gradle.internal.os.OperatingSystem.current().isWindows() ? 'win':'linux'
 
 dependencies {
@@ -123,37 +122,33 @@ compileJava {
     sourceCompatibility = 12
     targetCompatibility = 12
     options.encoding = 'UTF-8'
-}
-compileTestJava {
-    sourceCompatibility = 12
-    targetCompatibility = 12
-    options.encoding = 'UTF-8'
+    options.compilerArgs = [
+            '--module-path', classpath.asPath
+    ]
 }
 processResources {
-    destinationDir = sourceSets.main.java.outputDir
-}
-processTestResources {
-    destinationDir = sourceSets.test.java.outputDir
+    from('src/main/resources') {
+        into '../../classes/java/main'
+    }
 }
 jar {
     manifest {
         attributes 'Main-Class': "${mainClassName}"
+        attributes 'Automatic-Module-Name': "#{moduleName}"
         attributes 'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
     }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-test {
-    // JUNIT5
-    useJUnitPlatform()
 }
 /*
  * Plugin: Appliction
  */
 run {
-    main = "${mainClassName}"
-    jvmArgs = ['--add-opens', 'java.base/java.math=dubbo', '--add-opens', 'java.base/java.lang=dubbo']
+    jvmArgs = [
+            '-Dfile.encoding=UTF-8',
+            '--module-path', classpath.asPath,
+            '--add-opens', 'java.base/java.math=dubbo',
+            '--add-opens', 'java.base/java.lang=dubbo',
+            '--module', "$moduleName/$mainClassName"
+    ]
 }
 /*
  *  Plugin: idea 配置
@@ -162,8 +157,5 @@ idea {
     module {
         downloadJavadoc = true
         downloadSources = true
-        inheritOutputDirs = false
-        outputDir = sourceSets.main.java.outputDir
-        testOutputDir = sourceSets.test.java.outputDir
     }
 }
