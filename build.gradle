@@ -1,14 +1,17 @@
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.regex.Matcher
+
 plugins {
     id 'java'
     id 'idea'
     id 'application'
-    id 'me.champeau.gradle.jmh' version '0.4.8'
 }
 
 group 'pickjob'
 version '0.0.1'
-mainClassName = 'app.Application'
-ext.moduleName = 'pickjob.java.starter'
+mainClassName = ''
+ext.moduleMainClassName = 'pickjob.java.starter/app.Application'
 ext.os = org.gradle.internal.os.OperatingSystem.current().isWindows() ? 'win':'linux'
 
 dependencies {
@@ -103,10 +106,6 @@ dependencies {
 
     // charset
     implementation 'net.freeutils:jcharset:2.0'
-    
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
 
 }
 
@@ -130,11 +129,23 @@ processResources {
     from('src/main/resources') {
         into '../../classes/java/main'
     }
+    doLast {
+        System.out.println(destinationDir)
+        Files.walk(Path.of(destinationDir.toURI()))
+                .sorted({ p1, p2 ->
+                    return p2.compareTo(p1)
+                })
+                .map({ p ->
+                    return p.toFile()
+                })
+                .forEach({ p ->
+                    p.delete()
+                })
+    }
 }
 jar {
     manifest {
-        attributes 'Main-Class': "${mainClassName}"
-        attributes 'Automatic-Module-Name': "#{moduleName}"
+        attributes 'Main-Class': "app.Application"
         attributes 'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
     }
 }
@@ -147,8 +158,47 @@ run {
             '--module-path', classpath.asPath,
             '--add-opens', 'java.base/java.math=dubbo',
             '--add-opens', 'java.base/java.lang=dubbo',
-            '--module', "$moduleName/$mainClassName"
+            '--module', "$moduleMainClassName"
     ]
+}
+startScripts {
+    defaultJvmOpts = [
+            '-Dfile.encoding=UTF-8',
+            '--add-opens', 'java.base/java.math=dubbo',
+            '--add-opens', 'java.base/java.lang=dubbo'
+    ]
+    doLast{
+        def bashFile = new File(outputDir, applicationName)
+        String bashContent = bashFile.text
+        bashFile.text = bashContent.lines().collect(
+                {new StringBuilder()},
+                {sb, line ->
+                    if (!line.startsWith("CLASSPATH=")) {
+                        line = line.replaceAll('-classpath "\\\\"\\$CLASSPATH\\\\""', '--module-path \\$APP_HOME/lib' + " --module $moduleMainClassName")
+                        sb.append(line)
+                        sb.append("\n")
+                    }
+                },
+                {sb1, sb2 ->
+                    sb1.append(sb2)
+                }).toString()
+
+        def batFile = new File(outputDir, applicationName + '.bat')
+        String batContent = batFile.text
+        batFile.text = batContent.lines().collect(
+                {new StringBuilder()},
+                {sb, line ->
+                    if (!line.startsWith("set CLASSPATH=")) {
+                        line = line.replaceAll('-classpath "%CLASSPATH%"', '--module-path %APP_HOME%\\lib' + " --module $moduleMainClassName")
+                        sb.append(line)
+                        sb.append("\r\n")
+                    }
+                    sb.append(line)
+                },
+                {sb1, sb2 ->
+                    sb1.append(sb2)
+                }).toString()
+    }
 }
 /*
  *  Plugin: idea 配置
