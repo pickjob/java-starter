@@ -33,14 +33,12 @@ public class ScanUtil {
                     if (!cls.isInterface()) {
                         Object obj = cls.getDeclaredConstructor().newInstance();
                         if (className == null || className.isInstance(obj)) {
-                            if (logger.isDebugEnabled()) logger.debug("checkout clsName: {}", clsName);
                             clsList.add(clsName);
                         }
                     }
                 } catch (Throwable e) {
                     if (logger.isDebugEnabled()) logger.debug(e.getMessage(), e);
                 }
-
             }
         }
         return clsList;
@@ -48,30 +46,33 @@ public class ScanUtil {
 
     private static Set<String> scanAllClasses() {
         Set<String> clsList = new HashSet<>();
-        try {
-            String modulePath = System.getProperty(JDK_MODULE_PATH);
-            if (StringUtils.isNotBlank(modulePath)) {
-                String[] paths = modulePath.split(File.pathSeparator);
-                for (int i = 0; i < paths.length; i++) {
+        String modulePath = System.getProperty(JDK_MODULE_PATH);
+        if (StringUtils.isNotBlank(modulePath)) {
+            String[] paths = modulePath.split(File.pathSeparator);
+            for (int i = 0; i < paths.length; i++) {
+                try {
                     File file = new File(paths[i]);
                     if (file.exists()) {
-                        if (logger.isDebugEnabled())  logger.debug("scan file {}", paths[i]);
                         if (file.isDirectory()) {
-                            clsList.addAll(scanClassesFromDirectory(paths[i], file));
+                            clsList.addAll(scanClassesFromDirectory(file.getCanonicalPath(), file));
                         } else {
-                            JarFile jarFile = new JarFile(file);
-                            clsList.addAll(scanClassesFromJarFile(jarFile));
+                            if (file.getName().endsWith(".jar")) {
+                                JarFile jarFile = new JarFile(file);
+                                clsList.addAll(scanClassesFromJarFile(jarFile));
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
                 }
             }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
         }
         return clsList;
     }
 
-    private static List<String> scanClassesFromDirectory(String rootPath, File directory) {
+    private static List<String> scanClassesFromDirectory(String rootPath, File directory) throws Exception {
+        String currentPath = directory.getCanonicalPath();
+        if (logger.isDebugEnabled()) logger.debug("scan directory: {}", currentPath);
         List<String> clsList = new ArrayList<>();
         File[] childFiles = directory.listFiles();
         for (File childFile : childFiles) {
@@ -80,31 +81,37 @@ public class ScanUtil {
             } else {
                 String fileName = childFile.getName();
                 if (fileName.endsWith(".class") && !fileName.contains("$")) {
-                    String clsName = childFile.getPath()
+                    String clsName = currentPath
                             .substring(rootPath.length())
-                            .replaceAll("\\".equals(File.separator) ? "\\\\":File.separator, ".")
+                            .replaceAll("/", ".")
+                            .replaceAll("\\\\", ".")
+                            + "." + fileName
                             ;
                     if (clsName.startsWith(".")) clsName = clsName.substring(1);
                     if (clsName.endsWith(".class")) clsName = clsName.substring(0, clsName.length() - 6);
-                    if (logger.isDebugEnabled())  logger.debug("{} => {}", childFile.getPath(), clsName);
                     clsList.add(clsName);
+                } else if (fileName.endsWith(".jar")) {
+                    JarFile jarFile = new JarFile(childFile);
+                    clsList.addAll(scanClassesFromJarFile(jarFile));
                 }
             }
         }
         return clsList;
     }
 
-    private static List<String> scanClassesFromJarFile(JarFile jarFile) throws Exception {
+    private static List<String> scanClassesFromJarFile(JarFile jarFile) {
+        if (logger.isDebugEnabled()) logger.debug("scan jarFile: {}", jarFile.getName());
         List<String> clsList = new ArrayList<>();
         Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
             JarEntry jarEntry = entries.nextElement();
             String entryName = jarEntry.getName();
             if (entryName.endsWith(".class") && !entryName.contains("$")) {
-                String clsName = entryName.replaceAll("\\".equals(File.separator) ? "\\\\":File.separator, ".");
+                String clsName = entryName
+                        .replaceAll("/", ".")
+                        .replaceAll("\\\\", ".");
                 if (clsName.startsWith(".")) clsName = clsName.substring(1);
                 if (clsName.endsWith(".class")) clsName = clsName.substring(0, clsName.length() - 6);
-                if (logger.isDebugEnabled())  logger.debug("{} => {}", entryName, clsName);
                 clsList.add(clsName);
             }
         }
@@ -112,5 +119,4 @@ public class ScanUtil {
     }
 
     static final String JDK_MODULE_PATH = "jdk.module.path";
-    static final String PATH_SEPARATOR = "path.separator";
 }

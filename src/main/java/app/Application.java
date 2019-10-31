@@ -11,12 +11,11 @@ public class Application {
     private static Logger logger = LogManager.getLogger(Application.class);
 
     public static void main(String[] args) {
-        logger.info("Hello world");
-        logger.info("{}", System.getProperties());
         traverseShowCase();
     }
 
     private static void traverseShowCase() {
+        boolean showedFlag = false;
         Set<String> clsNameList = ScanUtil.scanClassWithPackageAndClass("basic", IShowCase.class);
         for (String clsName : clsNameList) {
             try {
@@ -24,12 +23,18 @@ public class Application {
                 Object obj = cls.getDeclaredConstructor().newInstance();
                 if (obj instanceof IShowCase) {
                     IShowCase showCase = (IShowCase) obj;
-                    showCase.saySomething();
-                    showCase.showSomething();
+                    if (showCase.isShow()) {
+                        showCase.saySomething();
+                        showCase.showSomething();
+                        showedFlag = true;
+                    }
                 }
             } catch (Throwable throwable) {
                 logger.error(throwable.getMessage(), throwable);
             }
+        }
+        if (!showedFlag) {
+            logger.info("Hello world");
         }
     }
 }
