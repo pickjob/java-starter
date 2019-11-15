@@ -10,8 +10,8 @@ public class IdServiceImpl implements IdService {
     private long seq;
     private long genMethod;
     private long verion;
-    private long baseTime = 1546272000000l; // 2019-1-1
-    private long lastTime = 0;
+    private long baseTime = 1546272000000L; // 2019-1-1
+    private volatile long lastTime = 0;
 
     public IdServiceImpl() {
         this.machineId = 0;

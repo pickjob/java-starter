@@ -17,8 +17,8 @@ public class HikariCPShowCase {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("china");
         dataSource.setPassword("chinese");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost/sample?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false");
+        dataSource.setDriverClassName("com.framework.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:framework.mysql://localhost/sample?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false");
         Properties properties = new Properties();
         properties.put("cachePrepStmts", true);
         properties.put("prepStmtCacheSize", 250);

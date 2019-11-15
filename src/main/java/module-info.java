@@ -19,7 +19,7 @@ module pickjob.java.starter {
     requires java.jwt;
     // netty
     requires io.netty.all;
-    // mysql
+    // framework.mysql
     requires mysql.connector.java;
     // hikari
     requires com.zaxxer.hikari;
@@ -73,7 +73,7 @@ module pickjob.java.starter {
     opens framework.validator.annotation to org.hibernate.validator;
     opens framework.validator.domain to org.hibernate.validator;
     opens framework.dubbo.common to dubbo;
-    opens smpp.util to com.fasterxml.jackson.databind;
+    opens framework.smpp.util to com.fasterxml.jackson.databind;
     opens fx.hello.coding to javafx.graphics;
 
     opens framework.mybatis to org.mybatis;

@@ -1,5 +1,6 @@
 package basic.jdbc;
 
+import common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -7,13 +8,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCShowCase {
+public class JDBCShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(JDBCShowCase.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void saySomething() {
+        logger.info("JDBC反射数据类表、字段类型");
+    }
+
+    @Override
+    public void showSomething() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/sample?useSSL=false", "china", "chinese");
+            connection = DriverManager.getConnection("jdbc:framework.mysql://framework.mysql/sample?useSSL=false", "china", "chinese");
             DatabaseMetaData databaseMetaData = connection.getMetaData();
             ResultSet dataBaseResultSet = databaseMetaData.getTables(null, null, null, null);
             showResultSetInfo(dataBaseResultSet);

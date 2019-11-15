@@ -24,8 +24,8 @@ public class DataSourceConfiguration {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("china");
         dataSource.setPassword("chinese");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost/sample?useSSL=false");
+        dataSource.setDriverClassName("com.framework.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:framework.mysql://localhost/sample?useSSL=false");
         return dataSource;
     }
 
