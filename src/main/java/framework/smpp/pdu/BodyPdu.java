@@ -1,4 +1,4 @@
-package smpp.pdu;
+package framework.smpp.pdu;
 
 
 public abstract class BodyPdu implements Stream {

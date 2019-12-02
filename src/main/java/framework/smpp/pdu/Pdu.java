@@ -1,4 +1,4 @@
-package smpp.pdu;
+package framework.smpp.pdu;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

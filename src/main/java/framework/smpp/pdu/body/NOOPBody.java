@@ -1,9 +1,9 @@
-package smpp.pdu.body;
+package framework.smpp.pdu.body;
 
 import io.netty.buffer.ByteBuf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import smpp.pdu.BodyPdu;
+import framework.smpp.pdu.BodyPdu;
 
 public class NOOPBody extends BodyPdu {
     private static Logger logger = LogManager.getLogger(NOOPBody.class);

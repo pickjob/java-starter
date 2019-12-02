@@ -1,4 +1,4 @@
-package smpp.handler;
+package framework.smpp.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -6,8 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import smpp.pdu.Pdu;
-import smpp.pdu.PduFactory;
+import framework.smpp.pdu.Pdu;
+import framework.smpp.pdu.PduFactory;
 
 import java.util.List;
 

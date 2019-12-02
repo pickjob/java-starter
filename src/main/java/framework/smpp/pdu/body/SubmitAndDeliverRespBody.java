@@ -1,10 +1,10 @@
-package smpp.pdu.body;
+package framework.smpp.pdu.body;
 
 import io.netty.buffer.ByteBuf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import smpp.pdu.BodyPdu;
-import smpp.util.StringCodeUtil;
+import framework.smpp.pdu.BodyPdu;
+import framework.smpp.util.StringCodeUtil;
 
 public class SubmitAndDeliverRespBody extends BodyPdu {
     private static final Logger logger = LogManager.getLogger(SubmitAndDeliverRespBody.class);

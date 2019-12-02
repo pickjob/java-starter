@@ -1,12 +1,12 @@
-package smpp.pdu;
+package framework.smpp.pdu;
 
 import io.netty.buffer.ByteBuf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import smpp.pdu.body.*;
-import smpp.pdu.entity.*;
-import smpp.util.CommandId;
-import smpp.util.SequenceUtil;
+import framework.smpp.pdu.body.*;
+import framework.smpp.pdu.entity.*;
+import framework.smpp.util.CommandId;
+import framework.smpp.util.SequenceUtil;
 
 import java.util.HashMap;
 import java.util.Map;

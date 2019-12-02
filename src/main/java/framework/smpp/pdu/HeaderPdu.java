@@ -1,4 +1,4 @@
-package smpp.pdu;
+package framework.smpp.pdu;
 
 import io.netty.buffer.ByteBuf;
 

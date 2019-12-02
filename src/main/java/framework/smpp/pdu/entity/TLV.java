@@ -1,4 +1,4 @@
-package smpp.pdu.entity;
+package framework.smpp.pdu.entity;
 
 import io.netty.buffer.ByteBuf;
 
