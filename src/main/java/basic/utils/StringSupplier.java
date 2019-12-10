@@ -22,7 +22,7 @@ public class StringSupplier implements Supplier<String> {
             if (i < 'z' - 'a' + 1) chars[i] = (char)('a' + i);
             else chars[i] = (char)('A' + i - 'z' + 'a' - 1);
         }
-        logger.info(Arrays.toString(chars));
+        logger.debug(Arrays.toString(chars));
     }
 
     @Override
