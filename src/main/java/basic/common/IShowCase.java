@@ -1,4 +1,4 @@
-package common;
+package basic.common;
 
 /**
  * @author pickjob@126.com

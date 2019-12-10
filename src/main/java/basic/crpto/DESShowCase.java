@@ -1,6 +1,6 @@
 package basic.crpto;
 
-import common.IShowCase;
+import basic.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

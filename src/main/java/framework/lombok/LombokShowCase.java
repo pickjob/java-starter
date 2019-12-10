@@ -1,6 +1,6 @@
 package framework.lombok;
 
-import common.IShowCase;
+import basic.common.IShowCase;
 import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

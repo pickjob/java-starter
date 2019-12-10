@@ -1,9 +1,9 @@
 package basic.jcf;
 
-import common.IShowCase;
+import basic.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.StringSupplier;
+import basic.utils.StringSupplier;
 
 import java.util.ArrayList;
 import java.util.List;

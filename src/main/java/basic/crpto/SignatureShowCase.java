@@ -1,12 +1,11 @@
 package basic.crpto;
 
-import common.IShowCase;
+import basic.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 
 /**
