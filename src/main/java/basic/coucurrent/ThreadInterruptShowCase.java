@@ -26,7 +26,7 @@ public class ThreadInterruptShowCase implements IShowCase {
                 countDownLatch.countDown();
                 Thread.sleep(Integer.MAX_VALUE);
             } catch (InterruptedException e) {
-                logger.info("{}中断异常", Thread.currentThread().getName());
+                logger.error("{}中断异常", Thread.currentThread().getName());
                 logger.error(e.getMessage(), e);
             }
         });
