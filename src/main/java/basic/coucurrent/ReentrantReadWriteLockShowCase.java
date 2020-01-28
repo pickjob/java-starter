@@ -34,11 +34,6 @@ public class ReentrantReadWriteLockShowCase implements IShowCase {
             }).start();
         }
     }
-
-    @Override
-    public boolean isShow() {
-        return true;
-    }
 }
 
 class RWDictionary {
