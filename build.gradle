@@ -77,13 +77,13 @@ dependencies {
     implementation 'cglib:cglib:3.2.11'
 
     // javafx
-    implementation "org.openjfx:javafx-base:12:${os}"
-    implementation "org.openjfx:javafx-graphics:12:${os}"
-    implementation "org.openjfx:javafx-controls:12:${os}"
-    implementation "org.openjfx:javafx-fxml:12:${os}"
-    implementation "org.openjfx:javafx-media:12:${os}"
-    implementation "org.openjfx:javafx-swing:12:${os}"
-    implementation "org.openjfx:javafx-web:12:${os}"
+    implementation "org.openjfx:javafx-base:14:${os}"
+    implementation "org.openjfx:javafx-graphics:14:${os}"
+    implementation "org.openjfx:javafx-controls:14:${os}"
+    implementation "org.openjfx:javafx-fxml:14:${os}"
+    implementation "org.openjfx:javafx-media:14:${os}"
+    implementation "org.openjfx:javafx-swing:14:${os}"
+    implementation "org.openjfx:javafx-web:14:${os}"
 
     // hibernate validation
     implementation 'org.hibernate:hibernate-validator:6.0.16.Final'
@@ -98,11 +98,11 @@ dependencies {
     implementation 'javax.management.j2ee:javax.management.j2ee-api:1.1.2'
 
     // springframework
-    implementation 'org.springframework:spring-context:5.1.6.RELEASE'
-    implementation 'org.springframework:spring-context-support:5.1.6.RELEASE'
-    implementation 'org.springframework:spring-jdbc:5.1.6.RELEASE'
-    implementation 'org.springframework:spring-tx:5.1.6.RELEASE'
-    implementation 'org.springframework:spring-webmvc:5.1.6.RELEASE'
+    implementation 'org.springframework:spring-context:5.2.4.RELEASE'
+    implementation 'org.springframework:spring-context-support:5.2.4.RELEASE'
+    implementation 'org.springframework:spring-jdbc:5.2.4.RELEASE'
+    implementation 'org.springframework:spring-tx:5.2.4.RELEASE'
+    implementation 'org.springframework:spring-webmvc:5.2.4.RELEASE'
 
 }
 
@@ -198,6 +198,7 @@ startScripts {
 }
 /*
  *  Plugin: idea 配置
+ *      gradle cleanIdea idea
  */
 idea {
     module {

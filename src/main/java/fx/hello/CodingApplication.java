@@ -1,5 +1,6 @@
-package fx.hello.coding;
+package fx.hello;
 
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class CodingApplication extends javafx.application.Application {
+public class CodingApplication extends Application {
 	private static final Logger logger = LogManager.getLogger(CodingApplication.class);
 
 	@Override

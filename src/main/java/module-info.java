@@ -57,6 +57,7 @@ module pickjob.java.starter {
     // spring
     requires spring.core;
     requires spring.beans;
+    requires spring.aop;
     requires spring.context;
     requires spring.context.support;
     requires spring.web;
@@ -74,13 +75,12 @@ module pickjob.java.starter {
     opens framework.validator.domain to org.hibernate.validator;
     opens framework.dubbo.common to dubbo;
     opens framework.smpp.util to com.fasterxml.jackson.databind;
-    opens fx.hello.coding to javafx.graphics;
 
     opens framework.mybatis to org.mybatis;
     exports framework.quartz;
     opens framework.quartz to quartz;
 
-    opens fx.hello.fxml to javafx.graphics
+    opens fx.hello to javafx.graphics
             , javafx.fxml
             ;
     opens fx.layout to javafx.base
@@ -96,10 +96,6 @@ module pickjob.java.starter {
             , javafx.fxml
             ;
     opens fx.charts to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.entity to javafx.base
             , javafx.graphics
             , javafx.fxml
             ;

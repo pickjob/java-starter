@@ -16,16 +16,16 @@ import java.util.Properties;
  * @author pickjob@126.com
  * @time 2019-05-05
  */
-@EnableTransactionManagement
 @Configuration
+@EnableTransactionManagement
 public class DataSourceConfiguration {
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("china");
         dataSource.setPassword("chinese");
-        dataSource.setDriverClassName("com.framework.mysql.cj.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:framework.mysql://localhost/sample?useSSL=false");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:framework.mysql://mysql/sample?useSSL=false");
         return dataSource;
     }
 

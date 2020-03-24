@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:controller="fx.hello.fxml.FxmlController"
+<GridPane fx:controller="fx.hello.FxmlController"
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" 
     styleClass="root">
   <padding><Insets top="25" right="25" bottom="10" left="25" /></padding>
@@ -30,7 +30,7 @@
   <Text fx:id="actiontarget" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
 
   <stylesheets>
-    <URL value="@Login.css" />
+    <URL value="@fxml/Login.css" />
   </stylesheets>
   
 </GridPane>

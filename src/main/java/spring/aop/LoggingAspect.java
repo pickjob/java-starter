@@ -14,15 +14,15 @@ import java.util.UUID;
  * @author pickjob@126.com
  * @time 2019-04-27
  **/
-@Aspect
 @Component
+@Aspect
 public class LoggingAspect implements Ordered {
     private static Logger logger = LogManager.getLogger(LoggingAspect.class);
 
     @Around("execution(public * spring..*(..))")
     public Object accessLogging(ProceedingJoinPoint pjp) throws Throwable {
         String id = UUID.randomUUID().toString();
-        logger.info("{} entering {} {}", id, pjp.toLongString());
+        logger.info("{} entering {}", id, pjp.toLongString());
         Object retVal = pjp.proceed();
         logger.info("{} leaving", id);
         return retVal;

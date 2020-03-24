@@ -1,9 +1,7 @@
 package fx.control;
 
-import fx.entity.EntityFactory;
-import fx.entity.MyTextFieldListCell;
-import fx.entity.Person;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,18 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextFlow;
-import javafx.scene.web.HTMLEditor;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author pickjob@126.com
@@ -36,16 +25,118 @@ public class FxShowCase extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        VBox hBox = new VBox();
-        hBox.setSpacing(10);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.setPrefWidth(450);
-        hBox.getChildren().addAll(createContent());
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPrefWidth(200);
+        ObservableList<Node> vBoxContent = vBox.getChildren();
 
-        ScrollPane scrollPane = new ScrollPane(hBox);
-        Scene scene = new Scene(scrollPane, 450, 500);
+        HBox labelHBox = new HBox();
+        labelHBox.setAlignment(Pos.CENTER);
+        labelHBox.getChildren().addAll(new Label("Label"),
+                new Hyperlink("Hyperlink"));
+
+        TextField textField = new TextField("TextField");
+        PasswordField passwordField = new PasswordField();
+
+        HBox buttonHBox = new HBox();
+        buttonHBox.setAlignment(Pos.CENTER);
+        buttonHBox.getChildren().addAll(new Button("Button"), new CheckBox("CheckBox"));
+
+        MenuButton menuButton = new MenuButton("MenuButton");
+        menuButton.getItems().addAll(new MenuItem("MenuItem-1"), new MenuItem("MenuItem-2"));
+
+        ChoiceBox choiceBox = new ChoiceBox();
+        choiceBox.getItems().addAll("ChoiceBox-1", "ChoiceBox-2", "ChoiceBox-3");
+
+        HBox toggleButtonHBox = new HBox();
+        ToggleButton toggleButton1 = new ToggleButton("ToggleButton-1");
+        ToggleButton toggleButton2 = new ToggleButton("ToggleButton-2");
+        ToggleButton toggleButton3 = new ToggleButton("ToggleButton-3");
+        ToggleGroup toggleGroup1 = new ToggleGroup();
+        toggleButton1.setToggleGroup(toggleGroup1);
+        toggleButton2.setToggleGroup(toggleGroup1);
+        toggleButton3.setToggleGroup(toggleGroup1);
+        toggleGroup1.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> observable, Toggle old, Toggle now) -> {
+            logger.info("old: {}, now: {}", old, now);
+        });
+        toggleButtonHBox.getChildren().addAll(toggleButton1, toggleButton2, toggleButton3);
+
+        HBox radioButtonHBox = new HBox();
+        ToggleGroup toggleGroup2 = new ToggleGroup();
+        RadioButton radioButton1 = new RadioButton("RadioButton-1");
+        radioButton1.setToggleGroup(toggleGroup2);
+        RadioButton radioButton2 = new RadioButton("RadioButton-2");
+        radioButton2.setToggleGroup(toggleGroup2);
+        RadioButton radioButton3 = new RadioButton("RadioButton-3");
+        radioButton3.setToggleGroup(toggleGroup2);
+        radioButtonHBox.getChildren().addAll(radioButton1, radioButton2, radioButton3);
+
+        ComboBox comboBox = new ComboBox();
+        comboBox.getItems().addAll("ComboBox-1", "ComboBox-2", "ComboBox-3");
+
+        Slider slider = new Slider(0, 100, 50);
+        Label sliderLabel = new Label("50");
+        slider.valueProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number oldVal, Number newVal) -> {
+                    sliderLabel.setText(String.format("%.2f", newVal));
+                });
+        HBox sliderHBox = new HBox();
+        sliderHBox.getChildren().addAll(sliderLabel, slider);
+
+        ProgressBar progressBar = new ProgressBar(0.6);
+        ProgressIndicator progressIndicator = new ProgressIndicator(0.6);
+        Pagination pagination = new Pagination();
+
+        ListView listView = new ListView();
+        listView.setPrefHeight(40);
+        listView.getItems().addAll("Item-1", "Item-2", "Item-3");
+
+        TableView tableView = new TableView();
+        TableColumn<User, String> firstNameCol = new TableColumn("First Name");
+        TableColumn<User, String> lastNameCol = new TableColumn("Last Name");
+        TableColumn<User, String> emailCol = new TableColumn("Email");
+//        TableColumn firstEmailCol = new TableColumn("Primary");
+//        TableColumn secondEmailCol = new TableColumn("Secondary");
+//        emailCol.getColumns().addAll(firstEmailCol, secondEmailCol);
+        ObservableList<User> data = FXCollections.observableArrayList(
+                new User("Jacob", "Smith", "Jacob.smith@example.com")
+        );
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory<>("firstName")
+        );
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<>("lastName")
+        );
+        emailCol.setCellValueFactory(
+                new PropertyValueFactory<>("email")
+        );
+        firstNameCol.setCellFactory(TextFieldTableCell.<User>forTableColumn());
+        firstNameCol.setOnEditCommit(
+                (TableColumn.CellEditEvent<User, String> t) -> {
+                    ((User) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    ).setFirstName(t.getNewValue());
+                });
+
+        lastNameCol.setCellFactory(TextFieldTableCell.<User>forTableColumn());
+        lastNameCol.setOnEditCommit(
+                (TableColumn.CellEditEvent<User, String> t) -> {
+                    ((User) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    ).setLastName(t.getNewValue());
+                });
+        tableView.setEditable(true);
+        tableView.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        tableView.setItems(data);
+
+        vBoxContent.addAll(labelHBox, textField, passwordField,
+                buttonHBox, menuButton, choiceBox, toggleButtonHBox, radioButtonHBox,
+                comboBox, sliderHBox, progressBar, progressIndicator, pagination,
+                listView, tableView);
+
+        Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Fx-ShowCase");
+        primaryStage.setTitle("Fx-Controller-ShowCase");
         primaryStage.show();
     }
 
@@ -53,206 +144,52 @@ public class FxShowCase extends Application {
         launch(args);
     }
 
-    public List<Node> createContent() {
-        List<Node> result = new ArrayList<>();
-        result.add(new Label("Label"));
-        result.add(new Hyperlink("Hyperlink"));
-        result.add(new Button("Button"));
+    public static class User {
+        private SimpleStringProperty firstName;
+        private SimpleStringProperty lastName;
+        private SimpleStringProperty email;
 
-        TextFlow textFlow = new TextFlow();
-        Button button = new Button("button");
-        ToggleButton toggleButton = new ToggleButton("ToggleButton");
-        textFlow.getChildren().addAll(button, toggleButton);
-        result.add(textFlow);
-
-        ToggleGroup toggleGroup = new ToggleGroup();
-        RadioButton radioButton1 = new RadioButton("A");
-        radioButton1.setToggleGroup(toggleGroup);
-        RadioButton radioButton2 = new RadioButton("B(selected)");
-        radioButton2.setToggleGroup(toggleGroup);
-        radioButton2.setSelected(true);
-        RadioButton radioButton3 = new RadioButton("C");
-        radioButton3.setToggleGroup(toggleGroup);
-        toggleGroup.selectedToggleProperty().addListener(
-                (ObservableValue<? extends Toggle> observable, Toggle old, Toggle now) -> {
-                    logger.info("old: {}, now: {}", old, now);
-                }
-        );
-
-        HBox hBox1 = new HBox();
-        hBox1.setSpacing(5);
-        hBox1.setAlignment(Pos.CENTER);
-        hBox1.getChildren().addAll(radioButton1, radioButton2, radioButton3);
-        result.add(hBox1);
-
-        HBox hBox2 = new HBox();
-        hBox2.setSpacing(5);
-        hBox2.setAlignment(Pos.CENTER);
-        CheckBox checkBox1 = new CheckBox("Simple");
-        CheckBox checkBox2 = new CheckBox("Three-state");
-        checkBox2.setAllowIndeterminate(true);
-        checkBox2.setIndeterminate(false);
-        CheckBox checkBox3 = new CheckBox("Disabled");
-        checkBox3.setSelected(true);
-        hBox2.getChildren().addAll(checkBox1, checkBox2, checkBox3);
-        result.add(hBox2);
-
-        HBox hBox3 = new HBox();
-        hBox3.setSpacing(5);
-        hBox3.setAlignment(Pos.CENTER);
-        hBox3.getChildren().addAll(new TextField("TextField"), new PasswordField());
-        result.add(hBox3);
-
-        ChoiceBox choiceBox = new ChoiceBox();
-        choiceBox.getItems().addAll("Dog", "Cat", "Horse");
-        choiceBox.getSelectionModel().selectFirst();
-        result.add(choiceBox);
-
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(
-                "Highest",
-                "High",
-                "Normal",
-                "Low",
-                "Lowest"
-        );
-        comboBox.setValue("Normal");
-        comboBox.setCellFactory(view -> {
-            ListCell<String> cell = new ListCell<String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item != null) {
-                        setText(item);
-                        if (item.contains("High")) setTextFill(Color.RED);
-                        else if (item.contains("Low")) setTextFill(Color.GREEN);
-                        else setTextFill(Color.BLACK);
-                    }
-                    else setText(null);
-                }
-            };
-            return cell;
-        });
-        result.add(comboBox);
-
-        ToolBar toolBar = new ToolBar(new Slider());
-        result.add(toolBar);
-
-        Float[] values = new Float[] {-1.0f, 0f, 0.6f, 1.0f};
-        for (int i = 0; i < values.length; i++) {
-            Label label = new Label();
-            label.setText("progress:" + values[i]);
-            ProgressBar pb = new ProgressBar();
-            pb.setProgress(values[i]);
-            ProgressIndicator pin = new ProgressIndicator();
-            pin.setProgress(values[i]);
-            HBox box = new HBox();
-            box.setSpacing(5);
-            box.setAlignment(Pos.CENTER);
-            box.getChildren().addAll(label, pb, pin);
-            result.add(box);
+        public User(String firstName, String lastName, String email) {
+            this.firstName = new SimpleStringProperty(firstName);
+            this.lastName = new SimpleStringProperty(lastName);
+            this.email = new SimpleStringProperty(email);
         }
 
-        Pagination pagination = new Pagination(5);
-        pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
-        pagination.setPageFactory(i -> new Label("" + i));
-        result.add(pagination);
+        public String getFirstName() {
+            return firstName.get();
+        }
 
-        MenuItem menuItem = new MenuItem("menuItem");
-        RadioMenuItem radioMenuItem = new RadioMenuItem("radioMenuItem");
-        CheckMenuItem checkMenuItem = new CheckMenuItem("checkMenuItem");
-        Menu menu = new Menu("Menu");
-        menu.getItems().addAll(menuItem, radioMenuItem, checkMenuItem);
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().add(menu);
-        result.add(menuBar);
+        public SimpleStringProperty firstNameProperty() {
+            return firstName;
+        }
 
-        ColorPicker colorPicker = new ColorPicker();
-        result.add(colorPicker);
+        public void setFirstName(String firstName) {
+            this.firstName.set(firstName);
+        }
 
-        DatePicker datePicker = new DatePicker();
-        result.add(datePicker);
+        public String getLastName() {
+            return lastName.get();
+        }
 
-        ObservableList<Person> personList = FXCollections.<Person>observableArrayList(EntityFactory.generatePersons());
+        public SimpleStringProperty lastNameProperty() {
+            return lastName;
+        }
 
-        Spinner spinner = new Spinner();
-        SpinnerValueFactory<Person> svf = new SpinnerValueFactory.ListSpinnerValueFactory<>(personList);
-        svf.setConverter(new StringConverter<Person>() {
-            @Override
-            public String toString(Person object) {
-                return object.getName() + "-" + object.getAge();
-            }
+        public void setLastName(String lastName) {
+            this.lastName.set(lastName);
+        }
 
-            @Override
-            public Person fromString(String string) {
-                return new Person(string, 11);
-            }
-        });
-        spinner.setValueFactory(svf);
-        spinner.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL);
+        public String getEmail() {
+            return email.get();
+        }
 
-        HTMLEditor htmlEditor = new HTMLEditor();
-        htmlEditor.setHtmlText("<h1>Header 1</h1>");
+        public SimpleStringProperty emailProperty() {
+            return email;
+        }
 
-        ListView<Person> listView = new ListView<Person>(personList);
-        listView.setEditable(true);
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        listView.setCellFactory(view -> new MyTextFieldListCell());
-        listView.setOnEditCommit(e -> {
-            ObservableList<Person> list = e.getSource().getItems();
-            Person p = list.get(e.getIndex());
-            p.setName(e.getNewValue().getName());
-            logger.info("{}", p);
-        });
-
-        TableColumn<Person, String> nameCol = new TableColumn<>();
-        nameCol.setText("name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        TableColumn<Person, Integer> ageCol = new TableColumn<>();
-        ageCol.setText("age");
-        ageCol.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
-        TableColumn<Person, Boolean> auditCol = new TableColumn<>();
-        auditCol.setText("audit");
-        auditCol.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("audit"));
-        auditCol.setCellFactory(CheckBoxTableCell.forTableColumn(auditCol));
-        TableView<Person> tableView = new TableView<>();
-        tableView.setItems(personList);
-        tableView.setEditable(true);
-        tableView.getColumns().addAll(nameCol, ageCol, auditCol);
-
-        TreeItem<Person> root = EntityFactory.generateTreePerson();
-
-        TreeView<Person> treeView = new TreeView<>(root);
-        treeView.setShowRoot(true);
-
-        TreeTableColumn<Person, String> nameColumn = new TreeTableColumn<>("Name");
-        nameColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Person, String>("name"));
-        TreeTableColumn<Person, String> ageColumn = new TreeTableColumn<>("Age");
-        ageColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Person, String>("age"));
-        TreeTableColumn<Person, Boolean> auditColumn = new TreeTableColumn<>("audit");
-        auditColumn.setCellValueFactory(new TreeItemPropertyValueFactory<Person, Boolean>("audit"));
-        auditColumn.setCellFactory(CheckBoxTreeTableCell.forTreeTableColumn(auditColumn));
-        TreeTableView<Person> treeTableView = new TreeTableView<>(root);
-        treeTableView.setEditable(true);
-        treeTableView.getColumns().addAll(nameColumn, ageColumn, auditColumn);
-
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-        webEngine.load("http://www.baidu.com");
-
-        Accordion accordion = new Accordion();
-        accordion.getPanes().addAll(new TitledPane("Spinner", spinner),
-                                    new TitledPane("HTMLEditor", htmlEditor),
-                                    new TitledPane("ListView", listView),
-                                    new TitledPane("TableView", tableView),
-                                    new TitledPane("TreeView", treeView),
-                                    new TitledPane("TreeTableView", treeTableView),
-                                    new TitledPane("WebView", webView)
-        );
-
-        result.add(accordion);
-
-        return result;
+        public void setEmail(String email) {
+            this.email.set(email);
+        }
     }
 }
+
