@@ -1,0 +1,43 @@
+plugins {
+    id 'application'
+}
+
+application {
+    mainModule = 'pickjob.java.starter'
+    mainClass = 'app.Application'
+}
+
+dependencies {
+    implementation project(':base')
+    implementation project(':automatic-module')
+
+    // jackson
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.0'
+    // guava
+    implementation 'com.google.guava:guava:29.0-jre'
+    // netty
+    implementation 'io.netty:netty-all:4.1.50.Final'
+    // hibernate validation
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.hibernate:hibernate-validator:6.0.16.Final'
+    // javafx
+    implementation "org.openjfx:javafx-base:14:${os}"
+    implementation "org.openjfx:javafx-graphics:14:${os}"
+    implementation "org.openjfx:javafx-controls:14:${os}"
+    implementation "org.openjfx:javafx-fxml:14:${os}"
+    implementation "org.openjfx:javafx-media:14:${os}"
+    implementation "org.openjfx:javafx-swing:14:${os}"
+    implementation "org.openjfx:javafx-web:14:${os}"
+
+}
+
+run {
+    jvmArgs = [
+            '-Dio.netty.tryUnsafe=false',
+            '--add-opens', 'pickjob.java.starter/frame.validator=pickjob.java.starter.base'
+    ]
+    systemProperties.put("file.encoding", "UTF-8")
+}
