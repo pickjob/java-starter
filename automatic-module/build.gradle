@@ -12,10 +12,6 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.15'
     // mybatis
     implementation 'org.mybatis:mybatis:3.5.1'
-    // lettuce
-    implementation ('io.lettuce:lettuce-core:5.1.7.RELEASE') {
-        exclude group: 'io.netty'
-    }
     // hikariCP
     implementation 'com.zaxxer:HikariCP:3.3.1'
 

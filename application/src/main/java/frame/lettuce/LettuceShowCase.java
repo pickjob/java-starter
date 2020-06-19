@@ -1,4 +1,4 @@
-package framework.lettuce;
+package frame.lettuce;
 
 import app.common.IShowCase;
 import io.lettuce.core.RedisClient;

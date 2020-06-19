@@ -19,8 +19,10 @@ module pickjob.java.starter {
     requires com.google.common;
     // netty
     requires io.netty.all;
-    // vali
+    // validation
     requires java.validation;
+    // lettuce
+    requires lettuce.core;
     // javafx
     requires javafx.graphics;
     requires javafx.controls;
