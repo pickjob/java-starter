@@ -1,6 +1,7 @@
 package smpp.handler;
 
 
+import app.snowflake.supplier.SynchronizedIdSupplier;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -8,8 +9,6 @@ import io.netty.util.ReferenceCountUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import app.snowflake.IdService;
-import app.snowflake.IdServiceImpl;
 import smpp.pdu.BodyPdu;
 import smpp.pdu.HeaderPdu;
 import smpp.pdu.Pdu;
@@ -24,11 +23,12 @@ import smpp.util.*;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class SmppHandler extends ChannelDuplexHandler {
 	private final Logger logger = LogManager.getLogger(SmppHandler.class);
 	private ChannelHandlerContext ctx;
-	private IdService idService = new IdServiceImpl();
+	private Supplier<Long> idService = new SynchronizedIdSupplier(1, 1, 1);
 	private volatile boolean open = false;
 	private volatile boolean login = false;
 	private CountDownLatch connectCountDownLatch;
@@ -122,7 +122,7 @@ public class SmppHandler extends ChannelDuplexHandler {
         Pdu p = PduFactory.newPduInstance(CommandId.SUBMIT_SM_RESP);
         HeaderPdu h = PduFactory.newHeaderInstance(CommandId.SUBMIT_SM_RESP);
         h.setSequenceNumber(pdu.getHeaderPdu().getSequenceNumber());
-        String msgId = String.valueOf(idService.generateSeqId());
+        String msgId = String.valueOf(idService.get());
         SubmitAndDeliverRespBody b = new SubmitAndDeliverRespBody();
         b.setMessageId(msgId);
         p.setHeaderPdu(h);

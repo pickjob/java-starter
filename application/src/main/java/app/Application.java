@@ -18,10 +18,9 @@ public class Application {
 
     private static void traverseShowCase() throws Exception {
         boolean showedFlag = false;
-        Set<String> clsNameList = ScanUtil.scanClassWithPackageAndClass("frame", IShowCase.class);
+        Set<String> clsNameList = ScanUtil.scanClassWithPackageAndClass("basic", IShowCase.class);
         for (String clsName : clsNameList) {
             try {
-//                logger.info("clsName: {}", clsName);
                 Class cls = Class.forName(clsName);
                 Object obj = cls.getDeclaredConstructor().newInstance();
                 if (obj instanceof IShowCase) {

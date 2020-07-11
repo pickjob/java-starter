@@ -1,5 +1,7 @@
-package app.snowflake;
+package basic.snowflow;
 
+import app.snowflake.Id;
+import app.snowflake.supplier.SynchronizedIdSupplier;
 import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,15 +20,13 @@ public class IdServiceShowCase implements IShowCase {
 
     @Override
     public void showSomething() {
-        IdService idService = new IdServiceImpl();
-        for (int i = 0; i < 3; i++) {
-            new Thread(() -> {
-                long time = System.currentTimeMillis();
-                while (true) {
-                    logger.info("SeqId: {}", idService.generateSeqId());
-                    if (System.currentTimeMillis() - time > 1000 * 5) break;
-                }
-            }).start();
-        }
+        SynchronizedIdSupplier idSupplier = new SynchronizedIdSupplier(11L, 2L, 2L);
+        long id = idSupplier.get();
+        logger.info("id: {}, ID: {}", id, Id.from(id));
+    }
+
+    @Override
+    public boolean isShow() {
+        return true;
     }
 }

@@ -96,4 +96,6 @@ module pickjob.java.starter {
             ;
     opens fx.ikonli to javafx.graphics
             ;
+
+//    opens * to pickjob.java.starter.base;
 }
