@@ -30,6 +30,9 @@ module pickjob.java.starter {
     requires javafx.swing;
     requires javafx.web;
     requires javafx.media;
+    requires fr.brouillard.oss.cssfx;
+    // jfoenix
+    requires com.jfoenix;
     // ikonli javafx icon packs
     requires org.kordamp.iconli.core;
     requires org.kordamp.ikonli.javafx;
@@ -94,8 +97,8 @@ module pickjob.java.starter {
             , javafx.graphics
             , javafx.fxml
             ;
+    opens fx.css to javafx.graphics
+            ;
     opens fx.ikonli to javafx.graphics
             ;
-
-//    opens * to pickjob.java.starter.base;
 }

@@ -4,7 +4,7 @@ plugins {
 
 application {
     mainModule = "pickjob.java.starter"
-    mainClass = "app.Application"
+    mainClass = "fx.css.CssFxShowCase"
 }
 
 dependencies {
@@ -12,10 +12,10 @@ dependencies {
     implementation project(":automatic-module")
 
     // jackson
-    implementation "com.fasterxml.jackson.core:jackson-core:2.11.0"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.11.0"
-    implementation "com.fasterxml.jackson.core:jackson-annotations:2.11.0"
-    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.0"
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
     // guava
     implementation "com.google.guava:guava:29.0-jre"
     // netty
@@ -28,13 +28,17 @@ dependencies {
         exclude group: "io.netty"
     }
     // javafx
-    implementation "org.openjfx:javafx-base:14:${os}"
-    implementation "org.openjfx:javafx-graphics:14:${os}"
-    implementation "org.openjfx:javafx-controls:14:${os}"
-    implementation "org.openjfx:javafx-fxml:14:${os}"
-    implementation "org.openjfx:javafx-media:14:${os}"
-    implementation "org.openjfx:javafx-swing:14:${os}"
-    implementation "org.openjfx:javafx-web:14:${os}"
+    implementation "org.openjfx:javafx-base:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-graphics:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-controls:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-fxml:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-media:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-swing:${fxVersion}:${os}"
+    implementation "org.openjfx:javafx-web:${fxVersion}:${os}"
+    // cssfx
+    implementation "fr.brouillard.oss:cssfx:11.4.0"
+    // jfoenix
+    implementation 'com.jfoenix:jfoenix:9.0.8'
 
     // ikonli javafx icon packs
     implementation "org.kordamp.ikonli:ikonli-javafx:${ikonliVersion}"
