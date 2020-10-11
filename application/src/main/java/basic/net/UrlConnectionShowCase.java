@@ -17,13 +17,10 @@ import java.util.Map;
  */
 public class UrlConnectionShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(UrlConnectionShowCase.class);
-    @Override
-    public void saySomething() {
-        logger.info("UrlConnection用法");
-    }
 
     @Override
     public void showSomething() {
+        logger.info("UrlConnection用法");
         try {
             URL url = new URL("https://www.baidu.com");
             // obtain urlConnection
@@ -48,4 +45,9 @@ public class UrlConnectionShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

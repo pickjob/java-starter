@@ -9,12 +9,8 @@ public class WaitNotifyShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(WaitNotifyShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示基础wait notify使用(不推荐使用)");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示基础wait notify使用(不推荐使用)");
         final String[] chars = {"A", "B", "C"};
         for (int i = 0; i < chars.length; i++) {
             String pre = null;
@@ -28,6 +24,11 @@ public class WaitNotifyShowCase implements IShowCase {
             printer.start();
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 
     public static class PrintThread extends Thread {
         private static final Logger logger = LogManager.getLogger(PrintThread.class);

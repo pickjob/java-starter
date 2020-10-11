@@ -18,12 +18,8 @@ public class CollectorsShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(CollectorsShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Collectors使用示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Collectors使用示例");
         List<String> arrayList = new ArrayList<>();
         StringSupplier supplier = new StringSupplier();
         for (int i = 0; i < 10; i++) {
@@ -35,4 +31,9 @@ public class CollectorsShowCase implements IShowCase {
                                         }));
         logger.info(map);
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

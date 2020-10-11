@@ -12,12 +12,8 @@ public class JDBCShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(JDBCShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("JDBC反射数据类表、字段类型");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("JDBC反射数据类表、字段类型");
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:framework.mysql://framework.mysql/sample?useSSL=false", "china", "chinese");

@@ -16,12 +16,8 @@ public class SignatureShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(SignatureShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Signature示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Signature示例");
         try {
             String plainText = "今天天气很好阿";
             KeyPairGenerator rsaKeyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -40,4 +36,9 @@ public class SignatureShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

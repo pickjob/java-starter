@@ -18,7 +18,11 @@ module pickjob.java.starter {
     // guava
     requires com.google.common;
     // netty
-    requires io.netty.all;
+    requires io.netty.common;
+    requires io.netty.handler;
+    requires io.netty.transport;
+    requires io.netty.buffer;
+    requires io.netty.codec;
     // validation
     requires java.validation;
     // lettuce
@@ -70,8 +74,16 @@ module pickjob.java.starter {
     requires org.kordamp.ikonli.zondicons;
 
     // exports
+    opens basic.coucurrent to pickjob.java.starter.base;
+    opens basic.crpto to pickjob.java.starter.base;
+    opens basic.invoke to pickjob.java.starter.base;
+    opens basic.jcf to pickjob.java.starter.base;
+    opens basic.jmx;
+    opens basic.net to pickjob.java.starter.base;
+    opens basic.ref to pickjob.java.starter.base;
     opens basic.rmi.service to java.rmi;
-    opens basic.jmx.standard;
+    opens basic.rmi to pickjob.java.starter.base;
+
     // jackson
     opens smpp.util to com.fasterxml.jackson.databind;
     // validator

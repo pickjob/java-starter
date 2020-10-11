@@ -1,5 +1,6 @@
 package basic.socket.bio.echo;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
@@ -9,10 +10,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class BioEchoServerShowCase {
+public class BioEchoServerShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(BioEchoServerShowCase.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void showSomething() {
         try {
             ServerSocket serverSocket = null;
             serverSocket = new ServerSocket(8080);
@@ -40,4 +42,9 @@ public class BioEchoServerShowCase {
             logger.error(ex);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -16,12 +16,8 @@ public class ScheduledThreadPoolExecutorShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ScheduledThreadPoolExecutorShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("jdk默认定时器框架(ScheduledThreadPoolExecutor)抛异常任务不再执行定时任务, 其他任务正常执行");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("jdk默认定时器框架(ScheduledThreadPoolExecutor)抛异常任务不再执行定时任务, 其他任务正常执行");
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(() -> {
             logger.info("这是ScheduledExecutorService任务1");
@@ -38,4 +34,9 @@ public class ScheduledThreadPoolExecutorShowCase implements IShowCase {
         }
         executorService.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

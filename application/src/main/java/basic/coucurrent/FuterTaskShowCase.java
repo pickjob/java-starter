@@ -14,12 +14,8 @@ public class FuterTaskShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(FuterTaskShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("FutureTask延迟获得结果任务");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("FutureTask延迟获得结果任务");
         ExecutorService executor = Executors.newSingleThreadExecutor();
         FutureTask task = new FutureTask(() -> {
             logger.info("---任务进行中---");
@@ -38,4 +34,9 @@ public class FuterTaskShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

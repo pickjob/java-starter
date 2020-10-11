@@ -1,5 +1,6 @@
 package basic.socket.udp.echo;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.net.DatagramPacket;
@@ -9,10 +10,11 @@ import java.util.Date;
 /**
  * 简单UDP服务端
  */
-public class UdpEchoServerShowCase {
+public class UdpEchoServerShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(UdpEchoServerShowCase.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void showSomething() {
         try {
             DatagramSocket serverSocket = new DatagramSocket(8080);
             logger.info("Udp server is running ...");
@@ -31,4 +33,9 @@ public class UdpEchoServerShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

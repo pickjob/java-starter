@@ -38,12 +38,8 @@ public class RSAShowCase implements IShowCase {
             "9nJ8BNRAl4p9pQ==";
 
     @Override
-    public void saySomething() {
-        logger.info("RSA加解密示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("RSA加解密示例");
         try {
             String plainText = "今天天气很好阿";
             KeyFactory rsaKeyFactory = KeyFactory.getInstance("RSA");
@@ -68,4 +64,8 @@ public class RSAShowCase implements IShowCase {
         }
     }
 
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

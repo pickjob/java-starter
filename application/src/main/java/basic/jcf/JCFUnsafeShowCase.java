@@ -19,12 +19,8 @@ public class JCFUnsafeShowCase implements IShowCase {
     private static final Integer MAX = 100000;
 
     @Override
-    public void saySomething() {
-        logger.info("示例JCF线程不安全类,多线程部分操作并不会抛异常,但是会丢数据");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("示例JCF线程不安全类,多线程部分操作并不会抛异常,但是会丢数据");
         List<Integer> arrayList = new ArrayList<>();
         List<Integer> linkedList = new LinkedList<>();
         Map<Integer, Integer> hashMap = new HashMap<>();
@@ -51,4 +47,9 @@ public class JCFUnsafeShowCase implements IShowCase {
         logger.info("hashMap总数: {}", hashMap.size());
         logger.info("copyOnWriteArrayList总数: {}", copyOnWriteArrayList.size());
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

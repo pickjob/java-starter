@@ -14,15 +14,16 @@ public class CleanerShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(CleanerShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Cleaner用来注册当实例phantom reachable操作");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Cleaner用来注册当实例phantom reachable操作");
         Cleaner cleaner = Cleaner.create();
         cleaner.register(this, () -> {
             logger.info("CleanerShowCase实例phantom reachable");
         });
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

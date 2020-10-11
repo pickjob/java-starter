@@ -27,7 +27,7 @@ public class ScanUtil {
     public static Set<String> scanClassWithPackageAndClass(String basePackage, Class className) {
         Set<String> clsList = new HashSet<>();
         for (String clsName : scanAllClasses()) {
-            if (StringUtils.isBlank(basePackage) || clsName.startsWith(basePackage + ".")) {
+            if (StringUtils.isNotBlank(basePackage) && clsName.startsWith(basePackage + ".")) {
                 try {
                     Class cls = Class.forName(clsName);
                     if (!cls.isInterface()) {
@@ -97,7 +97,7 @@ public class ScanUtil {
                 }
             }
         }
-        if (logger.isDebugEnabled()) logger.info("clsList: {}", clsList);
+        if (logger.isDebugEnabled()) logger.debug("clsList: {}", clsList);
         return clsList;
     }
 
@@ -117,7 +117,7 @@ public class ScanUtil {
                 clsList.add(clsName);
             }
         }
-        if (logger.isDebugEnabled()) logger.info("clsList: {}", clsList);
+        if (logger.isDebugEnabled()) logger.debug("clsList: {}", clsList);
         return clsList;
     }
 

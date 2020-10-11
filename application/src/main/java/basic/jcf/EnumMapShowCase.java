@@ -14,17 +14,18 @@ public class EnumMapShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(EnumMapShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示指定key为enum类型Map");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示指定key为enum类型Map");
         EnumMap<Keys, String> enumMap = new EnumMap<Keys, String>(Keys.class);
         enumMap.put(Keys.ID, "ID");
         enumMap.put(Keys.NAME, "NAME");
         logger.info("{}", enumMap);
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 enum Keys {

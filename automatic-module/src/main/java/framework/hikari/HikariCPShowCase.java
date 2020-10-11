@@ -16,12 +16,8 @@ public class HikariCPShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(HikariCPShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示Hikari数据源配置示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示Hikari数据源配置示例");
         createDataSource();
     }
 

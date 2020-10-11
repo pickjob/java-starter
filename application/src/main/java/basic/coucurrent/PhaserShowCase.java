@@ -14,12 +14,9 @@ public class PhaserShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(PhaserShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Phaser一定程度上替代CountDown、CyclicBarrier, 更强大的同步器");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Phaser一定程度上替代CountDown、CyclicBarrier, 更强大的同步器");
+
         Phaser phaser = new Phaser(3) {
             @Override
             protected boolean onAdvance(int phase, int registeredParties) {
@@ -43,4 +40,9 @@ public class PhaserShowCase implements IShowCase {
         phaser.awaitAdvance(0);
         logger.info("PhaserShowCase结束");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

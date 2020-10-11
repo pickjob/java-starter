@@ -14,12 +14,8 @@ public class SemaphoreShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(SemaphoreShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("并发工具Semaphore, 用于控制同时执行数量");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("并发工具Semaphore, 用于控制同时执行数量");
         Semaphore semaphore = new Semaphore(3);
         for (int i = 0; i < 1; i++) {
             new Thread(() -> {
@@ -42,4 +38,9 @@ public class SemaphoreShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

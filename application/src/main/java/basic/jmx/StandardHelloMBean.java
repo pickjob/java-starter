@@ -1,8 +1,9 @@
-package basic.jmx.standard;
+package basic.jmx;
 
-public interface HelloMBean {
+public interface StandardHelloMBean {
 
     String getName();
 
     void setName(String name);
 }
+

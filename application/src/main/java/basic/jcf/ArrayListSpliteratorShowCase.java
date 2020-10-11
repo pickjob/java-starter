@@ -19,12 +19,8 @@ public class ArrayListSpliteratorShowCase implements IShowCase, Consumer<String>
     private AtomicInteger idx = new AtomicInteger();
 
     @Override
-    public void saySomething() {
-        logger.info("ArrayListSpliterator分割策略(一半一半), trySpliterator分割的永远是现有的一半或太小不能分割");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("ArrayListSpliterator分割策略(一半一半), trySpliterator分割的永远是现有的一半或太小不能分割");
         List<String> arrayList = new ArrayList<>();
         arrayList.add("hello");
         arrayList.add("world");
@@ -47,6 +43,11 @@ public class ArrayListSpliteratorShowCase implements IShowCase, Consumer<String>
         arrayListSpliterator.forEachRemaining(this);
 
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 
     @Override
     public void accept(String s) {

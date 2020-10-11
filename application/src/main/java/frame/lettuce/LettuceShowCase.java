@@ -20,12 +20,8 @@ public class LettuceShowCase implements IShowCase {
     private static final String CHANNEL = "channel";
 
     @Override
-    public void saySomething() {
-        logger.info("Lettuce Redis客户端");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Lettuce Redis客户端");
         // redis :// [[username :] password@] host [: port] [/ database][? [timeout=timeout[d|h|m|s|ms|us|ns]] [&_database=database_]]
         RedisClient redisClient = RedisClient.create("redis://redis");
         publishSubscribe(redisClient);
@@ -38,6 +34,11 @@ public class LettuceShowCase implements IShowCase {
         }
         redisClient.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 
     private void syncShowCase(RedisClient redisClient) {
         RedisCommands<String, String> syncCommands = redisClient.connect().sync();

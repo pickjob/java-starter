@@ -15,13 +15,10 @@ import java.time.LocalTime;
  */
 public class TimeDateShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(TimeDateShowCase.class);
-    @Override
-    public void saySomething() {
-        logger.info("展示jdk中时间日期用法");
-    }
 
     @Override
     public void showSomething() {
+        logger.info("展示jdk中时间日期用法");
         Instant start = Instant.now();
         logger.info("Instant代表时间点: {}", Instant.now());
         Duration duration = Duration.between(start, Instant.now());
@@ -30,8 +27,8 @@ public class TimeDateShowCase implements IShowCase {
         logger.info("LocalTime代表本地时间: {}", LocalTime.now());
     }
 
-    @Override
-    public boolean isShow() {
-        return true;
-    }
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

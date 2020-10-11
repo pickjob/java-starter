@@ -16,12 +16,8 @@ public class CacheShowCase implements IShowCase {
     private static final Logger logger= LogManager.getLogger(CacheShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Guava框架Cache展示");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Guava框架Cache展示");
         LoadingCache<String, String> cache = CacheBuilder.newBuilder()
                 .maximumSize(15)
                 .expireAfterAccess(Duration.ofSeconds(10))
@@ -45,4 +41,9 @@ public class CacheShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

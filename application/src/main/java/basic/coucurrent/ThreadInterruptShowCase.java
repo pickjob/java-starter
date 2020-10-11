@@ -14,12 +14,8 @@ public class ThreadInterruptShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(ThreadInterruptShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Thread.interrupt()中断指定线程");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Thread.interrupt()中断指定线程");
         CountDownLatch countDownLatch = new CountDownLatch(1);
         Thread t = new Thread(() -> {
             try {
@@ -40,4 +36,9 @@ public class ThreadInterruptShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -15,12 +15,8 @@ public class ValidatorShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ValidatorShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示Bean Validator示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示Bean Validator示例");
         Validator validator = Validation.buildDefaultValidatorFactory()
                 .getValidator();
         Set<ConstraintViolation<Person>> errors = validator.validate(new Person("AAA", null));

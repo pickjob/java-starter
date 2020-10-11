@@ -22,12 +22,8 @@ public class JWTShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(JWTShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("JWT格式: base64url_encode(Header) + '.' + base64url_encode(Claims) + '.' + base64url_encode(Signature)");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("JWT格式: base64url_encode(Header) + '.' + base64url_encode(Claims) + '.' + base64url_encode(Signature)");
         Algorithm algorithm = Algorithm.HMAC256("secret");
         String token = JWT.create()
                 .withIssuer("auth0")

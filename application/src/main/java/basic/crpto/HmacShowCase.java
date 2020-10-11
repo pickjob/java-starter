@@ -16,12 +16,8 @@ public class HmacShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(HmacShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Hmac示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Hmac示例");
         try {
             KeyGenerator hmacSHA256KeyGenerator = KeyGenerator.getInstance("HmacSHA256");
             hmacSHA256KeyGenerator.init(1024);
@@ -33,4 +29,9 @@ public class HmacShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

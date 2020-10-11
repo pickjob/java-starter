@@ -22,12 +22,8 @@ public class CertificateShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(CertificateShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("示例Certificate用法");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("示例Certificate用法");
         try {
             URL url = new URL("https://cn.bing.com");
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -50,6 +46,11 @@ public class CertificateShowCase implements IShowCase {
             logger.error("error", e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 class MyTrustManaer implements X509TrustManager {

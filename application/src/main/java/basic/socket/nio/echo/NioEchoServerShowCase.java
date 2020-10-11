@@ -1,5 +1,6 @@
 package basic.socket.nio.echo;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.net.InetSocketAddress;
@@ -13,10 +14,11 @@ import java.util.Date;
 import java.util.Iterator;
 
 
-public class NioEchoServerShowCase {
+public class NioEchoServerShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(NioEchoServerShowCase.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void showSomething() {
         try {
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             serverSocketChannel.bind(new InetSocketAddress(8080));
@@ -59,6 +61,10 @@ public class NioEchoServerShowCase {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

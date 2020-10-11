@@ -14,12 +14,8 @@ public class QuartzShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(QuartzShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示Quartz示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示Quartz示例");
         try {
             JobDetail jobDetail = JobBuilder.newJob(NoopJob.class)
                                     .withIdentity("jobKey")

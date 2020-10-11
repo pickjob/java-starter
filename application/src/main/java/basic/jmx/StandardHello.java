@@ -1,10 +1,10 @@
-package basic.jmx.standard;
+package basic.jmx;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Hello implements HelloMBean {
-    private static final Logger logger = LogManager.getLogger(Hello.class);
+public class StandardHello implements StandardHelloMBean {
+    private static final Logger logger = LogManager.getLogger(StandardHello.class);
 
     private String name;
 

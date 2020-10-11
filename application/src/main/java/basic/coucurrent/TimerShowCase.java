@@ -15,12 +15,8 @@ public class TimerShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(TimerShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("jdk老版Timer对异常的处理, 抛异常会失败, 不再执行任何任务");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("jdk老版Timer对异常的处理, 抛异常会失败, 不再执行任何任务");
         Timer timer = new Timer();
         TimerTask task1 = new TimerTask() {
             @Override
@@ -38,4 +34,9 @@ public class TimerShowCase implements IShowCase {
         timer.scheduleAtFixedRate(task1, 0, 1000);
         timer.scheduleAtFixedRate(task2, 10000, 3000);
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

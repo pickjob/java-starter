@@ -15,12 +15,8 @@ public class LinkedHashMapShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(LinkedHashMapShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示用LinkedHashMap来用作LRU策略缓存");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示用LinkedHashMap来用作LRU策略缓存");
         Map cache = new LinkedHashMap() {
             @Override
             protected boolean removeEldestEntry(Map.Entry eldest) {
@@ -36,4 +32,9 @@ public class LinkedHashMapShowCase implements IShowCase {
         cache.put(null, null);
         logger.info("{}", cache);
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

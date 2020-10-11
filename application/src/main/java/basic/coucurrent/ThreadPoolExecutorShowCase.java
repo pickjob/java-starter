@@ -14,12 +14,8 @@ public class ThreadPoolExecutorShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ThreadPoolExecutorShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示ThreadPoolExecutor基本用法");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示ThreadPoolExecutor基本用法");
         int coreSize = 1;
         int maxSize = 1;
         long keepAliveTime = 30;
@@ -64,4 +60,9 @@ public class ThreadPoolExecutorShowCase implements IShowCase {
         }
         executor.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

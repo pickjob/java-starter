@@ -18,12 +18,8 @@ public class MethodHandleShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(MethodHandleShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Dynamic Invoke(VarHandle, MethodHanle)使用示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Dynamic Invoke(VarHandle, MethodHanle)使用示例");
         try {
             MethodHandles.Lookup lookup = MethodHandles.lookup();
             TargetClass targetClass = new TargetClass();
@@ -37,6 +33,11 @@ public class MethodHandleShowCase implements IShowCase {
             logger.error(throwable.getMessage(), throwable);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 
     private void invokePublicStaticMethod(MethodHandles.Lookup lookup, TargetClass targetClass) throws Throwable {
         MethodHandle methodHandle = lookup.findStatic(TargetClass.class, "publicStaticMethod", MethodType.methodType(void.class));

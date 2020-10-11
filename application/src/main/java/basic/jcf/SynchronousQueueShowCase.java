@@ -16,12 +16,8 @@ public class SynchronousQueueShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(SynchronousQueueShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("SynchronousQueueShowCase可用于实时处理消息，一直等待直至消费未知");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("SynchronousQueueShowCase可用于实时处理消息，一直等待直至消费未知");
         BlockingQueue<Integer> blockingQueue = new SynchronousQueue<>(true);
         Random random = new Random(System.currentTimeMillis());
         for (int i = 0; i < 10; i++) {
@@ -49,4 +45,9 @@ public class SynchronousQueueShowCase implements IShowCase {
             }).start();
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -1,4 +1,4 @@
-package basic.jmx.notify;
+package basic.jmx;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,8 +7,8 @@ import javax.management.AttributeChangeNotification;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 
-public class Hello extends NotificationBroadcasterSupport implements HelloMBean {
-    private static final Logger logger = LogManager.getLogger(Hello.class);
+public class NotificationHello extends NotificationBroadcasterSupport implements NotificationHelloMBean {
+    private static final Logger logger = LogManager.getLogger(NotificationHello.class);
 
     private String name;
 
@@ -19,7 +19,7 @@ public class Hello extends NotificationBroadcasterSupport implements HelloMBean 
 
     @Override
     public void setName(String name) {
-        Notification n =
+        Notification notification =
                 new AttributeChangeNotification(this,
                         System.currentTimeMillis(),
                         System.currentTimeMillis(),
@@ -28,7 +28,7 @@ public class Hello extends NotificationBroadcasterSupport implements HelloMBean 
                         "string",
                         this.name,
                         name);
-        sendNotification(n);
+        sendNotification(notification);
         this.name = name;
     }
 

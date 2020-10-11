@@ -16,12 +16,8 @@ public class MessageDigestShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(MessageDigestShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("MessageDigest用于消息散列");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("MessageDigest用于消息散列");
         try {
             String orgin = "123456";
             MessageDigest sha256 = MessageDigest.getInstance("SHA-1");
@@ -32,4 +28,9 @@ public class MessageDigestShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

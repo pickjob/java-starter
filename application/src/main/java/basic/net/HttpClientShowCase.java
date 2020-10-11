@@ -17,12 +17,8 @@ public class HttpClientShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(HttpClientShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("jdk自带HttpClient使用");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("jdk自带HttpClient使用");
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                                          .uri(URI.create("http://openjdk.java.net/"))
@@ -32,4 +28,9 @@ public class HttpClientShowCase implements IShowCase {
               .thenAccept(logger::info)
               .join();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

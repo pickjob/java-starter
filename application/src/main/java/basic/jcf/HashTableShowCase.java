@@ -15,12 +15,8 @@ public class HashTableShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(HashTableShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("HashTable插入 key为null 或 value为null 会空指针");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("HashTable插入 key为null 或 value为null 会空指针");
         Map hashtable = new Hashtable();
         try {
             hashtable.put(null, "aaa");
@@ -38,4 +34,9 @@ public class HashTableShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

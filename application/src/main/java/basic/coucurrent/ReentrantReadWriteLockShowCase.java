@@ -17,12 +17,8 @@ public class ReentrantReadWriteLockShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ReentrantReadWriteLockShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示读写锁用法, 读锁共享, 写锁排他");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示读写锁用法, 读锁共享, 写锁排他");
         RWDictionary dictionary = new RWDictionary();
         for (int i = 0; i < 10; i++ ) {
             final int idx = i;
@@ -32,6 +28,11 @@ public class ReentrantReadWriteLockShowCase implements IShowCase {
             }).start();
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 class RWDictionary {

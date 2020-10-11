@@ -17,12 +17,8 @@ public class ConditionShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ConditionShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Condition用于更细粒度控制线程");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Condition用于更细粒度控制线程, 必须在lock.lock 和 lock.unlock间调用");
         BoundedBuffer<Integer> boundedBuffer = new BoundedBuffer<>();
         for (int i = 0; i < 10; i++) {
             final int idx = i;
@@ -40,6 +36,11 @@ public class ConditionShowCase implements IShowCase {
             }).start();
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 class BoundedBuffer<E> {
@@ -53,11 +54,14 @@ class BoundedBuffer<E> {
     public void put(E x) throws InterruptedException {
         lock.lock();
         try {
-            while (count == items.length)
+            while (count == items.length) {
                 notFull.await();
+            }
             items[putptr] = x;
-            if (++putptr == items.length) putptr = 0;
-            ++count;
+            if (++putptr == items.length) {
+                putptr = 0;
+            }
+            count++;
             notEmpty.signal();
         } finally {
             lock.unlock();
@@ -67,11 +71,14 @@ class BoundedBuffer<E> {
     public E take() throws InterruptedException {
         lock.lock();
         try {
-            while (count == 0)
+            while (count == 0) {
                 notEmpty.await();
+            }
             E x = (E) items[takeptr];
-            if (++takeptr == items.length) takeptr = 0;
-            --count;
+            if (++takeptr == items.length) {
+                takeptr = 0;
+            }
+            count--;
             notFull.signal();
             return x;
         } finally {

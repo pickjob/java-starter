@@ -16,12 +16,8 @@ public class RateLimiterShowcase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(RateLimiterShowcase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("Guava框架RateLimiter展示");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("Guava框架RateLimiter展示");
         RateLimiter rateLimiter = RateLimiter.create(0.5);
         ExecutorService executor = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 6; i++ ) {
@@ -39,4 +35,9 @@ public class RateLimiterShowcase implements IShowCase {
         }
         executor.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -15,12 +15,8 @@ public class ForkJoinPoolShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(ForkJoinPoolShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("展示ForkJoinPool各种任务示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("展示ForkJoinPool各种任务示例");
         ForkJoinPool pool = ForkJoinPool.commonPool();
         FibonacciRecursiveTask fibonacci = new FibonacciRecursiveTask(10);
         pool.submit(fibonacci);
@@ -31,6 +27,11 @@ public class ForkJoinPoolShowCase implements IShowCase {
         }
         pool.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 class FibonacciRecursiveTask extends RecursiveTask<Integer> {
@@ -42,11 +43,13 @@ class FibonacciRecursiveTask extends RecursiveTask<Integer> {
 
     @Override
     public Integer compute() {
-        if (n <= 1)
+        if (n <= 1) {
             return n;
+        }
         FibonacciRecursiveTask f1 = new FibonacciRecursiveTask(n - 1);
-        f1.fork();
         FibonacciRecursiveTask f2 = new FibonacciRecursiveTask(n - 2);
-        return f2.compute() + f1.join();
+        f1.fork();
+        f2.fork();
+        return f2.join() + f1.join();
     }
 }

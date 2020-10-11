@@ -1,12 +1,12 @@
-package basic.jmx.dynamic;
+package basic.jmx;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.management.*;
 
-public class Hello implements DynamicMBean {
-    private static final Logger logger = LogManager.getLogger(Hello.class);
+public class DynamicHello implements DynamicMBean {
+    private static final Logger logger = LogManager.getLogger(DynamicHello.class);
 
     private String name;
 

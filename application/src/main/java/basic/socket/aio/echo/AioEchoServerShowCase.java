@@ -1,5 +1,6 @@
 package basic.socket.aio.echo;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,10 +13,11 @@ import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-public class AioEchoServerShowCase {
+public class AioEchoServerShowCase implements IShowCase {
     private static Logger logger = LogManager.getLogger(AioEchoServerShowCase.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void showSomething() {
         try {
             AsynchronousServerSocketChannel listener = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(8080));
             logger.info("Server is listening on {}", 8080);
@@ -65,4 +67,9 @@ public class AioEchoServerShowCase {
             logger.error(e.getMessage());
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

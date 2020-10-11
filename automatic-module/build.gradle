@@ -7,7 +7,9 @@ dependencies {
         exclude group: "com.zaxxer"
     }
     // dubbo
-    implementation "org.apache.dubbo:dubbo:2.7.1"
+    implementation ("org.apache.dubbo:dubbo:2.7.1") {
+        exclude group: "io.netty"
+    }
     // mysql driver
     implementation "mysql:mysql-connector-java:8.0.15"
     // mybatis
@@ -16,14 +18,12 @@ dependencies {
     implementation "com.zaxxer:HikariCP:3.3.1"
 
     // zookeeper
-    implementation ("org.apache.zookeeper:zookeeper:3.4.13") {
-        exclude group: "io.netty"
-        exclude group: "org.slf4j"
-        exclude group: "log4j"
-    }
+    implementation "org.apache.zookeeper:zookeeper:3.6.2"
     // curator
-    implementation "org.apache.curator:curator-recipes:4.2.0"
-    implementation "org.apache.curator:curator-x-discovery:4.2.0"
+    implementation "org.apache.curator:curator-client:${curatorVersion}"
+    implementation "org.apache.curator:curator-framework:${curatorVersion}"
+    implementation "org.apache.curator:curator-recipes:${curatorVersion}"
+    implementation "org.apache.curator:curator-x-discovery:${curatorVersion}"
     // rocketmq
     implementation ("org.apache.rocketmq:rocketmq-client:4.3.0") {
         exclude group: "io.netty"

@@ -19,12 +19,8 @@ public class DESShowCase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(DESShowCase.class);
 
     @Override
-    public void saySomething() {
-        logger.info("DES加解密示例");
-    }
-
-    @Override
     public void showSomething() {
+        logger.info("DES加解密示例");
         try {
             String plainText = "今天天气很好阿";
             KeyGenerator desKeyGenerator = KeyGenerator.getInstance("DES");
@@ -52,4 +48,9 @@ public class DESShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
