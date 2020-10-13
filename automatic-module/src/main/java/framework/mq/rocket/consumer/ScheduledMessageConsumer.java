@@ -1,5 +1,6 @@
 package framework.mq.rocket.consumer;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -10,23 +11,38 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 import java.util.List;
 
-public class ScheduledMessageConsumer {
+public class ScheduledMessageConsumer implements IShowCase {
     private static Logger logger = LogManager.getLogger(ScheduledMessageConsumer.class);
 
-    public static void main(String[] args) throws Exception {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ExampleConsumer");
-        consumer.setNamesrvAddr("localhost:9876");
-        consumer.subscribe("TopicTest", "*");
-        consumer.registerMessageListener(new MessageListenerConcurrently() {
-            @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messages, ConsumeConcurrentlyContext context) {
-                for (MessageExt message : messages) {
-                    // Print approximate delay time period
-                    logger.info("Receive message[msgId={}] {}", message.getMsgId(), (System.currentTimeMillis() - message.getStoreTimestamp()) + "ms later");
+    @Override
+    public void showSomething() {
+        try {
+            DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ExampleConsumer");
+            consumer.setNamesrvAddr("wsl2:9876");
+            consumer.subscribe("TopicTest", "*");
+            consumer.registerMessageListener(new MessageListenerConcurrently() {
+                @Override
+                public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messages, ConsumeConcurrentlyContext context) {
+                    for (MessageExt message : messages) {
+                        // Print approximate delay time period
+                        logger.info("Receive message[msgId={}] {}", message.getMsgId(), (System.currentTimeMillis() - message.getStoreTimestamp()) + "ms later");
+                    }
+                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                 }
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-            }
-        });
-        consumer.start();
+            });
+            consumer.start();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+//
+//    @Override
+//    public int order() {
+//        return 1;
+//    }
 }

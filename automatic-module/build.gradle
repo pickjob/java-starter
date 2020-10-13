@@ -32,7 +32,7 @@ dependencies {
     implementation ("org.apache.activemq:activemq-client:5.15.8") {
         exclude group: "org.apache.geronimo.specs"
     }
-
+    implementation "org.apache.kafka:kafka-clients:2.6.0"
     // javaee
     implementation "javax.servlet:javax.servlet-api:4.0.1"
     implementation "org.glassfish:javax.el:3.0.1-b09"

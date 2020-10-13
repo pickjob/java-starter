@@ -71,4 +71,9 @@ public class JWTShowCase implements IShowCase {
             logger.info("wrongVerifier failed");
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

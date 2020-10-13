@@ -28,8 +28,7 @@ public class Application {
             try {
                 Class cls = Class.forName(clsName);
                 Object obj = cls.getDeclaredConstructor().newInstance();
-                if (obj instanceof IShowCase) {
-                    IShowCase showCase = (IShowCase) obj;
+                if (obj instanceof IShowCase showCase) {
                     if (showCase.isShow()) {
                         showCaseList.add(showCase);
                     }

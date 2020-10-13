@@ -1,5 +1,6 @@
 package framework.mq.rocket.producer;
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.rocketmq.client.producer.LocalTransactionState;
@@ -13,38 +14,53 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TransactionProducer {
+public class TransactionProducer implements IShowCase {
     private static final Logger logger = LogManager.getLogger(TransactionProducer.class);
 
-    public static void main(String[] args) throws Exception {
-        TransactionListener transactionListener = new TransactionListenerImpl();
-        ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread thread = new Thread(r);
-                thread.setName("client-transaction-msg-check-thread");
-                return thread;
+    @Override
+    public void showSomething() {
+        try {
+            TransactionListener transactionListener = new TransactionListenerImpl();
+            ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    Thread thread = new Thread(r);
+                    thread.setName("client-transaction-msg-check-thread");
+                    return thread;
+                }
+            });
+            TransactionMQProducer producer = new TransactionMQProducer("group_name");
+            producer.setNamesrvAddr("wsl2:9876");
+            producer.setExecutorService(executorService);
+            producer.setTransactionListener(transactionListener);
+            producer.start();
+            String[] tags = new String[]{"TagA", "TagB", "TagC", "TagD", "TagE"};
+            for (int i = 0; i < 10; i++) {
+                Message msg = new Message("TopicTest", tags[i % tags.length], "KEY" + i,
+                        ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                SendResult sendResult = producer.sendMessageInTransaction(msg, null);
+                logger.info("{}", sendResult);
+                Thread.sleep(10);
             }
-        });
-        TransactionMQProducer producer = new TransactionMQProducer("group_name");
-        producer.setNamesrvAddr("localhost:9876");
-        producer.setExecutorService(executorService);
-        producer.setTransactionListener(transactionListener);
-        producer.start();
-        String[] tags = new String[] {"TagA", "TagB", "TagC", "TagD", "TagE"};
-        for (int i = 0; i < 10; i++) {
-            Message msg = new Message("TopicTest", tags[i % tags.length], "KEY" + i,
-                    ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
-            SendResult sendResult = producer.sendMessageInTransaction(msg, null);
-            logger.info("{}", sendResult);
-            Thread.sleep(10);
-        }
 
-        for (int i = 0; i < 100000; i++) {
-            Thread.sleep(1000);
+            for (int i = 0; i < 100000; i++) {
+                Thread.sleep(1000);
+            }
+            producer.shutdown();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
         }
-        producer.shutdown();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+//
+//    @Override
+//    public int order() {
+//        return 0;
+//    }
 
     static class TransactionListenerImpl implements TransactionListener {
         private AtomicInteger transactionIndex = new AtomicInteger(0);

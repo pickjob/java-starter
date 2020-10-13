@@ -1,5 +1,6 @@
 package framework.mq.active.durable;
 
+import app.common.IShowCase;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,13 +8,14 @@ import org.apache.logging.log4j.Logger;
 import javax.jms.*;
 import java.util.concurrent.CountDownLatch;
 
-public class Subscriber implements MessageListener {
+public class Subscriber implements MessageListener, IShowCase {
     private static final Logger logger = LogManager.getLogger(Subscriber.class);
     private static final CountDownLatch countDownLatch = new CountDownLatch(1);
     private static final String clientId = "112";
 
-    public static void main(String[] args) {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    @Override
+    public void showSomething() {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://wsl2:61616");
         Connection connection = null;
         try {
             connection = connectionFactory.createConnection();
@@ -60,4 +62,14 @@ public class Subscriber implements MessageListener {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+//
+//    @Override
+//    public int order() {
+//        return 1;
+//    }
 }

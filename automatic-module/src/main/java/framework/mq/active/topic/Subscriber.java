@@ -1,5 +1,6 @@
 package framework.mq.active.topic;
 
+import app.common.IShowCase;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.logging.log4j.LogManager;
@@ -7,11 +8,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.jms.*;
 
-public class Subscriber {
+public class Subscriber implements IShowCase {
     private static Logger logger = LogManager.getLogger(Subscriber.class);
 
-    public static void main(String []args) {
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+    @Override
+    public void showSomething() {
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://wsl2:61616");
         Connection connection = null;
         try {
             connection = factory.createConnection();
@@ -54,4 +56,14 @@ public class Subscriber {
             }
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+//
+//    @Override
+//    public int order() {
+//        return 1;
+//    }
 }

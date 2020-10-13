@@ -21,6 +21,11 @@ public class HikariCPShowCase implements IShowCase {
         createDataSource();
     }
 
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+
     private DataSource createDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("china");

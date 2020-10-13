@@ -1,5 +1,6 @@
 package framework.mysql;
 
+import app.common.IShowCase;
 import com.google.common.collect.ImmutableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,15 +15,20 @@ import java.util.concurrent.CountDownLatch;
  * @author pickjob@126.com
  * @time 2019-06-20
  */
-public class DeadLockShowCase extends MySqlShowCaseBase {
+public class DeadLockShowCase extends MySqlShowCaseBase implements IShowCase {
     private static final Logger logger = LogManager.getLogger(DeadLockShowCase.class);
 
-    public static void main(String[] args) throws Throwable {
-        deadLockCase1();
+    @Override
+    public void showSomething() {
+        try {
+            deadLockCase1();
+        } catch (Throwable e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     // 一种极其特殊的死锁情况。。。
-    private static void deadLockCase1() throws Throwable {
+    private void deadLockCase1() throws Throwable {
         List<String> prepareTableSqls = ImmutableList.of(
                 "DROP TABLE IF EXISTS test"
                 ,"CREATE TABLE test(no  VARCHAR(20) PRIMARY KEY, idx int)"
@@ -44,4 +50,9 @@ public class DeadLockShowCase extends MySqlShowCaseBase {
         executeSqlInOneTransactionOneThread(blockSqlList, stage);
         stage.await();
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

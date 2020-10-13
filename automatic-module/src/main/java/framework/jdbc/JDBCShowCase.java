@@ -49,6 +49,11 @@ public class JDBCShowCase implements IShowCase {
         }
     }
 
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+
     private static void showResultSetInfo(ResultSet rs) throws SQLException {
         ResultSetMetaData resultSetMetaData = rs.getMetaData();
         List<String> columnNameList = new ArrayList<>();

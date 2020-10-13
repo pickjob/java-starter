@@ -26,19 +26,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 public class SmppHandler extends ChannelDuplexHandler {
-	private final Logger logger = LogManager.getLogger(SmppHandler.class);
-	private ChannelHandlerContext ctx;
-	private Supplier<Long> idService = new SynchronizedIdSupplier(1, 1, 1);
-	private volatile boolean open = false;
-	private volatile boolean login = false;
-	private CountDownLatch connectCountDownLatch;
+    private final Logger logger = LogManager.getLogger(SmppHandler.class);
+    private ChannelHandlerContext ctx;
+    private Supplier<Long> idService = new SynchronizedIdSupplier(1, 1, 1);
+    private volatile boolean open = false;
+    private volatile boolean login = false;
+    private CountDownLatch connectCountDownLatch;
     private CountDownLatch loginCountDownLatch;
 
-	public SmppHandler() {}
+    public SmppHandler() {}
 
-	public SmppHandler(CountDownLatch connectCountDownLatch, CountDownLatch loginCountDownLatch) {
-	    this.connectCountDownLatch = connectCountDownLatch;
-	    this.loginCountDownLatch = loginCountDownLatch;
+    public SmppHandler(CountDownLatch connectCountDownLatch, CountDownLatch loginCountDownLatch) {
+        this.connectCountDownLatch = connectCountDownLatch;
+        this.loginCountDownLatch = loginCountDownLatch;
 
     }
 

@@ -78,6 +78,7 @@ dependencies {
 run {
     args = [
             "basic",
+            "frame",
             "framework"
     ]
     jvmArgs = [

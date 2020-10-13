@@ -83,12 +83,18 @@ module pickjob.java.starter {
     opens basic.ref to pickjob.java.starter.base;
     opens basic.rmi.service to java.rmi;
     opens basic.rmi to pickjob.java.starter.base;
+    opens basic.time to pickjob.java.starter.base;
+    opens basic.wait to pickjob.java.starter.base;
 
-    // jackson
-    opens smpp.util to com.fasterxml.jackson.databind;
+    opens frame.guava to pickjob.java.starter.base;
+    opens frame.lettuce to pickjob.java.starter.base;
     // validator
-    exports frame.validator.annotation to org.hibernate.validator;
+    opens frame.validator.annotation to org.hibernate.validator;
     opens frame.validator.domain to org.hibernate.validator;
+    opens frame.validator to pickjob.java.starter.base;
+
+    opens frame.netty to pickjob.java.starter.base;
+
 
     opens fx.hello to javafx.graphics
             , javafx.fxml

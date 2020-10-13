@@ -36,6 +36,11 @@ public class CuratorShowCase implements IShowCase {
         }
     }
 
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+
     public void curatorCRUD(CuratorFramework client) throws Exception {
         String timestamp = "" + System.currentTimeMillis();
         String path = "/" + timestamp;

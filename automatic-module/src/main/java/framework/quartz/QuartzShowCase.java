@@ -37,6 +37,11 @@ public class QuartzShowCase implements IShowCase {
             logger.error(e.getMessage(), e);
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
 
 

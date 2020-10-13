@@ -1,5 +1,6 @@
 package frame.netty;
 
+import app.common.IShowCase;
 import frame.netty.discard.DiscardClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -7,9 +8,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class NettyClientShowCase {
+public class NettyClientShowCase implements IShowCase {
 
-    public static void main(String[] argv){
+    @Override
+    public void showSomething() {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -44,4 +46,14 @@ public class NettyClientShowCase {
             group.shutdownGracefully();
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
+//
+//    @Override
+//    public int order() {
+//        return 1;
+//    }
 }

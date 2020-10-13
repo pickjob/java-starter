@@ -24,4 +24,9 @@ public class ValidatorShowCase implements IShowCase {
             logger.info("Person校验失败, 路径{}, 值:{}, 信息:{}", err.getPropertyPath(), err.getInvalidValue(), err.getMessage());
         }
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
