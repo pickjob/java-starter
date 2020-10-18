@@ -73,17 +73,30 @@ dependencies {
     implementation "org.kordamp.ikonli:ikonli-weathericons-pack:${ikonliVersion}"
     implementation "org.kordamp.ikonli:ikonli-websymbols-pack:${ikonliVersion}"
     implementation "org.kordamp.ikonli:ikonli-zondicons-pack:${ikonliVersion}"
+
+    testImplementation "org.junit.platform:junit-platform-launcher:1.7.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.7.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+//    testImplementation "org.junit.vintage:junit-vintage-engine:5.7.0"
 }
 
 run {
     args = [
             "basic",
             "frame",
+            "leetcode",
             "framework"
     ]
     jvmArgs = [
+            "--enable-preview",
             "-Dio.netty.tryUnsafe=false",
             "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base"
     ]
     systemProperties.put("file.encoding", "UTF-8")
+}
+
+test {
+    jvmArgs "--enable-preview"
+    useJUnitPlatform()
 }

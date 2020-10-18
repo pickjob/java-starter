@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.rmi.Naming;
 
 public class RMIClientShowCase implements IShowCase {
-	private static final Logger logger = LogManager.getLogger(RMIClientShowCase.class);
+    private static final Logger logger = LogManager.getLogger(RMIClientShowCase.class);
 
     @Override
     public void showSomething() {

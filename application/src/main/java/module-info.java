@@ -86,6 +86,8 @@ module pickjob.java.starter {
     opens basic.time to pickjob.java.starter.base;
     opens basic.wait to pickjob.java.starter.base;
 
+    opens leetcode to pickjob.java.starter.base;
+
     opens frame.guava to pickjob.java.starter.base;
     opens frame.lettuce to pickjob.java.starter.base;
     // validator

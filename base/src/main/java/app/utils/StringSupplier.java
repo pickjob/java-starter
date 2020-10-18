@@ -16,6 +16,27 @@ public class StringSupplier implements Supplier<String> {
     private static final char[] chars = new char['z' - 'a' + 'Z' - 'A'  + 2];
     private static final int DEFAULT_LENGTH = 5;
     private static Random random = new Random(System.currentTimeMillis());
+    private int maxLength;
+
+    public StringSupplier() {
+        this(DEFAULT_LENGTH);
+    }
+
+    public StringSupplier(int length) {
+        this.maxLength = length;
+    }
+
+    @Override
+    public String get() {
+        StringBuilder sb = new StringBuilder();
+        int round = random.nextInt(maxLength) + 1;
+        for (int i = 0; i < round % maxLength; i++) {
+            int idx = random.nextInt(chars.length);
+            if (idx < 0 ) idx = -idx;
+            sb.append(chars[idx]);
+        }
+        return sb.toString();
+    }
 
     static {
         for (int i = 0; i < 'z' - 'a' + 'Z' - 'A'  + 2; i++) {
@@ -23,16 +44,5 @@ public class StringSupplier implements Supplier<String> {
             else chars[i] = (char)('A' + i - 'z' + 'a' - 1);
         }
         logger.debug(Arrays.toString(chars));
-    }
-
-    @Override
-    public String get() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < DEFAULT_LENGTH; i++) {
-            int idx = random.nextInt(chars.length);
-            if (idx < 0 ) idx = -idx;
-            sb.append(chars[idx]);
-        }
-        return sb.toString();
     }
 }

@@ -40,6 +40,14 @@ subprojects {
         sourceCompatibility = 15
         targetCompatibility = 15
         options.encoding = "UTF-8"
+        options.compilerArgs.add("--enable-preview")
+    }
+
+    compileTestJava {
+        sourceCompatibility = 15
+        targetCompatibility = 15
+        options.encoding = "UTF-8"
+        options.compilerArgs.add("--enable-preview")
     }
 
     repositories {
