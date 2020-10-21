@@ -9,7 +9,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
 
 /**
- * @Author ws@yuan-mai.com
+ * @Author pickjob@126.com
  * @Date 2020-10-09
  */
 public class KafkaServerShowCase implements IShowCase {

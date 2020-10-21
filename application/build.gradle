@@ -91,7 +91,24 @@ run {
     jvmArgs = [
             "--enable-preview",
             "-Dio.netty.tryUnsafe=false",
-            "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base"
+            "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.coucurrent=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.crpto=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.invoke=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.jcf=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.net=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.ref=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.rmi.service=java.rmi",
+            "--add-opens", "pickjob.java.starter/basic.rmi=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.time=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/basic.wait=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/leetcode=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.guava=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.lettuce=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.validator.annotation=org.hibernate.validator",
+            "--add-opens", "pickjob.java.starter/frame.validator.domain=org.hibernate.validator",
+            "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.netty=pickjob.java.starter.base"
     ]
     systemProperties.put("file.encoding", "UTF-8")
 }

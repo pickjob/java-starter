@@ -17,6 +17,14 @@ dependencies {
     // hikariCP
     implementation "com.zaxxer:HikariCP:3.3.1"
 
+    // sentinel
+    implementation "com.alibaba.csp:sentinel-core:${sentinelVersion}"
+    implementation "com.alibaba.csp:sentinel-parameter-flow-control:${sentinelVersion}"
+    implementation "com.alibaba.csp:sentinel-datasource-nacos:${sentinelVersion}"
+    implementation "com.alibaba.csp:sentinel-datasource-zookeeper:${sentinelVersion}"
+    implementation "com.alibaba.csp:sentinel-datasource-redis:${sentinelVersion}"
+    implementation "com.alibaba.csp:sentinel-annotation-aspectj:${sentinelVersion}"
+
     // zookeeper
     implementation "org.apache.zookeeper:zookeeper:3.6.2"
     // curator

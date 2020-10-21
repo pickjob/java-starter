@@ -19,7 +19,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author ws@yuan-mai.com
+ * @Author pickjob@126.com
  * @Date 2020-10-09
  */
 public class KafkaClientShowCase implements IShowCase {

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 
 /**
- * @Author ws@yuan-mai.com
+ * @Author pickjob@126.com
  * @Date 2020-10-14
  */
 public class ZeroOnePackShowCase implements IShowCase {

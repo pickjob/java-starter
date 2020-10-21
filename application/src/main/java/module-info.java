@@ -74,29 +74,7 @@ module pickjob.java.starter {
     requires org.kordamp.ikonli.zondicons;
 
     // exports
-    opens basic.coucurrent to pickjob.java.starter.base;
-    opens basic.crpto to pickjob.java.starter.base;
-    opens basic.invoke to pickjob.java.starter.base;
-    opens basic.jcf to pickjob.java.starter.base;
     opens basic.jmx;
-    opens basic.net to pickjob.java.starter.base;
-    opens basic.ref to pickjob.java.starter.base;
-    opens basic.rmi.service to java.rmi;
-    opens basic.rmi to pickjob.java.starter.base;
-    opens basic.time to pickjob.java.starter.base;
-    opens basic.wait to pickjob.java.starter.base;
-
-    opens leetcode to pickjob.java.starter.base;
-
-    opens frame.guava to pickjob.java.starter.base;
-    opens frame.lettuce to pickjob.java.starter.base;
-    // validator
-    opens frame.validator.annotation to org.hibernate.validator;
-    opens frame.validator.domain to org.hibernate.validator;
-    opens frame.validator to pickjob.java.starter.base;
-
-    opens frame.netty to pickjob.java.starter.base;
-
 
     opens fx.hello to javafx.graphics
             , javafx.fxml

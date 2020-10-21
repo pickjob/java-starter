@@ -1,7 +1,6 @@
-package test.leetcode;
+package leetcode;
 
 import app.utils.StringSupplier;
-import leetcode.StringFindShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -12,21 +11,21 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 /**
- * @Author ws@yuan-mai.com
- * @Date 2020-10-16
+ * @Author pickjob@126.com
+ * @Date 2020-10-19
  */
-public class KmpShowCaseTest {
-    private static final Logger logger = LogManager.getLogger(KmpShowCaseTest.class);
+class StringFindShowCaseTest {
+    private static final Logger logger = LogManager.getLogger(StringFindShowCaseTest.class);
     private static final StringSupplier targetSupplier = new StringSupplier(200);
     private static final StringSupplier patterSupplier = new StringSupplier(3);
 
-    private StringFindShowCase kmpShowCase = new StringFindShowCase();
+    private StringFindShowCase stringFindShowCase = new StringFindShowCase();
 
     @Disabled
     @ParameterizedTest
     @MethodSource("stringProvider")
-    public void testBFFind (String targetString, String pattern) {
-        int bfResult = kmpShowCase.BFFind(targetString, pattern);
+    public void BFFind(String targetString, String pattern) {
+        int bfResult = stringFindShowCase.BFFind(targetString, pattern);
         int result = targetString.indexOf(pattern);
         logger.info("target: {}, pattern: {}, bfResult: {}, result: {}", targetString, pattern, bfResult, result);
         Assertions.assertEquals(bfResult, result);
@@ -34,11 +33,20 @@ public class KmpShowCaseTest {
 
     @ParameterizedTest
     @MethodSource("stringProvider")
-    public void testKMPFind (String targetString, String pattern) {
-        int kmpResult = kmpShowCase.KMPFind(targetString, pattern);
+    public void KMPFind(String targetString, String pattern) {
+        int kmpResult = stringFindShowCase.KMPFind(targetString, pattern);
         int result = targetString.indexOf(pattern);
         logger.info("target: {}, pattern: {}, kmpResult: {}, result: {}", targetString, pattern, kmpResult, result);
         Assertions.assertEquals(kmpResult, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringProvider")
+    void SundayFind(String targetString, String pattern) {
+        int sundayResult = stringFindShowCase.SundayFind(targetString, pattern);
+        int result = targetString.indexOf(pattern);
+        logger.info("target: {}, pattern: {}, sundayResult: {}, result: {}", targetString, pattern, sundayResult, result);
+        Assertions.assertEquals(sundayResult, result);
     }
 
     static Stream<String[]> stringProvider() {
