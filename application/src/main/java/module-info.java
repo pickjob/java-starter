@@ -15,6 +15,7 @@ module pickjob.java.starter {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
+    requires com.fasterxml.jackson.dataformat.javaprop;
     // guava
     requires com.google.common;
     // netty

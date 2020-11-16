@@ -5,6 +5,7 @@ plugins {
 application {
     mainModule = "pickjob.java.starter"
     mainClass = "app.Application"
+//    mainClass = "fx.ikonli.IkonliShowCase"
 }
 
 dependencies {
@@ -16,6 +17,7 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-properties:${jacksonVersion}"
     // guava
     implementation "com.google.guava:guava:29.0-jre"
 
@@ -86,7 +88,8 @@ run {
             "basic",
             "frame",
             "leetcode",
-            "framework"
+            "framework",
+            "spring"
     ]
     jvmArgs = [
             "--enable-preview",
@@ -104,6 +107,7 @@ run {
             "--add-opens", "pickjob.java.starter/basic.wait=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/leetcode=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.guava=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.jackson=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.lettuce=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.validator.annotation=org.hibernate.validator",
             "--add-opens", "pickjob.java.starter/frame.validator.domain=org.hibernate.validator",

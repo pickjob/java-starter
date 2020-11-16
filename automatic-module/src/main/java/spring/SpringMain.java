@@ -1,6 +1,7 @@
 package spring;
 
 
+import app.common.IShowCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -12,12 +13,18 @@ import spring.configuration.BasicConfiguration;
  * @author pickjob@126.com
  * @time 2019-04-16
  **/
-public class SpringMain {
+public class SpringMain implements IShowCase {
     private static final Logger logger = LogManager.getLogger(SpringMain.class);
 
-    public static void main(String[] args) {
+    @Override
+    public void showSomething() {
         ApplicationContext context = new AnnotationConfigApplicationContext(BasicConfiguration.class);
         SimpleShowCaseBean simpleBean = context.getBean(SimpleShowCaseBean.class);
         logger.info("SimpleBeanSay: {}", simpleBean.saySomething());
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
