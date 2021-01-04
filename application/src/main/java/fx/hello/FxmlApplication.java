@@ -1,5 +1,6 @@
 package fx.hello;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FxmlApplication extends Application {
+public class FxmlApplication extends Application implements IShowCase {
     private static final Logger logger = LogManager.getLogger(FxmlApplication.class);
 
     @Override
@@ -19,7 +20,12 @@ public class FxmlApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

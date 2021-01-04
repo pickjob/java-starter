@@ -1,8 +1,8 @@
 package fx.charts;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * @author pickjob@126.com
  * @time 2019-06-12
  **/
-public class ImageBarChartShowCase extends Application {
+public class ImageBarChartShowCase extends Application implements IShowCase {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,6 +35,7 @@ public class ImageBarChartShowCase extends Application {
                         )
                 )
         );
+
         primaryStage.setScene(new Scene(chart));
         primaryStage.show();
     }
@@ -42,4 +43,14 @@ public class ImageBarChartShowCase extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+    @Override
+    public void showSomething() {
+
+    }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

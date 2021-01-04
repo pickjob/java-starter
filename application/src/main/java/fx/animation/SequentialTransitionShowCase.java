@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -13,12 +14,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class SequentialTransitionShowCase extends Application {
+public class SequentialTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger();
+    private SequentialTransition sequence;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,7 +32,6 @@ public class SequentialTransitionShowCase extends Application {
         root.setMinSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
         root.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        // create rectangle
         Rectangle rect = new Rectangle(-25,-25,50, 50);
         rect.setArcHeight(15);
         rect.setArcWidth(15);
@@ -36,7 +40,6 @@ public class SequentialTransitionShowCase extends Application {
         rect.setTranslateY(50);
         root.getChildren().add(rect);
 
-        // create 4 transitions
         FadeTransition fade = new FadeTransition(Duration.seconds(1));
         fade.setFromValue(1);
         fade.setToValue(0.3);
@@ -60,7 +63,6 @@ public class SequentialTransitionShowCase extends Application {
         scale.setCycleCount(2);
         scale.setAutoReverse(true);
 
-        // create sequential transition to do 4 transitions one after another
         sequence = new SequentialTransition(rect, fade, translate, rotate, scale);
         sequence.setCycleCount(Timeline.INDEFINITE);
         sequence.setAutoReverse(true);
@@ -76,9 +78,15 @@ public class SequentialTransitionShowCase extends Application {
         sequence.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+
+
+    @Override
+    public void showSomething() {
+        logger.info("SequentialTransition 动画示例");
     }
 
-    private SequentialTransition sequence;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

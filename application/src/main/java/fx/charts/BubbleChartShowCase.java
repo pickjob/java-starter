@@ -1,17 +1,23 @@
 package fx.charts;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-12
  **/
-public class BubbleChartShowCase extends Application {
+public class BubbleChartShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(BubbleChartShowCase.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,13 +45,19 @@ public class BubbleChartShowCase extends Application {
                             Math.random() * 100,
                             Math.random() * 10));
         }
-        bubbleChart.getData().addAll(series1, series2);
+        bubbleChart.getData().addAll(List.of(series1, series2));
 
         primaryStage.setScene(new Scene(bubbleChart));
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("JavaFx BubbleChart 气泡图");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

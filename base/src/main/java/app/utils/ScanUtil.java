@@ -24,17 +24,14 @@ public class ScanUtil {
         return scanClassWithPackageAndClass(basePackage, null);
     }
 
-    public static Set<String> scanClassWithPackageAndClass(String basePackage, Class className) {
+    public static Set<String> scanClassWithPackageAndClass(String basePackage, Class targetClass) {
         Set<String> clsList = new HashSet<>();
         for (String clsName : scanAllClasses()) {
             if (StringUtils.isNotBlank(basePackage) && clsName.startsWith(basePackage + ".")) {
                 try {
                     Class cls = Class.forName(clsName);
-                    if (!cls.isInterface()) {
-                        Object obj = cls.getDeclaredConstructor().newInstance();
-                        if (className == null || className.isInstance(obj)) {
-                            clsList.add(clsName);
-                        }
+                    if (targetClass.isAssignableFrom(cls)) {
+                        clsList.add(clsName);
                     }
                 } catch (Throwable e) {
                     if (logger.isDebugEnabled()) logger.debug(e.getMessage(), e);
@@ -68,6 +65,7 @@ public class ScanUtil {
                 }
             }
         }
+        if (logger.isDebugEnabled()) logger.debug("clsList: {}", clsList);
         return clsList;
     }
 
@@ -97,7 +95,6 @@ public class ScanUtil {
                 }
             }
         }
-        if (logger.isDebugEnabled()) logger.debug("clsList: {}", clsList);
         return clsList;
     }
 
@@ -117,7 +114,6 @@ public class ScanUtil {
                 clsList.add(clsName);
             }
         }
-        if (logger.isDebugEnabled()) logger.debug("clsList: {}", clsList);
         return clsList;
     }
 

@@ -1,5 +1,6 @@
 package fx.control;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -16,7 +17,7 @@ import java.io.StringWriter;
  * @author: pickjob@126.com
  * @date: 2020-08-13
  **/
-public class DialogAndAlertShowCase extends Application {
+public class DialogAndAlertShowCase extends Application implements IShowCase {
     private static final Logger logger = LogManager.getLogger(DialogAndAlertShowCase.class);
 
     @Override
@@ -56,7 +57,13 @@ public class DialogAndAlertShowCase extends Application {
         alert.showAndWait();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("JavaFx Dialog & Alert 示例");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

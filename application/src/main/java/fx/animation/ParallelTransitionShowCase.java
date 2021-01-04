@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -13,12 +14,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class ParallelTransitionShowCase extends Application {
+public class ParallelTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(ParallelTransitionShowCase.class);
+    private ParallelTransition parallel;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -72,10 +77,13 @@ public class ParallelTransitionShowCase extends Application {
         parallel.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("ParallelTransition 动画示例");
     }
 
-    private ParallelTransition parallel;
-
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -1,5 +1,6 @@
 package fx.hello;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class CodingApplication extends Application {
+public class CodingApplication extends Application implements IShowCase {
     private static final Logger logger = LogManager.getLogger(CodingApplication.class);
 
     @Override
@@ -64,13 +65,19 @@ public class CodingApplication extends Application {
         Scene scene = new Scene(grid, 300, 275);
         scene.getStylesheets()
              .add(getClass().getResource("Login.css").toExternalForm());
+        scene.getStylesheets().add("com/sun/javafx/scene/control/skin/modena/modena.css");
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFx Welcome");
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+
+    @Override
+    public void showSomething() {
     }
 
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

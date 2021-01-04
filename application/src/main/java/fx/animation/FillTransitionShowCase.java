@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.FillTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -9,12 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class FillTransitionShowCase extends Application {
+public class FillTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(FillTransitionShowCase.class);
+    private FillTransition fill;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -29,7 +34,7 @@ public class FillTransitionShowCase extends Application {
         rect.setFill(Color.DODGERBLUE);
         root.getChildren().add(rect);
 
-        fill = new FillTransition(Duration.seconds(3), rect, Color.RED, Color.DODGERBLUE);
+        fill = new FillTransition(Duration.seconds(5), rect, Color.RED, Color.DODGERBLUE);
         fill.setCycleCount(Timeline.INDEFINITE);
         fill.setAutoReverse(true);
 
@@ -45,9 +50,13 @@ public class FillTransitionShowCase extends Application {
         fill.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("FillTransition 动画示例");
     }
 
-    private FillTransition fill;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

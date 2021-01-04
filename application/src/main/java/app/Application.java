@@ -24,13 +24,19 @@ public class Application {
             clsNameSet.addAll(ScanUtil.scanClassWithPackageAndClass(arg, IShowCase.class));
         }
         List<IShowCase> showCaseList = new ArrayList<>();
+        List<Class> fxApplicationList = new ArrayList<>();
         for (String clsName : clsNameSet) {
             try {
                 Class cls = Class.forName(clsName);
                 Object obj = cls.getDeclaredConstructor().newInstance();
                 if (obj instanceof IShowCase showCase) {
                     if (showCase.isShow()) {
-                        showCaseList.add(showCase);
+                        showedFlag = true;
+                        if (javafx.application.Application.class.isAssignableFrom(cls)) {
+                            fxApplicationList.add(cls);
+                        } else {
+                            showCaseList.add(showCase);
+                        }
                     }
                 }
             } catch (Throwable throwable) {
@@ -40,7 +46,9 @@ public class Application {
         showCaseList.sort((case1, case2) -> case1.order() - case2.order());
         for (IShowCase showCase : showCaseList) {
             showCase.showSomething();
-            showedFlag = true;
+        }
+        for (Class cls : fxApplicationList) {
+            javafx.application.Application.launch(cls);
         }
         if (!showedFlag) {
             logger.info("Hello world");

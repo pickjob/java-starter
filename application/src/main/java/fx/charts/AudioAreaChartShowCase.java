@@ -1,5 +1,6 @@
 package fx.charts;
 
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  * @author pickjob@126.com
  * @time 2019-06-12
  **/
-public class AudioAreaChartShowCase extends Application {
+public class AudioAreaChartShowCase extends Application implements IShowCase {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -26,8 +27,6 @@ public class AudioAreaChartShowCase extends Application {
         yAxis.setTickLabelFormatter(new DefaultFormatter(yAxis, null, "dB"));
 
         AreaChart<Number, Number> areaChart = new AreaChart<>(xAxis, yAxis);
-        String audioAreaChartCss = getClass().getResource("AudioAreaChart.css").toExternalForm();
-        areaChart.getStylesheets().add(audioAreaChartCss);
         areaChart.setLegendVisible(false);
         areaChart.setTitle("Live Audio Spectrum Data");
         areaChart.setAnimated(false);
@@ -40,8 +39,7 @@ public class AudioAreaChartShowCase extends Application {
         }
         areaChart.getData().add(series);
 
-        String AUDIO_URI = getClass().getResource("JavaRap_Audio.mp4").toExternalForm();
-        Media audioMedia = new Media(AUDIO_URI);
+        Media audioMedia = new Media(getClass().getResource("JavaRap_Audio.mp4").toExternalForm());
         MediaPlayer audioMediaPlayer = new MediaPlayer(audioMedia);
         audioMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         AudioSpectrumListener audioSpectrumListener = (double timestamp, double duration, float[] magnitudes, float[] phases) -> {
@@ -56,7 +54,13 @@ public class AudioAreaChartShowCase extends Application {
         audioMediaPlayer.play();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

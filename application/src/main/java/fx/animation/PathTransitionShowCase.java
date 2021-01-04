@@ -1,7 +1,7 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.PathTransition;
-import static javafx.animation.PathTransition.OrientationType;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -13,12 +13,18 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import static javafx.animation.PathTransition.OrientationType;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class PathTransitionShowCase extends Application {
+public class PathTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(PathTransitionShowCase.class);
+    private PathTransition transition;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -32,7 +38,10 @@ public class PathTransitionShowCase extends Application {
         rect.setArcWidth(10);
         rect.setFill(Color.ORANGE);
         root.getChildren().add(rect);
-        Path path = new Path(new MoveTo(20, 20),
+
+
+        Path path = new Path(
+                new MoveTo(20, 20),
                 new CubicCurveTo(380, 0, 220, 120, 120, 80),
                 new CubicCurveTo(0, 40, 0, 240, 220, 120));
         path.setStroke(Color.DODGERBLUE);
@@ -55,9 +64,14 @@ public class PathTransitionShowCase extends Application {
         transition.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+
+    @Override
+    public void showSomething() {
+        logger.info("PathTransition 动画示例");
     }
 
-    private PathTransition transition;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

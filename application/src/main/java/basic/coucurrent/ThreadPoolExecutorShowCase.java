@@ -38,7 +38,7 @@ public class ThreadPoolExecutorShowCase implements IShowCase {
             }
         }
         try {
-            Thread.sleep(1000 * 10);
+            Thread.sleep(1000 * 5);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -58,7 +58,34 @@ public class ThreadPoolExecutorShowCase implements IShowCase {
                 logger.error("DiscardOldestPolicy Error: " + e.getMessage(), e);
             }
         }
-        executor.shutdown();
+        try {
+            Thread.sleep(1000 * 5);
+            executor.shutdown();
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        executor = new ThreadPoolExecutor(coreSize, maxSize * 10, keepAliveTime, TimeUnit.SECONDS, new LinkedBlockingQueue<>(8));
+        for (int i = 0; i < 10; i++) {
+            try {
+                executor.execute(() -> {
+                    try {
+                        logger.info("UnboundQueue task");
+                        Thread.sleep(1000 * 5);
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                });
+            } catch (Exception e) {
+                logger.error("UnboundQueue Error: " + e.getMessage(), e);
+            }
+        }
+        try {
+            executor.shutdown();
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
 //    @Override

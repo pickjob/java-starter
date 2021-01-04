@@ -13,8 +13,8 @@ import spring.configuration.BasicConfiguration;
  * @author pickjob@126.com
  * @time 2019-04-16
  **/
-public class SpringMain implements IShowCase {
-    private static final Logger logger = LogManager.getLogger(SpringMain.class);
+public class SpringShowCase implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(SpringShowCase.class);
 
     @Override
     public void showSomething() {

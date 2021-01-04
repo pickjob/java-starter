@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.StrokeTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -9,12 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class StrokeTransitionShowCase extends Application {
+public class StrokeTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger();
+    private StrokeTransition stroke;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -46,9 +51,13 @@ public class StrokeTransitionShowCase extends Application {
         stroke.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("StrokeTransition 动画示例");
     }
 
-    private StrokeTransition stroke;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

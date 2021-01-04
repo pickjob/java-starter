@@ -1,6 +1,6 @@
 package fx.ikonli;
 
-import com.google.common.collect.ImmutableList;
+import app.common.IShowCase;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.dashicons.Dashicons;
 import org.kordamp.ikonli.devicons.Devicons;
@@ -60,7 +62,8 @@ import java.util.List;
  * @author: pickjob@126.com
  * @time: 2020-06-23
  **/
-public class IkonliShowCase extends Application {
+public class IkonliShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(IkonliShowCase.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -101,7 +104,6 @@ public class IkonliShowCase extends Application {
                 , WeatherIcons.class
                 , Websymbols.class
                 , Zondicons.class
-
         );
         TabPane tabPane = new TabPane();
         for (Class<? extends Enum> cls : list) {
@@ -139,7 +141,13 @@ public class IkonliShowCase extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("JavaFx 图标库 ikonli示例");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

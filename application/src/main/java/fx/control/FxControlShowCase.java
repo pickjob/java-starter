@@ -1,6 +1,8 @@
 package fx.control;
 
+import app.common.IShowCase;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -9,7 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,14 +23,14 @@ import org.apache.logging.log4j.Logger;
  * @author pickjob@126.com
  * @time 2019-06-03
  **/
-public class FxShowCase extends Application {
-    private static final Logger logger = LogManager.getLogger(FxShowCase.class);
+public class FxControlShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(FxControlShowCase.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        vBox.setPrefWidth(200);
+        vBox.setPrefWidth(400);
         ObservableList<Node> vBoxContent = vBox.getChildren();
 
         HBox labelHBox = new HBox();
@@ -37,6 +40,7 @@ public class FxShowCase extends Application {
 
         TextField textField = new TextField("TextField");
         PasswordField passwordField = new PasswordField();
+        passwordField.setTooltip(new Tooltip("abc"));
 
         HBox buttonHBox = new HBox();
         buttonHBox.setAlignment(Pos.CENTER);
@@ -95,21 +99,9 @@ public class FxShowCase extends Application {
         TableColumn<User, String> firstNameCol = new TableColumn("First Name");
         TableColumn<User, String> lastNameCol = new TableColumn("Last Name");
         TableColumn<User, String> emailCol = new TableColumn("Email");
-//        TableColumn firstEmailCol = new TableColumn("Primary");
-//        TableColumn secondEmailCol = new TableColumn("Secondary");
-//        emailCol.getColumns().addAll(firstEmailCol, secondEmailCol);
-        ObservableList<User> data = FXCollections.observableArrayList(
-                new User("Jacob", "Smith", "Jacob.smith@example.com")
-        );
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<>("firstName")
-        );
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<>("lastName")
-        );
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<>("email")
-        );
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         firstNameCol.setCellFactory(TextFieldTableCell.<User>forTableColumn());
         firstNameCol.setOnEditCommit(
                 (TableColumn.CellEditEvent<User, String> t) -> {
@@ -127,22 +119,33 @@ public class FxShowCase extends Application {
                 });
         tableView.setEditable(true);
         tableView.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        ObservableList<User> data = FXCollections.observableArrayList(
+                new User("Jacob", "Smith", "Jacob.smith@example.com")
+        );
         tableView.setItems(data);
+        tableView.setFixedCellSize(30);
+        tableView.prefHeightProperty().bind(Bindings.size(tableView.getItems()).multiply(tableView.getFixedCellSize()).multiply(1).add(30));
 
         vBoxContent.addAll(labelHBox, textField, passwordField,
                 buttonHBox, menuButton, choiceBox, toggleButtonHBox, radioButtonHBox,
                 comboBox, sliderHBox, progressBar, progressIndicator, pagination,
                 listView, tableView);
 
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(vBox, 400, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Fx-Controller-ShowCase");
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("JavaFx基础控件示例");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 
     public static class User {
         private SimpleStringProperty firstName;

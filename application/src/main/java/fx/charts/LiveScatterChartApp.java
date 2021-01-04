@@ -1,31 +1,33 @@
 package fx.charts;
 
+import app.common.IShowCase;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-12
  **/
-public class LiveScatterChartApp extends Application {
+public class LiveScatterChartApp extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(LiveScatterChartApp.class);
 
     private ScatterChart.Series<Number,Number> series;
     private double nextX = 0;
     private SequentialTransition animation;
 
     public LiveScatterChartApp() {
-        // create initial frames
         final KeyFrame initialFrames =
             new KeyFrame(Duration.millis(60),
                          (ActionEvent actionEvent) -> {
@@ -38,8 +40,6 @@ public class LiveScatterChartApp extends Application {
                          });
         Timeline initial = new Timeline(initialFrames);
         initial.setCycleCount(200);
-
-        // create follow-on frames
         final KeyFrame followingFrames =
             new KeyFrame(Duration.millis(60),
                          (ActionEvent actionEvent) -> {
@@ -55,8 +55,6 @@ public class LiveScatterChartApp extends Application {
                          });
         Timeline following = new Timeline(followingFrames);
         following.setCycleCount(Animation.INDEFINITE);
-
-        // create animation
         animation = new SequentialTransition(initial, following);
     }
 
@@ -73,11 +71,8 @@ public class LiveScatterChartApp extends Application {
         series = new ScatterChart.Series<>();
         series.setName("Sine Wave");
         series.getData().add(new Data<Number, Number>(5d, 5d));
-        // setup charts
-        String liveScatterChartCss = getClass().getResource("LiveScatterChart.css").toExternalForm();
         ScatterChart<Number, Number> sc = new ScatterChart<>(xAxis, yAxis);
         sc.getData().add(series);
-        sc.getStylesheets().add(liveScatterChartCss);
         sc.setTitle("Animated Sine Wave ScatterChart");
 
         primaryStage.setScene(new Scene(sc));
@@ -85,7 +80,13 @@ public class LiveScatterChartApp extends Application {
         animation.play();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("示例散点动画示例");
     }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

@@ -5,7 +5,6 @@ plugins {
 application {
     mainModule = "pickjob.java.starter"
     mainClass = "app.Application"
-//    mainClass = "fx.ikonli.IkonliShowCase"
 }
 
 dependencies {
@@ -80,7 +79,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
     testImplementation "org.junit.jupiter:junit-jupiter-params:5.7.0"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.7.0"
-//    testImplementation "org.junit.vintage:junit-vintage-engine:5.7.0"
 }
 
 run {
@@ -89,12 +87,12 @@ run {
             "frame",
             "leetcode",
             "framework",
-            "spring"
+            "spring",
+            "fx"
     ]
     jvmArgs = [
             "--enable-preview",
             "-Dio.netty.tryUnsafe=false",
-            "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/basic.coucurrent=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/basic.crpto=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/basic.invoke=pickjob.java.starter.base",
@@ -106,13 +104,20 @@ run {
             "--add-opens", "pickjob.java.starter/basic.time=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/basic.wait=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/leetcode=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.guava=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.jackson=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.lettuce=pickjob.java.starter.base",
             "--add-opens", "pickjob.java.starter/frame.validator.annotation=org.hibernate.validator",
             "--add-opens", "pickjob.java.starter/frame.validator.domain=org.hibernate.validator",
             "--add-opens", "pickjob.java.starter/frame.validator=pickjob.java.starter.base",
-            "--add-opens", "pickjob.java.starter/frame.netty=pickjob.java.starter.base"
+            "--add-opens", "pickjob.java.starter/frame.netty=pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.animation=javafx.graphics,pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.charts=javafx.graphics,pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.control=javafx.graphics,javafx.base,pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.hello=javafx.graphics,pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.ikonli=javafx.graphics,pickjob.java.starter.base",
+            "--add-opens", "pickjob.java.starter/fx.layout=javafx.graphics,pickjob.java.starter.base",
     ]
     systemProperties.put("file.encoding", "UTF-8")
 }

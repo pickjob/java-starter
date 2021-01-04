@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -16,12 +17,18 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class TimelineEventsShowCase extends Application {
+public class AnimationTimerShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(AnimationTimerShowCase.class);
+    private Timeline timeline;
+    private AnimationTimer timer;
+    private int frameCount = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -38,25 +45,18 @@ public class TimelineEventsShowCase extends Application {
         pane.setPrefSize(300, 100);
         pane.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        // create a timeline for moving the circle
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);
-        // Add a specific action when each frame is started.
-        // There are one or more frames during executing one
-        // KeyFrame depending on the set Interpolator.
         timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 text.setText(String.format("%d", frameCount++));
             }
         };
-        // create a keyValue with factory: scaling the circle 2times
         KeyValue keyValueX = new KeyValue(stack.scaleXProperty(), 2);
         KeyValue keyValueY = new KeyValue(stack.scaleYProperty(), 2);
-        // create a keyFrame, the keyValue is reached at time 2s
         Duration duration = Duration.seconds(2);
-        // add a specific action when the keyframe is reached
         EventHandler<ActionEvent> onFinished = (ActionEvent t) -> {
             stack.setTranslateX(Math.random() * 200);
             // reset counter
@@ -77,13 +77,13 @@ public class TimelineEventsShowCase extends Application {
         timer.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("AnimationTimer 动画示例");
     }
 
-    // main timeline
-    private Timeline timeline;
-    private AnimationTimer timer;
-    // variable for storing animation relative frame count
-    private int frameCount = 0;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

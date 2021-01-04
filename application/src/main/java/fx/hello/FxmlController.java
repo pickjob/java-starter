@@ -14,8 +14,7 @@ import org.apache.logging.log4j.Logger;
  **/
 public class FxmlController {
     private static final Logger logger = LogManager.getLogger(FxmlApplication.class);
-    @FXML
-    private TextField nameField;
+    @FXML private TextField nameField;
     @FXML private PasswordField pwdField;
     @FXML private Text actiontarget;
 

@@ -73,31 +73,4 @@ module pickjob.java.starter {
     requires org.kordamp.ikonli.weathericons;
     requires org.kordamp.ikonli.websymbols;
     requires org.kordamp.ikonli.zondicons;
-
-    // exports
-    opens basic.jmx;
-
-    opens fx.hello to javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.layout to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.control to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.animation to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.charts to javafx.base
-            , javafx.graphics
-            , javafx.fxml
-            ;
-    opens fx.css to javafx.graphics
-            ;
-    opens fx.ikonli to javafx.graphics
-            ;
 }

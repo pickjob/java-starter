@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -12,12 +13,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class PauseTransitionShowCase extends Application {
+public class PauseTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(PauseTransitionShowCase.class);
+    private Animation animation;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -26,7 +31,6 @@ public class PauseTransitionShowCase extends Application {
         root.setMinSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
         root.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        // create rectangle
         Rectangle rect = new Rectangle(-25, -25, 50, 50);
         rect.setArcHeight(15);
         rect.setArcWidth(15);
@@ -62,9 +66,13 @@ public class PauseTransitionShowCase extends Application {
         animation.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("PauseTransition 动画示例");
     }
 
-    private Animation animation;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

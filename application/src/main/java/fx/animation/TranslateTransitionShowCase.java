@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -9,12 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class TranslateTransitionShowCase extends Application {
+public class TranslateTransitionShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(TranslateTransitionShowCase.class);
+    private TranslateTransition translate;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -44,9 +49,13 @@ public class TranslateTransitionShowCase extends Application {
         translate.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("TranslateTransition 动画示例");
     }
 
-    private TranslateTransition translate;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

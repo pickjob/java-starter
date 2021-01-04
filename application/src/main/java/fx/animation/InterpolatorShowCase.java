@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -12,12 +13,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author pickjob@126.com
  * @time 2019-06-11
  **/
-public class InterpolatorShowCase extends Application {
+public class InterpolatorShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(InterpolatorShowCase.class);
+    private Circle circle1;
+    private Circle circle2;
+    private Circle circle3;
+    private Circle circle4;
+    private Circle circle5;
+    private Timeline timeline;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -48,10 +58,6 @@ public class InterpolatorShowCase extends Application {
         timeline.stop();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
     private Circle createMovingCircle(Interpolator interpolator, int which, double opacity, Color color) {
         Circle circle = new Circle(45, 45, 40, color);
         circle.setOpacity(opacity);
@@ -65,10 +71,13 @@ public class InterpolatorShowCase extends Application {
         return circle;
     }
 
-    private Circle circle1;
-    private Circle circle2;
-    private Circle circle3;
-    private Circle circle4;
-    private Circle circle5;
-    private Timeline timeline;
+    @Override
+    public void showSomething() {
+        logger.info("Interpolator 动画交互示例");
+    }
+
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }

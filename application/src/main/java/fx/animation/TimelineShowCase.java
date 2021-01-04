@@ -1,5 +1,6 @@
 package fx.animation;
 
+import app.common.IShowCase;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -24,49 +25,23 @@ import javafx.scene.text.TextBoundsType;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A sample that demonstrates the basics of timeline creation.
  */
-public class TimelineShowCase extends Application {
+public class TimelineShowCase extends Application implements IShowCase {
+    private static final Logger logger = LogManager.getLogger(TimelineShowCase.class);
+    private Timeline timeline;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
-        root.setPrefSize(253, 100);
-        root.setMinSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
-        root.setMaxSize(Pane.USE_PREF_SIZE, Pane.USE_PREF_SIZE);
 
-        // create a circle
         final Circle circle = new Circle(25, 25, 20, Color.web("1c89f4"));
         circle.setEffect(new Lighting());
 
-        // create a timeline for moving the circle
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.setAutoReverse(true);
-
-        // add the following keyframes to the timeline
-        timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO, new KeyValue(circle.translateXProperty(), 0)),
-                new KeyFrame(new Duration(4000), new KeyValue(circle.translateXProperty(), 205)));
-        root.getChildren().addAll(createNavigation(), circle);
-
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
-
-
-    /*
-     * one can start/pause/stop/play animation by
-     * timeline.play();
-     * timeline.pause();
-     * timeline.stop();
-     * timeline.playFromStart();
-     */
-    private VBox createNavigation() {
-        // method for creating navigation panel
-        // start/stop/pause/play from start buttons
         Button buttonStart = new Button("Start");
         buttonStart.setOnAction((ActionEvent t) -> {
             // start timeline
@@ -98,7 +73,7 @@ public class TimelineShowCase extends Application {
         rate.setText(String.format("%4d", 0));
         timeline.currentTimeProperty().addListener((Observable ov) -> {
             rate.setText(String.format("%4.0f",
-                                       timeline.getCurrentTime().toMillis()));
+                    timeline.getCurrentTime().toMillis()));
             flow.requestLayout();
         });
         flow.getChildren().addAll(current, rate, ms);
@@ -112,7 +87,7 @@ public class TimelineShowCase extends Application {
         HBox hBox1 = new HBox(10);
         hBox1.setPadding(new Insets(5, 10, 0, 5));
         hBox1.getChildren().addAll(buttonStart, buttonPause,
-                                   buttonStop, buttonPlayFromStart);
+                buttonStop, buttonPlayFromStart);
         hBox1.setAlignment(Pos.CENTER_LEFT);
         VBox controls = new VBox(10);
         controls.setPadding(new Insets(0, 0, 0, 5));
@@ -121,12 +96,29 @@ public class TimelineShowCase extends Application {
         VBox vBox = new VBox(20);
         vBox.setLayoutY(60);
         vBox.getChildren().addAll(hBox1, controls);
-        return vBox;
+
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(true);
+
+        timeline.getKeyFrames()
+                .addAll(
+                        new KeyFrame(Duration.ZERO, new KeyValue(circle.translateXProperty(), 0)),
+                        new KeyFrame(new Duration(4000), new KeyValue(circle.translateXProperty(), 205)));
+        root.getChildren().addAll(vBox, circle);
+
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public void showSomething() {
+        logger.info("Timeline 动画示例");
     }
 
-    private Timeline timeline;
+//    @Override
+//    public boolean isShow() {
+//        return true;
+//    }
 }
