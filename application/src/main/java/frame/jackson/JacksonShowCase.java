@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 /**
- * @Author ws@yuan-mai.com
+ * @Author pickjob@126.com
  * @Date 2020-11-16
  */
 public class JacksonShowCase implements IShowCase {

@@ -1,5 +1,12 @@
+plugins {
+    id "java"
+    id "idea"
+}
+
+
 subprojects {
     apply plugin: "java"
+    apply plugin: "idea"
 
     plugins.withType(JavaPlugin).configureEach {
         java {
@@ -56,5 +63,13 @@ subprojects {
         }
         jcenter()
         mavenCentral()
+    }
+
+    idea {
+        module {
+            jdkName = "15"
+            downloadJavadoc = true
+            downloadSources = true
+        }
     }
 }

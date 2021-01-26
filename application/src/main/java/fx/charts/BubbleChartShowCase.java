@@ -24,8 +24,6 @@ public class BubbleChartShowCase extends Application implements IShowCase {
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         BubbleChart<Number, Number> bubbleChart = new BubbleChart<>(xAxis, yAxis);
-        String bubbleChartCss = getClass().getResource("BubbleChart.css").toExternalForm();
-        bubbleChart.getStylesheets().add(bubbleChartCss);
         bubbleChart.setTitle("Advanced BubbleChart");
         xAxis.setLabel("X Axis");
         yAxis.setLabel("Y Axis");

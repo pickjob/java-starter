@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
- * @Author ws@yuan-mai.com
+ * @Author pickjob@126.com
  * @Date 2020-11-26
  */
 public class Solution implements IShowCase {
