@@ -7,8 +7,8 @@ plugins {
 val libVersion = extra
 
 dependencies {
-    implementation("org.tukaani:xz:${libVersion["xzVersion"]}")
-    implementation("org.apache.commons:commons-compress:${libVersion["compressVersion"]}")
+    // guava
+    implementation("com.google.guava:guava:${libVersion["guavaVersion"]}")
 }
 
 application {

@@ -8,4 +8,6 @@ module java.starter {
     // archive & compress
     requires org.tukaani.xz;
     requires org.apache.commons.compress;
+    // guava
+    requires com.google.common;
 }
