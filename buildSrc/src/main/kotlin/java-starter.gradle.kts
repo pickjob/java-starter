@@ -14,6 +14,9 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:${libVersion["log4jVersion"]}")
     // logging async support
     implementation("com.lmax:disruptor:${libVersion["disruptorVersion"]}")
+    // compress
+    implementation("org.tukaani:xz:${libVersion["xzVersion"]}")
+    implementation("org.apache.commons:commons-compress:${libVersion["compressVersion"]}")
 }
 
 java {

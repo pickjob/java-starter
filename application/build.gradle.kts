@@ -12,7 +12,7 @@ dependencies {
 }
 
 application {
-    mainModule.set("pickjob.java.starter")
+    mainModule.set("java.starter")
     mainClass.set("app.Application")
     applicationDefaultJvmArgs = listOf(
         "--enable-preview",
