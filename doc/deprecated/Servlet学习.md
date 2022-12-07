@@ -1,0 +1,39 @@
+# Servlet学习
+- 基本类
+    - Servlet(@WebServlet)
+    - ServletRequest
+    - ServletResponse
+    - ServletContext
+    - Filter(@WebFilter)
+    - Listener(@WebListener)
+        - ServletContextListener
+        - ServletContextAttributeListener
+        - ServletRequestListener
+        - ServletReqeustAttributeListener
+        - HttpSessionListener
+        - HttpSessionAttributeListener
+        - HttpSessionIdListener
+- Tomcat学习
+    - Server
+        - AprLifecycleListener
+        - JasperListener
+        - JrMemoryLeakPreventionListener
+        - GlobalResourcesLifecycleListener
+        - ThreadLocalLeakPreventionListener
+        - NamingContextListener
+    - Service
+    - Executor
+    - Connector
+        - HTTP
+        - AJP
+    - Container
+        - Engine
+        - Host
+        - Context
+        - Wrapper
+- url-pattern
+    - "/": 拦截所有没被处理请求(允许使用内置Servlet)
+    - "/*": 拦截所有请求
+- ant-path-matcher
+    - "/*": 匹配所有子路径
+    - "/**": 匹配所有子目录子路径
