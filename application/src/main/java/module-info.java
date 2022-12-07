@@ -1,4 +1,6 @@
 module java.starter {
+    // JAXP
+    requires java.xml;
     // jdk11 HttpClient
     requires java.net.http;
     // jdk17 Foreign Function And Memory
