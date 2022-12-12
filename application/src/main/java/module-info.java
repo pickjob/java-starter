@@ -12,4 +12,10 @@ module java.starter {
     requires org.apache.commons.compress;
     // guava
     requires com.google.common;
+
+    /**
+     * Jakarta EE
+     */
+    // requires jakarta.validation;
+    // requires org.hibernate.validator;
 }
