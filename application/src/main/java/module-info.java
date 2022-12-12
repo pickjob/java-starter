@@ -1,4 +1,8 @@
 module java.starter {
+    // SPI
+    requires java.starter.common;
+    requires java.starter.lib;
+    uses common.services.ServiceInterface;
     // JAXP
     requires java.xml;
     // jdk11 HttpClient
@@ -12,10 +16,4 @@ module java.starter {
     requires org.apache.commons.compress;
     // guava
     requires com.google.common;
-
-    /**
-     * Jakarta EE
-     */
-    // requires jakarta.validation;
-    // requires org.hibernate.validator;
 }

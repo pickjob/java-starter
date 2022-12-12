@@ -7,6 +7,8 @@ plugins {
 val libVersion = extra
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":lib"))
     // guava
     implementation("com.google.guava:guava:${libVersion["guavaVersion"]}")
 }
