@@ -1,6 +1,6 @@
-package top.design.snowflake.supplier;
+package snowflake.supplier;
 
-import top.design.snowflake.Id;
+import snowflake.Id;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

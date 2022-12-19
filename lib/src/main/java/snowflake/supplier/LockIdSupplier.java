@@ -1,4 +1,4 @@
-package top.design.snowflake.supplier;
+package snowflake.supplier;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

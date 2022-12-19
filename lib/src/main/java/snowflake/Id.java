@@ -1,4 +1,4 @@
-package top.design.snowflake;
+package snowflake;
 
 import java.io.Serializable;
 
