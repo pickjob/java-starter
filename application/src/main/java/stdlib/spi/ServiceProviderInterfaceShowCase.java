@@ -1,6 +1,6 @@
 package stdlib.spi;
 
-import common.services.ServiceInterface;
+import common.services.SPIInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +32,7 @@ public class ServiceProviderInterfaceShowCase {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        ServiceLoader<ServiceInterface> services = ServiceLoader.load(ServiceInterface.class);
-        services.forEach(ServiceInterface::service);
+        ServiceLoader<SPIInterface> services = ServiceLoader.load(SPIInterface.class);
+        services.forEach(SPIInterface::service);
     }
 }

@@ -2,7 +2,7 @@ module java.starter {
     // SPI
     requires java.starter.common;
     requires java.starter.lib;
-    uses common.services.ServiceInterface;
+    uses common.services.SPIInterface;
     // JAXP
     requires java.xml;
     // jdk11 HttpClient
