@@ -4,4 +4,8 @@ module java.starter.lib {
     provides common.services.SPIInterface with lib.services.LoggerService;
     // logging
     requires org.apache.logging.log4j;
+    // RMI
+    requires java.rmi;
+    // export
+    exports lib.rmi;
 }
