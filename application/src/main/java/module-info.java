@@ -5,6 +5,8 @@ module java.starter {
     uses common.services.SPIInterface;
     // RMI
     requires java.rmi;
+    // jmx
+    requires java.management;
     // JAXP
     requires java.xml;
     // jdk11 HttpClient
