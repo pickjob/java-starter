@@ -13,10 +13,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * RMI:
- *      ServiceInterface:
- *          继承 java.rmi.Remote
- *          方法 抛出 java.rmi.RemoteException
+ * RMI(Remote Method Invoke):
+ *      角色:
+ *          Server: 调用服务端
+ *              UnicastRemoteObject.export(): 暴露远程调用
+ *          Client: 调用客户端
+ *          Rmiregistry: 注册、查找 可用  远程调用
+ *              LocateRegistry
+ *              Naming: JNDI抽象, 底层使用 LocateRegistry
+ *      编码规范:
+ *          RPC服务接口:
+ *              继承 java.rmi.Remote
+ *              方法 抛出 java.rmi.RemoteException
+ *      配置属性:
+ *          java.rmi.server.hostname
  *
  * @author: pickjob@126.com
  * @date: 2022-12-20
@@ -37,7 +47,7 @@ public class RMIShowCase {
 
     private static void serverRunnable() {
         try {
-            System.setProperty("java.rmi.server.hostname", "172.31.144.1");
+            System.setProperty("java.rmi.server.hostname", "DYING");
             // Registry实现
             Registry registry = LocateRegistry.createRegistry(REGISTRY_PORT);
             GreetRemote stub = new HelloImpl();
