@@ -16,8 +16,15 @@ module java.starter {
     // logging
     requires org.apache.logging.log4j;
     // archive & compress
-    requires org.tukaani.xz;
     requires org.apache.commons.compress;
+    requires org.tukaani.xz;
     // guava
     requires com.google.common;
+    // netty
+    requires io.netty.transport;
+    requires io.netty.handler;
+    requires io.netty.common;
+    requires io.netty.buffer;
+    requires io.netty.codec.http;
+    requires io.netty.codec;
 }
