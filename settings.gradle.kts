@@ -1,6 +1,6 @@
 rootProject.name = "java-starter"
 
 include("common")
-include("lib")
+include("common-impl")
 include("application")
-include("automatic-module")
+include("application-module-less")

@@ -1,8 +1,8 @@
 package stdlib.rmi;
 
 
-import common.rmi.GreetRemote;
-import lib.rmi.HelloImpl;
+import common.impl.rmi.HelloRemoteImpl;
+import common.rmi.RemoteInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,11 +50,11 @@ public class RMIShowCase {
             System.setProperty("java.rmi.server.hostname", "DYING");
             // Registry实现
             Registry registry = LocateRegistry.createRegistry(REGISTRY_PORT);
-            GreetRemote stub = new HelloImpl();
+            RemoteInterface stub = new HelloRemoteImpl();
             UnicastRemoteObject.exportObject(stub, REGISTRY_PORT);
             registry.bind(EXPORT_OBJ_NAME, stub);
             // Naming实现
-            Naming.bind(String.format("rmi://%s:%s/%s", REGISTRY_SERVER, REGISTRY_PORT, EXPORT_OBJ_NAME), stub);
+            // Naming.bind(String.format("rmi://%s:%s/%s", REGISTRY_SERVER, REGISTRY_PORT, EXPORT_OBJ_NAME), stub);
             logger.info("RMIServer is running ...");
             serverReady.countDown();
         } catch (Exception e) {
@@ -69,9 +69,11 @@ public class RMIShowCase {
             logger.error(e.getMessage(), e);
         }
         try {
+            // Registry实现
             // GreetRemote hello = (GreetRemote) LocateRegistry.getRegistry(REGISTRY_SERVER, REGISTRY_PORT).lookup(EXPORT_OBJ_NAME);
-            GreetRemote hello = (GreetRemote) Naming.lookup(String.format("rmi://%s:%s/%s", REGISTRY_SERVER, REGISTRY_PORT, EXPORT_OBJ_NAME));
-            String response = hello.sayHello("Client.");
+            // Naming实现
+            RemoteInterface hello = (RemoteInterface) Naming.lookup(String.format("rmi://%s:%s/%s", REGISTRY_SERVER, REGISTRY_PORT, EXPORT_OBJ_NAME));
+            String response = hello.greeting("Client.");
             logger.info(response);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

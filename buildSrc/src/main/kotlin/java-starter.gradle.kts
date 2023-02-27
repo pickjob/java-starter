@@ -17,6 +17,21 @@ dependencies {
     // compress
     implementation("org.tukaani:xz:${libVersion["xzVersion"]}")
     implementation("org.apache.commons:commons-compress:${libVersion["compressVersion"]}")
+    // netty
+    implementation("io.netty:netty-common:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-resolver:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-buffer:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-transport:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-transport-native-unix-common:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-transport-native-epoll:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-handler:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec-http:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec-http2:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec-redis:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec-mqtt:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-codec-stomp:${libVersion["nettyVersion"]}")
+    implementation("io.netty:netty-resolver-dns:${libVersion["nettyVersion"]}")
 }
 
 java {

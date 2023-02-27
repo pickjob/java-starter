@@ -1,7 +1,7 @@
 module java.starter {
     // SPI
     requires java.starter.common;
-    requires java.starter.lib;
+    requires java.starter.common.impl;
     uses common.services.SPIInterface;
     // RMI
     requires java.rmi;
