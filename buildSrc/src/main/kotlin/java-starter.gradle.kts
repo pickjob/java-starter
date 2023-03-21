@@ -32,6 +32,8 @@ dependencies {
     implementation("io.netty:netty-codec-mqtt:${libVersion["nettyVersion"]}")
     implementation("io.netty:netty-codec-stomp:${libVersion["nettyVersion"]}")
     implementation("io.netty:netty-resolver-dns:${libVersion["nettyVersion"]}")
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxjava:${libVersion["rxjavaVersion"]}")
 }
 
 java {
