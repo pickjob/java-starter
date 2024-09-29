@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="3600">
+    <!--
+        全局开启异步日志:
+            -Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+        Client:
+            $JAVA_HOME/bin/jconsole -pluginpath /path/to/log4j-api-2.19.0.jar:/path/to/log4j-core-2.19.0.jar:/path/to/log4j-jmx-gui-2.19.0.jar
+            $JAVA_HOME/bin/java -cp /path/to/log4j-api-2.19.0.jar:/path/to/log4j-core-2.19.0.jar:/path/to/log4j-jmx-gui-2.19.0.jar org.apache.logging.log4j.jmx.gui.ClientGui
+    -->
+    <!--
+        ${prefix:name[:-default]}: 参数注入
+            env: Environment properties
+            sys: System properties
+            date: Date format
+            ctx: Thread Context Map
+            jndi: JNDI(log4j2.enableJndiLookup = true)
+            java: version、runtime、vm、os、locale、hw
+            spring: Spring Boot
+                spring:profiles.active[0]
+    -->
+    <Properties>
+        <Property name="logPath">${env:LOG_PATH:-logs}</Property>
+    </Properties>
+    <!--
+        Arbiter: 多配置选择条件
+            <systemPropertyArbiter propertyName="env" propertyValue="dev">
+                <Console name="Out">
+                    <PatternLayout pattern="%m%n"/>
+                </Console>
+            </systemPropertyArbiter>
+            // Spring Boot Profile支持
+            <springProfile name="dev | staging">
+                <Console name="Out">
+                    <PatternLayout pattern="%m%n"/>
+                </Console>
+            </springProfile>
+        -->
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} %p [%t] %c{1.} - %msg%n"/>
+        </Console>
+        <RollingFile name="file" fileName="${logPath}/application.log"
+                     filePattern="${logPath}/%d{yyyy-MM-dd}/application-%i.log.xz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p [%t] %c{1.} - %msg%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <!-- <TimeBasedTriggeringPolicy interval="24"/> -->
+                <!-- <SizeBasedTriggeringPolicy size="100 MB"/> -->
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${logPath}" maxDepth="3">
+                    <IfFileName glob="*/*/application-*.log.xz" />
+                    <IfLastModified age="P7D" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <!--
+            // JDBCAppender
+            <JDBC name="databaseAppender" tableName="dbo.application_log">
+                <ConnectionFactory class="net.example.db.ConnectionFactory" method="getDatabaseConnection" />
+                <Column name="eventDate" isEventTimestamp="true" />
+                <Column name="level" pattern="%level" />
+                <Column name="logger" pattern="%logger" />
+                <Column name="message" pattern="%message" />
+                <Column name="exception" pattern="%ex{full}" />
+            </JDBC>
+        -->
+        <!--
+            // NoSqlAppender
+            <NoSql name="MongoDbAppender">
+                <MongoDb4 connection="mongodb://log4jUser:12345678@localhost:${sys:MongoDBTestPort:-27017}/testDb.testCollection" />
+            </NoSql>
+        -->
+        <!--
+            // FailoverAppender
+            <Failover name="Failover" primary="RollingFile">
+                <Failovers>
+                    <AppenderRef ref="Console"/>
+                </Failovers>
+            </Failover>
+        -->
+    </Appenders>
+    <Loggers>
+        <!-- 特殊日志配置
+            <Logger name="framework.logger.Log4jShowCase" level="trace" additivity="false">
+                <AppenderRef ref="console"/>
+            </Logger>
+        -->
+        <!--
+            // 局部开启异步日志
+            <AsyncLogger name="com.foo.Bar" level="trace" includeLocation="true">
+                <AppenderRef ref="RandomAccessFile"/>
+            </AsyncLogger>
+        -->
+        <Root level="info">
+            <Appender-ref ref="console"/>
+            <Appender-ref ref="file"/>
+        </Root>
+    </Loggers>
+</Configuration>
