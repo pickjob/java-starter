@@ -1,0 +1,20 @@
+# 基本配置
+ip: 127.0.0.1
+port: 1230
+# 登陆有关配置
+bind:
+    account: account
+    passwd: password
+    systemType: systemType
+# 发送短信配置
+submit:
+    from: from
+    to: to
+    maxLength: 3
+    splitLength: 2
+    # 0-GSM 3-Latin1 8-Unicode
+    charset: 0
+    # 指定协议中dcs,可以忽略
+    # dcs: 0
+    content: |
+        content cahksdfkldskkldsjfjdsljfdsjlfkjdsjfljewjfjewjflejlfje
