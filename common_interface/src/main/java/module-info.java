@@ -4,5 +4,7 @@ module java.starter.common_interface {
     exports rmi_interface;
     exports jmx_interface;
 
+    //// Java module ////
+    // rmi
     requires java.rmi;
 }
