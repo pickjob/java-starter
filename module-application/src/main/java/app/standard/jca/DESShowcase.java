@@ -13,8 +13,8 @@ import javax.crypto.spec.IvParameterSpec;
 /**
  * DES: Data Encryption Standard
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class DESShowcase {
     private static final Logger logger = LogManager.getLogger();

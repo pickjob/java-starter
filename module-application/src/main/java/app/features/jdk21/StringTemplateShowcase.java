@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * StringTemplate
  *
- * @author pickjob@126.com
- * @date 2024-09-03
+ * @author: pickjob@126.com
+ * @date: 2024-09-03
  **/
 public class StringTemplateShowcase {
     private static final Logger logger = LogManager.getLogger();

@@ -29,8 +29,8 @@ import java.sql.Statement;
  *          Mappers are interfaces that you create to bind to your mapped statements. Instances of the mapper interfaces are acquired from the SqlSession.
  *          That is, they should be requested within the method that they are used, and then be discarded.
  *
- * @author pickjob@126.com
- * @date 2024-09-13
+ * @author: pickjob@126.com
+ * @date: 2024-09-13
  */
 public class MyBatisShowcase {
     private static final Logger logger = LogManager.getLogger();

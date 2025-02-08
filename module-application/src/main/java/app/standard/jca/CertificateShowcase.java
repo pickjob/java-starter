@@ -25,8 +25,8 @@ import java.util.Map;
 /**
  * X509TrustManager: 证书管理
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class CertificateShowcase {
     private static final Logger logger = LogManager.getLogger();

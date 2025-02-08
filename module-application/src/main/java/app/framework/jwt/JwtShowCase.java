@@ -35,8 +35,8 @@ import java.util.List;
  * JWE: Encrypted JWT部分payload经过加密的jwt；目前加密payload的操作不是很普及；
  * JWK: JWT的密钥，也就是我们常说的 secret；
  *
- * @author pickjob@126.com
- * @date 2024-09-04
+ * @author: pickjob@126.com
+ * @date: 2024-09-04
  **/
 public class JwtShowCase {
     private static final Logger logger = LogManager.getLogger();

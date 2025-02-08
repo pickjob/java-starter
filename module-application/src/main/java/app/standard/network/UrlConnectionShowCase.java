@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * URLConnection: JDK自带http支持, 支持 http、https 1.0 1.1
  *
- * @author pickjob@126.com
+ * @author: pickjob@126.com
  * @date: 2024-09-08
  */
 public class UrlConnectionShowCase {

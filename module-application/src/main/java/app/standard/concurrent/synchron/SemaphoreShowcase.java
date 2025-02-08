@@ -10,8 +10,8 @@ import java.util.concurrent.Semaphore;
  *      acquire(): 获得信号量, 没有剩余就等待
  *      release(): 释放信号量
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class SemaphoreShowcase {
     private static final Logger logger = LogManager.getLogger();

@@ -9,8 +9,8 @@ import java.util.concurrent.RecursiveTask;
 /**
  * ForkJoinPool: 拆分任务线程池
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ForkJoinPoolShowcase {
     private static final Logger logger = LogManager.getLogger();

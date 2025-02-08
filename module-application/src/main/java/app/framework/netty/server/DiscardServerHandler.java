@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * DiscardServerHandler: Discard Server端实现
  *
- * @author pickjob@126.com
- * @date 2024-09-15
+ * @author: pickjob@126.com
+ * @date: 2024-09-15
  **/
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LogManager.getLogger();

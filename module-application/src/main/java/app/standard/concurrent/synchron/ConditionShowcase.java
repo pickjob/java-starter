@@ -11,8 +11,8 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Condition: 用于更细粒度控制线程, 必须在lock.lock 和 lock.unlock间调用
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ConditionShowcase {
     private static final Logger logger = LogManager.getLogger();

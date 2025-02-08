@@ -12,8 +12,8 @@ import java.lang.invoke.VarHandle;
 /**
  * MethodHandle
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class MethodHandleShowcase {
     private static final Logger logger = LogManager.getLogger();

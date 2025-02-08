@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.SelectKey;
 import java.util.List;
 
 /**
- * @author pickjob@126.com
- * @date 2024-09-14
+ * @author: pickjob@126.com
+ * @date: 2024-09-14
  **/
 public interface PersonMapper {
     @Select("SELECT * FROM person")

@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  *          DiscardPolicy
  *          DiscardOldestPolicy
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ThreadPoolExecutorShowcase {
     private static final Logger logger = LogManager.getLogger();

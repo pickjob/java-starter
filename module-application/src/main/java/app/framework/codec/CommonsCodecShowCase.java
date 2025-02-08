@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
  *      Base64
  *      URLCodec
  *
- * @author pickjob@126.com
- * @date 2024-09-04
+ * @author: pickjob@126.com
+ * @date: 2024-09-04
  **/
 public class CommonsCodecShowCase {
     private static final Logger logger = LogManager.getLogger();

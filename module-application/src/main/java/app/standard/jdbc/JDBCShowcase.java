@@ -50,7 +50,7 @@ import java.sql.*;
  *      JoinRowSet
  *      FilteredRowSet
  *
- * @author pickjob@126.com
+ * @author: pickjob@126.com
  * @date: 2024-09-08
  */
 public class JDBCShowcase {

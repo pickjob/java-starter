@@ -3,8 +3,8 @@ package app.framework.mybatis.domain;
 import org.apache.ibatis.type.Alias;
 
 /**
- * @author pickjob@126.com
- * @date 2024-09-14
+ * @author: pickjob@126.com
+ * @date: 2024-09-14
  **/
 @Alias("persion")
 public class Person {

@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * JCF线程不安全类,多线程部分操作并不会抛异常,但是会丢数据
  *
- * @author pickjob@126.com
- * @date 2022-12-16
+ * @author: pickjob@126.com
+ * @date: 2022-12-16
  */
 public class JCFUnsafeShowcase {
     private static Logger logger = LogManager.getLogger();

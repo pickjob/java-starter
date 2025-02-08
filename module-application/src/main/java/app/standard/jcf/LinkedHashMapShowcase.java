@@ -9,8 +9,8 @@ import java.util.Map;
 /**
  * LinkedHashMapShowcase: LRU(Least Recently Used)策略缓存
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class LinkedHashMapShowcase {
     private static final Logger logger = LogManager.getLogger();

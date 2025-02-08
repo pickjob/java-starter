@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
  *      IOUtils: stream read / write / copy
  *      FileUtils: file read / write/ copy
  *
- * @author pickjob@126.com
- * @date 2024-09-04
+ * @author: pickjob@126.com
+ * @date: 2024-09-04
  **/
 public class CommonsIoShowCase {
     private static final Logger logger = LogManager.getLogger();

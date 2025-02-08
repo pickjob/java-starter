@@ -1,7 +1,7 @@
 /**
  *
- * @author pickjob@126.com
- * @date 2024-09-02
+ * @author: pickjob@126.com
+ * @date: 2024-09-02
  **/
 module java.starter.main {
     //// Export ////

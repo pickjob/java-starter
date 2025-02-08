@@ -12,8 +12,8 @@ import java.util.concurrent.Phaser;
  *
  *      awaitAdvance(int): 等待条件
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class PhaserShowcase {
     private static Logger logger = LogManager.getLogger();

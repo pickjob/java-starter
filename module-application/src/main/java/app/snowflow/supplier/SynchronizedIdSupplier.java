@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * synchronized实现序列生成
  *
- * @author pickjob@126.com
- * @date 2024-09-25
+ * @author: pickjob@126.com
+ * @date: 2024-09-25
  */
 public class SynchronizedIdSupplier extends AbstractIdSupplier {
     private static final Logger logger = LogManager.getLogger();

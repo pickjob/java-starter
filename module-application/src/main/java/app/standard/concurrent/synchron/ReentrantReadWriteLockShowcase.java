@@ -12,8 +12,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * ReentrantReadWriteLock: 读写锁, 读共享, 写排他(包括读)
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ReentrantReadWriteLockShowcase {
     private static final Logger logger = LogManager.getLogger();

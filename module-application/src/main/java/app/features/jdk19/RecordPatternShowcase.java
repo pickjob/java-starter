@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * @author pickjob@126.com
- * @date 2024-09-03
+ * @author: pickjob@126.com
+ * @date: 2024-09-03
  **/
 public class RecordPatternShowcase {
     private static final Logger logger = LogManager.getLogger();

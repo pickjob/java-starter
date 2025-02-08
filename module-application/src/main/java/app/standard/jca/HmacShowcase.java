@@ -10,8 +10,8 @@ import javax.crypto.SecretKey;
 /**
  * HMAC: Keyed-hash Message Authentication Code
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class HmacShowcase {
     private static final Logger logger = LogManager.getLogger();

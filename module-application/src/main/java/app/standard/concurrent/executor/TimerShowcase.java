@@ -10,8 +10,8 @@ import java.util.TimerTask;
  * Timer:
  *      异常后定时器停止
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class TimerShowcase {
     private static final Logger logger = LogManager.getLogger();

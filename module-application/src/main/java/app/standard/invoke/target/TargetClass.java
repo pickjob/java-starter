@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * InvokeDynamic 目标类
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class TargetClass {
     private static final Logger logger = LogManager.getLogger();

@@ -15,8 +15,8 @@ import java.util.function.Consumer;
  *      forEachRemaining(Consumer<? super T> action): void 消费所有剩余元素
  *      trySplit(): Spliterator<T> 分割剩余元素
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ArrayListSpliteratorShowcase {
     private static final Logger logger = LogManager.getLogger();

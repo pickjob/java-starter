@@ -9,8 +9,8 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 锁实现序列生成
  *
- * @author pickjob@126.com
- * @date 2024-09-25
+ * @author: pickjob@126.com
+ * @date: 2024-09-25
  */
 public class LockIdSupplier extends AbstractIdSupplier {
     private static final Logger logger = LogManager.getLogger();

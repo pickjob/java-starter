@@ -9,8 +9,8 @@ import java.util.Base64;
 /**
  * MD: Message-Digest
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class MessageDigestShowcase {
     private static Logger logger = LogManager.getLogger();

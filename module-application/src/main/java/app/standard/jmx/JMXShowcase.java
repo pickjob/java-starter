@@ -24,8 +24,8 @@ import java.util.concurrent.CountDownLatch;
  *          MBeansServer: 注册/查询MBean、调用MBean、添加/移除监听器
  *          Remote Management
  *
- * @author pickjob@126.com
- * @date 2024-09-11
+ * @author: pickjob@126.com
+ * @date: 2024-09-11
  */
 public class JMXShowcase {
     private static final Logger logger = LogManager.getLogger();

@@ -8,8 +8,8 @@ import java.security.KeyPairGenerator;
 import java.security.Signature;
 
 /**
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class SignatureShowcase {
     private static final Logger logger = LogManager.getLogger();

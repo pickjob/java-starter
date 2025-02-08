@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
  * ScheduledThreadPoolExecutor: 定时任务线程池
  *      抛错后不再执行, 也没有异常输出
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class ScheduledThreadPoolExecutorShowcase {
     private static final Logger logger = LogManager.getLogger();

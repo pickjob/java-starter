@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 原子操作实现序列生成
  *
- * @author pickjob@126.com
- * @date 2024-09-25
+ * @author: pickjob@126.com
+ * @date: 2024-09-25
  */
 public class AtomicIdSupplier extends AbstractIdSupplier {
     private static final Logger logger = LogManager.getLogger();

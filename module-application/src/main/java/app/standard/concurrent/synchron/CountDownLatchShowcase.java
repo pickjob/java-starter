@@ -10,8 +10,8 @@ import java.util.concurrent.CountDownLatch;
  *      countDown(): 减一, 置零后所有等待的线程执行
  *      await(): 等待执行
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class CountDownLatchShowcase {
     private static Logger logger = LogManager.getLogger();

@@ -11,8 +11,8 @@ import java.util.function.Supplier;
 /**
  * ID生成通用逻辑
  *
- *  @author pickjob@126.com
- *  @date 2024-09-25
+ *  @author: pickjob@126.com
+ *  @date: 2024-09-25
  */
 public abstract class AbstractIdSupplier implements Supplier<Long> {
     private static final Logger logger = LogManager.getLogger();

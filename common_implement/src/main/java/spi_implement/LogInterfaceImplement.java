@@ -7,8 +7,8 @@ import spi_interface.LogInterface;
 /**
  * SPI Implement
  *
- * @author pickjob@126.com
- * @date 2024-09-11
+ * @author: pickjob@126.com
+ * @date: 2024-09-11
  **/
 public class LogInterfaceImplement implements LogInterface {
     private static final Logger logger = LogManager.getLogger();

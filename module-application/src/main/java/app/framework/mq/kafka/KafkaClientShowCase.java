@@ -19,8 +19,8 @@
 //import java.util.concurrent.TimeUnit;
 //
 ///**
-// * @Author pickjob@126.com
-// * @Date 2020-10-09
+// * @author: pickjob@126.com
+// * @date: 2020-10-09
 // */
 //public class KafkaClientShowCase implements IShowCase {
 //    private static final Logger logger = LogManager.getLogger(KafkaClientShowCase.class);

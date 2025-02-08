@@ -9,8 +9,8 @@
 //import java.util.Properties;
 //
 ///**
-// * @Author pickjob@126.com
-// * @Date 2020-10-09
+// * @author: pickjob@126.com
+// * @date: 2020-10-09
 // */
 //public class KafkaServerShowCase implements IShowCase {
 //

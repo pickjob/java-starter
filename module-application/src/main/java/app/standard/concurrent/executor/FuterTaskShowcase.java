@@ -11,8 +11,8 @@ import java.util.concurrent.FutureTask;
  * FutureTask:
  *      延迟获得结果任务
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class FuterTaskShowcase {
     private static final Logger logger = LogManager.getLogger();

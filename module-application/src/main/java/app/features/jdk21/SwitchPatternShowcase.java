@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * SwitchPattern
  *
- * @author pickjob@126.com
- * @date 2024-09-03
+ * @author: pickjob@126.com
+ * @date: 2024-09-03
  **/
 public class SwitchPatternShowcase {
     private static final Logger logger = LogManager.getLogger();

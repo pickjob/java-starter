@@ -31,8 +31,8 @@ import java.sql.Statement;
  *      dataSource.autoCommit=true
  *      dataSource.poolName=hikari-datasource-pool
  *
- * @author pickjob@126.com
- * @date 2024-09-05
+ * @author: pickjob@126.com
+ * @date: 2024-09-05
  */
 public class HikariCPShowcase {
     private static final Logger logger = LogManager.getLogger();

@@ -14,8 +14,8 @@ import java.util.Base64;
 /**
  * RSA:
  *
- * @author pickjob@126.com
- * @date 2024-09-10
+ * @author: pickjob@126.com
+ * @date: 2024-09-10
  */
 public class RSAShowcase {
     private static final Logger logger = LogManager.getLogger();
