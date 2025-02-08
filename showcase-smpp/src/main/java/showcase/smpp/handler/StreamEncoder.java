@@ -14,7 +14,7 @@ import showcase.smpp.pdu.PduFactory;
  * @date: 2025-02-07
  */
 public class StreamEncoder extends MessageToByteEncoder<Pdu> {
-    private final static Logger logger = LogManager.getLogger();
+    private final static final Logger logger = LogManager.getLogger();
 
     @Override
     protected void encode(ChannelHandlerContext context, Pdu pdu, ByteBuf buf) throws Exception {

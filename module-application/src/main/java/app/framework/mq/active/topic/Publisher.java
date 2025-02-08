@@ -9,7 +9,7 @@
 //import javax.jms.*;
 //
 //public class Publisher implements IShowCase {
-//    private static Logger logger = LogManager.getLogger(Publisher.class);
+//    private static final Logger logger = LogManager.getLogger(Publisher.class);
 //
 //    @Override
 //    public void showSomething() {

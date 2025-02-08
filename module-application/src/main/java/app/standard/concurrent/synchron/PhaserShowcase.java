@@ -16,7 +16,7 @@ import java.util.concurrent.Phaser;
  * @date: 2024-09-10
  */
 public class PhaserShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
         Phaser phaser = new Phaser(3);

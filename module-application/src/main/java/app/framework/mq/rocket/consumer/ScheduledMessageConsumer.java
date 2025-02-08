@@ -12,7 +12,7 @@
 //import java.util.List;
 //
 //public class ScheduledMessageConsumer implements IShowCase {
-//    private static Logger logger = LogManager.getLogger(ScheduledMessageConsumer.class);
+//    private static final Logger logger = LogManager.getLogger(ScheduledMessageConsumer.class);
 //
 //    @Override
 //    public void showSomething() {

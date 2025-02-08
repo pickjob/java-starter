@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
  * @date: 2024-09-10
  */
 public class CountDownLatchShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
         CountDownLatch countDownLatch = new CountDownLatch(1);

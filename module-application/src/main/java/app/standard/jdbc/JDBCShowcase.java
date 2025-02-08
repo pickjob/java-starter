@@ -54,7 +54,7 @@ import java.sql.*;
  * @date: 2024-09-08
  */
 public class JDBCShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) throws Exception {
         try(Connection connection = DriverManager.getConnection("jdbc:sqlite:sample.db");

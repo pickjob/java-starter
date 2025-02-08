@@ -8,7 +8,7 @@
 //import javax.jms.*;
 //
 //public class Consumer implements IShowCase {
-//    private static Logger logger = LogManager.getLogger(Consumer.class);
+//    private static final Logger logger = LogManager.getLogger(Consumer.class);
 //
 //    @Override
 //    public void showSomething() {

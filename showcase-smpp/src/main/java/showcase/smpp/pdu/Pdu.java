@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
  * @date: 2025-02-07
  */
 public class Pdu {
-    private static Logger logger = LogManager.getLogger(Pdu.class);
+    private static final Logger logger = LogManager.getLogger();
     protected HeaderPdu headerPdu;
     protected BodyPdu bodyPdu;
 

@@ -11,7 +11,7 @@ import showcase.smpp.util.StringCodeUtil;
  * @date: 2025-02-07
  */
 public class BindTransceiverBody extends BodyPdu {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private String systemId;
     private String password;
     private String systemType;

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2022-12-16
  */
 public class JCFUnsafeShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private static final Integer MAX = 100_0000;
 
     public static void main(String[] args) throws Exception {

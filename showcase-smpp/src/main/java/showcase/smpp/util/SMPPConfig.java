@@ -12,7 +12,7 @@ import java.io.IOException;
  * @date: 2025-02-07
  */
 public class SMPPConfig {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static Server getServerConfig() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());

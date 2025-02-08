@@ -16,7 +16,7 @@ import java.util.List;
  * @date: 2025-02-07
  */
 public class StreamDecoder extends ByteToMessageDecoder {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     protected void decode(ChannelHandlerContext context, ByteBuf buf, List<Object> out) throws Exception {

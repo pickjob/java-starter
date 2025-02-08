@@ -22,7 +22,7 @@ import showcase.smpp.util.SMPPConfig;
 import java.util.concurrent.TimeUnit;
 
 public class SmppServer {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) throws Exception {
         SMPPConfig.Server config = SMPPConfig.getServerConfig();

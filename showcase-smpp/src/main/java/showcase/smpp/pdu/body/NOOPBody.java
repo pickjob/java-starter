@@ -10,7 +10,7 @@ import showcase.smpp.pdu.BodyPdu;
  * @date: 2025-02-07
  */
 public class NOOPBody extends BodyPdu {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public int getSize() {

@@ -13,7 +13,7 @@ import java.util.Base64;
  * @date: 2024-09-10
  */
 public class MessageDigestShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) throws Exception {
         String orgin = "123456";

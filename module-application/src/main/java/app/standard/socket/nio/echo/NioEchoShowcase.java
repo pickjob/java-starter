@@ -24,7 +24,7 @@ import java.util.concurrent.CountDownLatch;
  * @date: 2022-12-19
  */
 public class NioEchoShowcase {
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private static final int SERVER_PORT = 8080;
 
     private static final InetSocketAddress serverInet = new InetSocketAddress("localhost", SERVER_PORT);

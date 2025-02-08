@@ -9,7 +9,7 @@ import showcase.smpp.pdu.Pdu;
  * @date: 2025-02-07
  */
 public class UnbindPdu extends Pdu {
-    private static Logger logger = LogManager.getLogger(UnbindPdu.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String toString() {
